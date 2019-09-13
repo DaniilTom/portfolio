@@ -1,0 +1,50 @@
+﻿@model WebStore.Domain.DTO.ProductDTO
+
+@{
+    if (Model.Id == 0)
+    {
+        ViewData["Title"] = "Create Product";
+    }
+    else
+    {
+        ViewData["Title"] = "Edit Product";
+    }
+
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div class="edit-product">
+    <form method="post" asp-action="EditProduct" enctype="multipart/form-data">
+        <div>
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" value="@Model.Name" />
+        </div>
+        
+        <div>
+            <label asp-for="@Model.Price">Price:</label>
+            <input asp-for="@Model.Price" />
+        </div>
+
+        <div>
+            <label for="catId">Category:</label>
+            <select name="CategoryID" id="catId" asp-items="@ViewBag.Categories"></select>
+        </div>
+        
+        <div>
+            <label for="desc">Description:</label>
+            <textarea rows="10" cols="100" name="desc" id="desc" placeholder="Одна строка - один пункт списка описания">@ViewBag.Description</textarea>
+        </div>
+        
+        <div>
+            <input type="file" id="file" name="file" accept="image/jpeg" />
+            <br />
+            <img width="100" src="@Model.ImageUrl" alt="нет картинки"/>
+        </div> 
+        
+        <br />
+        <input type="submit" />
+    </form>
+</div>
+<hr />
+

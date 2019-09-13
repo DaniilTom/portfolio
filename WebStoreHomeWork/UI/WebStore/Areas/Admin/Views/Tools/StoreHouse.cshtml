@@ -1,0 +1,54 @@
+﻿@model IEnumerable<WebStore.Areas.Admin.ViewModels.StoreHouseViewModel>
+@{
+    ViewData["Title"] = "StoreHouse";
+}
+
+<h4>StoreHouse</h4>
+
+<div class="products" style="float: left; width: 45%; padding: 10px;">
+    <h4>Продукты</h4>
+    <table title="Product" border="1" cellpadding="5" cellspacing="0">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Category</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var vm in Model)
+            {
+                <tr>
+                    <td>@vm.Product.Id</td>
+                    <td>@vm.Product.Name</td>
+                    <td>@vm.Category.Name</td>
+                    <td><a asp-action="EditProduct" asp-route-id="@vm.Product.Id">Редактировать</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <hr>
+</div>
+
+<div class="categories" style="float: left; width: 45%; padding: 10px;">
+    <h4>Категории</h4>
+    <table title="Categories" border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var cat in ViewBag.Categories)
+            {
+            <tr>
+                <td>@cat.Id</td>
+                <td>@cat.Name</td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<br />
+<div style="clear: both;"><a asp-action="EditProduct">Добавить новый товар</a></div>

@@ -1,0 +1,52 @@
+﻿@model WebStore.Models.Cart
+@{
+    ViewData["Title"] = "Cart";
+}
+
+<h3>Корзина</h3>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th></th>
+            <th>Наименование</th>
+            <th>Количество</th>
+            <th>Стоимость</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var prodCont in Model.Items)
+        {
+            <tr>
+                <td>@prodCont.Product.Id</td>
+                <td><img src="@prodCont.Product.ImageUrl" alt="@prodCont.Product.Name" width="100" /></td>
+                <td>@prodCont.Product.Name</td>
+                <td>
+                    @*asp-controller="Cart" asp-action="AddToCart" asp-route-id="@prodCont.Product.Id"*@
+                    <a data-id="@prodCont.Product.Id" class="btn btn-dark CallAddToCart">
+                        <i class="fa fa-plus text-secondary"></i>
+                    </a>
+
+                    <span id="prod_count_@prodCont.Product.Id">&emsp;@prodCont.Count&emsp;</span>
+
+                    <a data-id="@prodCont.Product.Id" class="btn btn-dark CallDecrementFromCart">
+                        <i class="fa fa-minus text-secondary"></i>
+                    </a>
+
+                    <a  class="btn CallRemoveFromCart" data-id="@prodCont.Product.Id" style="float: right;">
+                        <i class="fa fa-trash text-danger">Удалить</i>
+                    </a>
+                </td>
+                <td>@((prodCont.Count * prodCont.Product.Price).ToString("C"))</td>
+            </tr>
+        }
+    </tbody>
+</table>
+@if (Model.Items.Count == 0)
+{
+    <form><button asp-action="Checkout" disabled>Оформить заказ</button></form>
+}
+else
+{<form><button asp-action="Checkout">Оформить заказ</button></form>}

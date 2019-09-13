@@ -1,0 +1,10 @@
+﻿@model IEnumerable<WebStore.Domain.Implementations.Category>
+
+<aside style="float: left; margin-right: 20px; border-right: 2px solid black">
+    <ul>
+        @foreach(var c in Model)
+        {
+            <li><a href="#">@c.Name (@c.TotalProductsCount)</a></li>
+        }
+    </ul>
+</aside>

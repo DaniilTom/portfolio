@@ -1,0 +1,153 @@
+body {
+    background-color: #f8f8f8;
+    padding: 0 10px;
+}
+
+.menu li {
+    font-style: italic;
+    font-size: 20px;
+    list-style-type: none;
+}
+
+.heading {
+    color: black;
+    font-size: 18px;
+    font-weight: 400;
+    background-color: #eaeaea;
+}
+
+.short_desc_text {
+    color: #707070;
+    font-size: 14px;
+    font-style: italic;
+    line-height: 16px;
+    display: flex;
+}
+
+.detail_desc_list {
+    color: #484343;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    text-align: left;
+}
+
+.char_list {
+    color: blueviolet;
+    list-style: square;
+}
+
+.forma ul li > input,
+textarea {
+    color: blueviolet;
+    font-size: 1.01em;
+}
+
+.menu li:first-child {
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+.menu li:last-child {
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.menu li {
+    width: 100px;
+    height: 30px;
+    list-style-type: none;
+    border: 1px solid #000;
+    text-align: center;
+}
+
+.menu li a {
+    text-decoration: none;
+}
+
+#main_page_menu li {
+    display: inline;
+}
+
+a:hover {
+    color: coral;
+}
+
+.menu li a:active {
+    color: green;
+}
+
+
+
+.text:first-letter {
+    font-size: 30px;
+    color: brown;
+}
+
+.table {
+    border: 1px solid #000;
+    width: 400px;
+    height: 200px;
+    border-collapse: collapse;
+}
+
+.table td {
+    border: 1px solid red;
+    padding-left: 10px;
+    padding-top: 10px;
+    vertical-align: top;
+}
+
+form input[type="email"]:focus {
+    background-color: cornsilk;
+    color: darkcyan;
+}
+
+article[class="product"] p:first-letter {
+    font-family: Courier;
+    font-size: 20px;
+    color: brown
+}
+
+.container {
+    margin: 0 auto;
+    text-align: center;
+}
+
+footer {
+    height: 50px;
+    background-color: burlywood;
+    text-align: right;
+    padding-right: 10px;
+    padding-top: 10px;
+}
+
+input[type="button"][value="Купить"]
+{
+    height: 50px;
+    width: 80px;
+    float: right;
+}
+.cat_menu > li{
+    display: inline-block;
+}
+
+ul.top-menu {
+    display: inline-block;
+    padding: 0;
+    float: right;
+}
+
+ul.top-menu > li {
+    float: left;
+    list-style: none;
+    margin: 0 10px;
+}
+
+.form-group > label{
+    display: block;
+}
+
+.current-route{
+    border: 1px solid red;
+}

@@ -1,0 +1,17 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link rel="stylesheet" href="~/css/AdminStyle.css" />
+</head>
+<body>
+    <div>
+
+        @await Html.PartialAsync("Partial/_Navigation")
+
+        @RenderBody()
+    </div>
+</body>
+</html>

@@ -1,0 +1,33 @@
+﻿
+@model WebStore.Models.Employee
+
+@{
+    ViewData["Title"] = "Dossier";
+}
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width" charset="utf-8" />
+    <title>@ViewData["Title"]</title>
+</head>
+
+<body>
+    <a asp-controller="Employes" asp-action="Index">Назад</a>
+    @*<p>@Model.Id _ @Model.FirstName _ @Model.SurName _ @Model.Patronymic</p>*@
+
+    @if(string.IsNullOrEmpty(Model.Dossier))
+    {
+        <p>На сотрудника @Model.FirstName @Model.SurName досье отсутствует.</p>
+    }
+    else
+    {
+        <p>Досье сотрудика @Model.FirstName @Model.SurName:</p>
+        <p>@Model.Dossier</p>
+    }
+
+</body>
+</html>
+

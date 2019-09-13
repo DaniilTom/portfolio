@@ -1,0 +1,33 @@
+﻿@*@model IEnumerable<WebStore.Models.Employee>*@
+@model WebStore.Models.Employee
+@{
+    ViewData["Title"] = "CreateNewEmploye";
+}
+
+<form action="Edit" method="post">
+
+    <div asp-validation-summary="ModelOnly"></div>
+
+    <div class="form-group">
+        <label asp-for="FirstName">Имя:</label>
+        <input asp-for="FirstName" />
+        <span asp-validation-for="FirstName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="SurName">Фамилия: </label>
+        <input asp-for="SurName" />
+        <span asp-validation-for="SurName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Age">Возраст: </label>
+        <input asp-for="Age" />
+        <span asp-validation-for="Age" class="text-danger"></span>
+    </div>
+    <input asp-for="Id" hidden="hidden" />
+    <input type="submit" />
+</form>
+
+@section Scripts
+    {
+        @await Html.PartialAsync("_ValidationScriptsPartial")
+}

@@ -1,0 +1,47 @@
+﻿@model IEnumerable<WebStore.Models.Employee>
+
+<h3>Сотрудники</h3>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Фамилия</th>
+            <th>Имя</th>
+            <th>Отчество</th>
+            <th>Возраст</th>
+            @if (User.IsInRole(WebStore.Domain.User.AdminRoleName))
+            {
+                <th></th>
+            }
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var emp in Model)
+        {
+        <tr>
+            <td>@emp.Id</td>
+            <td>@emp.SurName</td>
+            <td>@emp.FirstName</td>
+            <td>@emp.Patronymic</td>
+            <td>@emp.Age</td>
+            <td>
+                <a asp-action="Details" asp-route-id="@emp.Id">Детали</a>
+                <span>&thinsp;|&thinsp;</span>
+                <a asp-action="Dossier" asp-route-id="@emp.Id">Досье</a>
+                @if (User.IsInRole(WebStore.Domain.User.AdminRoleName))
+                {
+                    <span>&thinsp;|&thinsp;</span>
+                    <a asp-action="Edit" asp-route-id="@emp.Id"><i class="fa fa-edit text-edit"></i></a>
+                    <span>&thinsp;|&thinsp;</span>
+                    <a asp-action="Delete" asp-route-id="@emp.Id"><i class="fa fa-times text-danger"></i></a>
+                }
+            </td>
+
+            
+            
+        </tr>
+        }
+    </tbody>
+</table>

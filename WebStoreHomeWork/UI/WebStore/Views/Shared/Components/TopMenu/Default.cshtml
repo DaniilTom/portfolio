@@ -1,0 +1,23 @@
+﻿
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+<ul class="top-menu">
+    @if (User.Identity.IsAuthenticated)
+    {
+        <li>@User.Identity.Name</li>
+        @if(User.IsInRole(WebStore.Domain.User.AdminRoleName))
+        {
+            <li><a asp-area="Admin" asp-controller="Tools" asp-action="Index">Администрирование</a></li>
+        }
+        <li><a asp-controller="Cart" asp-action="Cart">Корзина</a></li>
+        <li><a asp-controller="Account" asp-action="Logout">Выход</a></li>
+    }
+    else
+    {
+        <li><a asp-controller="Cart" asp-action="Cart">Корзина</a></li>
+        <li><a asp-controller="Account" asp-action="Register">Регистрация</a></li>
+        <li><a asp-controller="Account" asp-action="Login">Вход</a></li>
+    }
+</ul>

@@ -1,0 +1,9 @@
+﻿@model WebStore.Domain.DTO.BreadCrumbsDTO
+
+<div class="breadcrumb">
+    <span>BreadCrumbs: &emsp;</span>
+    @foreach(var crumb in Model.Crumbs)
+    {
+        <span>&rArr;<a current-route class="breadcrumb-item" href="#">@crumb</a>&nbsp;</span>
+    }
+</div>
