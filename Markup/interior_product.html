@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Our Products Range</title>
+    <!-- подключать в указанном порядке, что-то где-то съехало-->
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style_contact.css">
+    <script>
+        /* чтоб не задавать каждой кнопке вручную */
+        window.onload = function() {
+            var buttons = document.getElementsByClassName("arrow_button");
+            for (var i = 0; i < buttons.length; i++) {
+                buttons[i].onclick = function(){
+                    location.href = 'product_details.html';
+                }
+            }
+            var buttons = document.getElementsByClassName("order_us");
+            for (var i = 0; i < buttons.length; i++) {
+                if(buttons[i].getAttribute("value") != "EXPLORE ALL") buttons[i].onclick = function(){
+                    location.href = 'product_details.html';
+                }
+                
+                else buttons[i].onclick = function(){
+                    location.href = 'interior_product.html';
+                }
+            }
+        }
+    </script>
+    <style>
+        .up_container > .detailed_text{
+            width: 600px;
+            max-width: none;
+        }
+        .main_page .featured_new{
+            padding: 0;
+        }
+        .content > a{
+            display: block;
+            padding: 0;
+            margin: 71px 49% 140px;
+        }
+        .main_page .mid_container a img{
+            width: 42px;
+            height: 29px;
+        }
+        #our_products_range .mid_container{
+            height: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main_page" id="our_products_range">
+        <div class="up_container head">
+            <div class="nav_bar">
+                <a href="#" class="logo"><img src="img/logo.png" alt="logo.png"></a>
+                <!-- search стоит перед списком, т.к. float меняет порядок -->
+                <a href="#" class="search"><img src="img/search.png" alt="search.png"></a>
+                <ul class="menu">
+                    <li><a href="index.html">HOME</a></li>
+                    <li><a href="#">PRODUCTS</a></li>
+                    <li><a href="#">HISTORY</a></li>
+                    <li><a href="#">SHOWROOM</a></li>
+                    <li><a href="contact.html">CONTACT</a></li>
+                </ul>
+            </div>
+            <div class="detailed_text">
+                <p class="fishnet">Our Products Range</p>
+            </div>
+        </div>
+        <div class="mid_container">
+            <div class="featured_new" id="trending_products">
+            <div class="content">
+                <div class="nav_content">
+                    <ul class="menu">
+                        <li><a href="#">ALL</a></li>
+                        <li><a href="#">HOME</a></li>
+                        <li><a href="#">OFFICE</a></li>
+                        <li><a href="#">FURNITURE</a></li>
+                        <li><a href="#">MODERN</a></li>
+                        <li><a href="#">CLASSIC</a></li>
+                    </ul>
+                    <input type="button" class="order_us" value="EXPLORE ALL">
+                </div>
+                <div class="product_container">
+                    <div class="product_content product_1">
+                        <img src="img/product-11.jpg" alt="product-11.jpg">
+                        <div class="description">
+                            <input type="button" class="arrow_button">
+                            <p class="p1">Fishnet Chair</p>
+                            <p class="p2">Seat and back with uphoistery made of cold cure foam</p>
+                        </div>
+                    </div>
+                    <div class="product_content product_2">
+                        <img src="img/product-21.jpg" alt="product-21.jpg">
+                        <div class="description">
+                            <input type="button" class="arrow_button">
+                            <p class="p1">Fishnet Chair</p>
+                            <p class="p2">Seat and back with uphoistery made of cold cure foam</p>
+                        </div>
+                    </div>
+                    <div class="product_content product_3">
+                        <img src="img/product-31.jpg" alt="product-31.jpg">
+                        <div class="description">
+                            <input type="button" class="arrow_button">
+                            <p class="p1">Fishnet Chair</p>
+                            <p class="p2">Seat and back with uphoistery made of cold cure foam</p>
+                        </div>
+                    </div>
+                    <div class="product_content product_4">
+                        <img src="img/product-41.jpg" alt="product-4.jpg">
+                        <div class="description">
+                            <input type="button" class="arrow_button">
+                            <p class="p1">Fishnet Chair</p>
+                            <p class="p2">Seat and back with uphoistery made of cold cure foam</p>
+                        </div>
+                    </div>
+                    <div class="product_content product_5">
+                        <img src="img/product-5.jpg" alt="product-5.jpg">
+                        <div class="description">
+                            <input type="button" class="arrow_button">
+                            <p class="p1">Fishnet Chair</p>
+                            <p class="p2">Seat and back with uphoistery made of cold cure foam</p>
+                        </div>
+                    </div>
+                    <div class="product_content product_6">
+                        <img src="img/product-6.jpg" alt="product-6.jpg">
+                        <div class="description">
+                            <input type="button" class="arrow_button">
+                            <p class="p1">Fishnet Chair</p>
+                            <p class="p2">Seat and back with uphoistery made of cold cure foam</p>
+                        </div>
+                    </div>
+                    <div class="product_content product_1">
+                        <img src="img/product-11.jpg" alt="product-11.jpg">
+                        <div class="description">
+                            <input type="button" class="arrow_button">
+                            <p class="p1">Fishnet Chair</p>
+                            <p class="p2">Seat and back with uphoistery made of cold cure foam</p>
+                        </div>
+                    </div>
+                    <div class="product_content product_2">
+                        <img src="img/product-21.jpg" alt="product-21.jpg">
+                        <div class="description">
+                            <input type="button" class="arrow_button">
+                            <p class="p1">Fishnet Chair</p>
+                            <p class="p2">Seat and back with uphoistery made of cold cure foam</p>
+                        </div>
+                    </div>
+                    <div class="product_content product_3">
+                        <img src="img/product-31.jpg" alt="product-31.jpg">
+                        <div class="description">
+                            <input type="button" class="arrow_button">
+                            <p class="p1">Fishnet Chair</p>
+                            <p class="p2">Seat and back with uphoistery made of cold cure foam</p>
+                        </div>
+                    </div>
+                    <div class="product_content product_4">
+                        <img src="img/product-41.jpg" alt="product-4.jpg">
+                        <div class="description">
+                            <input type="button" class="arrow_button">
+                            <p class="p1">Fishnet Chair</p>
+                            <p class="p2">Seat and back with uphoistery made of cold cure foam</p>
+                        </div>
+                    </div>
+                    <div class="product_content product_5">
+                        <img src="img/product-5.jpg" alt="product-5.jpg">
+                        <div class="description">
+                            <input type="button" class="arrow_button">
+                            <p class="p1">Fishnet Chair</p>
+                            <p class="p2">Seat and back with uphoistery made of cold cure foam</p>
+                        </div>
+                    </div>
+                    <div class="product_content product_6">
+                        <img src="img/product-6.jpg" alt="product-6.jpg">
+                        <div class="description">
+                            <input type="button" class="arrow_button">
+                            <p class="p1">Fishnet Chair</p>
+                            <p class="p2">Seat and back with uphoistery made of cold cure foam</p>
+                        </div>
+                    </div>
+                </div>
+                <a href="#"><img src="img/update.png" alt=""></a>
+            </div>
+        </div>
+        
+        </div>
+        <div class="exclusive">
+            <div class="item promo1">
+                <div class="detailed_text slider_content">
+                    <p class="feature">EXCLUSIVE</p>
+                    <p class="fishnet">Fishnet Chair</p>
+                    <p class="detail">Seat and back with uphoistery made of cold cure foam. Steel frame, available in matt.</p>
+                    <input type="button" class="order_us" value="ORDER US">
+                </div>
+            </div>
+            <div class="item promo2">
+                <div class="detailed_text slider_content">
+                    <p class="feature">EXCLUSIVE</p>
+                    <p class="fishnet">Fishnet Chair</p>
+                    <p class="detail">Seat and back with uphoistery made of cold cure foam. Steel frame, available in matt.</p>
+                    <input type="button" class="order_us" value="ORDER US">
+                </div>
+            </div>
+        </div>
+        <div class="bot_container page_bottom">
+            <div class="contact">
+                <p class="little_header">CONTACT US</p>
+                <p style="margin-left: 2px;">132A Bridge Road Richmond VIC Australia.<br><br>Talk to us on 1300 132 info@interior.com</p>
+            </div>
+            <div class="useful_info">
+                <p class="little_header">USEFUL INFORMATION</p>
+                <ul class="page_bottom_menu">
+                    <li><a href="#">SALES TERM</a></li>
+                    <li><a href="#">CUSTOMER CARE</a></li>
+                    <li><a href="#">DELIVERY</a></li>
+                    <li><a href="#">ARCHITECT ACCOUNTS</a></li>
+                    <li><a href="#">CAREER</a></li>
+                    <li><a href="#">EXCHANGES &amp; RETURNS</a></li>
+                </ul>
+            </div>
+            <div class="lets_stay">
+                <p class="little_header">LET'S STAY IN TOUCH!</p>
+                <p style="margin-left: 1px;">Suscribe to know about our latest news, products and special offers just for suscribers.<br></p>
+                <input type="Email" placeholder="your email address"><input type="button">
+
+            </div>
+            <div class="footer">
+                <p style="margin-right: 140px;">&copy; COPYRIGHT - INTERIOR 2016. ALL RIGHTS RESERVED.</p>
+                <div class="social_links">
+                    <a href="#"><img src="img/social.png" alt="social.png"></a>
+                    <a href="#"><img src="img/social.png" alt="social.png"></a>
+                    <a href="#"><img src="img/social.png" alt="social.png"></a>
+                    <a href="#"><img src="img/social.png" alt="social.png"></a>
+                </div>
+                <a href="#" style="margin-left: 170px;">TERMS &amp; CONDITIONS</a>
+                <p>&nbsp;/&nbsp;</p>
+                <a href="#">PRIVACY POLICY &amp; COOKIES</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <script type="text/javascript">
+        alert('Есть поле. Держите мышку неподвижной внутри поля.')
+    </script>
+	<a href="../index.html">Заглавная</a>
+    <a href="index.php">Главная</a>
+    <canvas id="myCanvas" width="700" height="700" style="border: 1px solid black; margin: 0 auto; display: block;"></canvas>
+    <script>
+        var canvas = document.getElementById("myCanvas");
+        var ctx = canvas.getContext("2d");
+        var x = canvas.width / 2;
+        var y = canvas.height / 2;
+        var mouse_fixed = false;
+        var delay = 50;
+        var count = 0;
+        var mouse_pos = {
+            x: 0,
+            y: 0
+        };
+        var t1_pos = {
+            x: x,
+            y: y
+        };
+        var t2_pos = {
+            x: x,
+            y: y
+        };
+        var t3_pos = {
+            x: x,
+            y: y
+        };
+        var t4_pos = {
+            x: x,
+            y: y
+        };
+
+        /*вспомогательные точки для каждой кривой*/
+        var t1_cp = {
+            x1: 0,
+            y1: 0,
+            x2: 0,
+            y2: 0
+        };
+        var t2_cp = {
+            x1: 0,
+            y1: 0,
+            x2: 0,
+            y2: 0
+        };
+        var t3_cp = {
+            x1: 0,
+            y1: 0,
+            x2: 0,
+            y2: 0
+        };
+        var t4_cp = {
+            x1: 0,
+            y1: 0,
+            x2: 0,
+            y2: 0
+        };
+
+
+        canvas.addEventListener('mousemove', function(evt) {
+            count = 0;
+            mouse_pos = getMousePos(canvas, evt);
+        });
+
+        function drawBall() {
+            ctx.beginPath();
+            ctx.arc(x, y, 30, 0, Math.PI * 2);
+            ctx.fillStyle = "#0095DD";
+            ctx.closePath();
+            ctx.fill();
+
+            setTentaclesCP(1, 1, t1_cp);
+            setTentaclesCP(-0.8, 1, t2_cp);
+            setTentaclesCP(-1.7, -1.6, t3_cp);
+            setTentaclesCP(1.5, -1.1, t4_cp);
+        }
+
+        /*
+         * @param {Number} x1
+         * @param {Number} x2
+         * @param {Number} y1
+         * @param {Number} y2
+         * @param {Number} l
+         * 
+         */
+        function drawTentacle(x1, y1, x2, y2, t_cp) {
+            ctx.beginPath();
+            ctx.moveTo(x1, y1);
+            ctx.bezierCurveTo(t_cp.x1, t_cp.y1, t_cp.x2, t_cp.y2, x2, y2);
+            ctx.lineWidth = 5;
+            ctx.stroke();
+        }
+
+        function changeTentaclePos(t_pos, scale) {
+            t_pos.x = t_pos.x + (mouse_pos.x - t_pos.x) / scale;
+            t_pos.y = t_pos.y + (mouse_pos.y - t_pos.y) / scale;
+        }
+
+        function setTentaclesCP(x_scale, y_scale, t_cp) {
+            t_cp.x1 = x + x_scale * 50;
+            t_cp.y1 = y + y_scale * 50;
+            t_cp.x2 = x + x_scale * 100;
+            t_cp.y2 = y + y_scale * 100;
+        }
+
+        function getMousePos(canvas, evt) {
+            var rect = canvas.getBoundingClientRect();
+            return {
+                x: evt.clientX - rect.left,
+                y: evt.clientY - rect.top
+            };
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            if (count++ >= delay) mouse_fixed = true;
+            else mouse_fixed = false;
+            
+            if (mouse_fixed) {
+
+                changeTentaclePos(t1_pos, 70);
+                changeTentaclePos(t2_pos, 50);
+                changeTentaclePos(t3_pos, 80);
+                changeTentaclePos(t4_pos, 100);
+
+                if (Math.abs(t1_pos.x - mouse_pos.x) < 20 && Math.abs(t1_pos.y - mouse_pos.y) < 20) {
+                    x = x + (mouse_pos.x - x) / 70;
+                    y = y + (mouse_pos.y - y) / 70;
+                }
+            }
+
+            drawTentacle(x, y, t1_pos.x, t1_pos.y, t1_cp);
+            drawTentacle(x, y, t2_pos.x, t2_pos.y, t2_cp);
+            drawTentacle(x, y, t3_pos.x, t3_pos.y, t3_cp);
+            drawTentacle(x, y, t4_pos.x, t4_pos.y, t4_cp);
+            
+            drawBall();
+        }
+
+        setInterval(draw, 20);
+    </script>
+</body>
+
+</html>

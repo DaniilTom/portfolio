@@ -1,0 +1,580 @@
+/*---------- GLOBAL ------------*/
+@import url('https://fonts.googleapis.com/css?family=Montserrat:100,300,700');
+
+body {
+    font-family: 'Montserrat', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    outline: none;
+    border: none;
+    text-decoration: none;
+    display: block;
+    padding: 0px 20px;
+}
+
+/*----------- END GLOBAL ---------*/
+
+.main_page {
+    max-width: 1366px;
+    margin: 0 auto;
+}
+
+/*------- Slider -----*/
+.head {
+    height: 800px;
+    padding-left: 98px;
+    position: relative;
+    overflow: auto;
+}
+
+#slider {
+    background-image: url('img/slider-img.jpg');
+}
+
+.head .nav_bar {
+    margin-top: 63px;
+    max-width: 1101px;
+}
+
+.head .nav_bar .menu {
+    display: inline;
+    margin-top: -15px;
+    margin-right: 1%;
+
+}
+
+.head .nav_bar * {
+    float: right;
+}
+
+.head .nav_bar ul.menu li {
+    list-style-type: none;
+    float: left;
+}
+
+.head .nav_bar .logo {
+    float: left;
+    padding: 0;
+}
+
+.head .detailed_text {
+    clear: both;
+    position: absolute;
+    max-width: 500px;
+    top: 46.6%;
+}
+
+input[class="order_us"] {
+    background-color: white;
+    width: 212px;
+    height: 45px;
+    border-radius: 45px;
+    box-shadow: 1px 1px 1px;
+    margin-top: 32px;
+    outline: none;
+}
+
+input[class="dot"] {
+    width: 30px;
+    height: 30px;
+    background: black;
+    opacity: 0.3;
+    filter: alpha(opacity=30);
+    margin: 0 auto;
+    border: none;
+    outline: none;
+    border-radius: 15px;
+}
+
+.dots {
+    position: absolute;
+    top: 93%;
+    left: 45%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.dots .dot {
+    margin: 0 10px;
+    transition: 0.7s;
+}
+
+/*---------- END Slider ----------*/
+/*---------- Featured_New --------*/
+.featured_new {
+    min-height: 609px;
+    padding-left: 98px;
+    padding-top: 120px;
+    overflow: hidden;
+}
+
+.featured_new .content {
+    min-width: 550px;
+}
+
+.featured_new ul.menu {
+    float: left;
+}
+
+.featured_new ul li {
+    list-style-type: none;
+    float: left;
+}
+
+.featured_new ul li a {
+    border-bottom: 4px solid #6c6c6c;
+}
+
+.featured_new .nav_content {
+    /* без задания height не работает margin */
+    height: 50px;
+}
+
+.product_content {
+    clear: both;
+    margin-top: 50px;
+    position: relative;
+}
+
+.product_content .description {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 270px;
+    height: 270px;
+    background-color: rgb(255, 255, 255, 0.9);
+    opacity: 0;
+    filter: alpha(opacity=0);
+    transition: 1s;
+}
+
+.description .p1 {
+    margin-top: 7%;
+}
+
+.description .p2 {
+    width: 93%;
+    margin: 0 auto;
+    margin-top: 8.5%;
+}
+
+.product_container {
+    clear: both;
+    display: flex;
+    align-items: stretch;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+input[class="arrow_button"] {
+    background: #fff url(img/arrow.png) no-repeat 50% 50%;
+    width: 48px;
+    height: 48px;
+    border-radius: 24px;
+    box-shadow: 1px 1px 1px;
+    margin-top: 23%;
+    margin-left: 41%;
+    outline: none;
+    float: none;
+}
+
+input[value="EXPLORE ALL"] {
+    float: right;
+    margin: 0;
+    outline: none;
+    border: none;
+    box-shadow: none;
+    border-radius: none;
+    text-align: left;
+
+}
+
+/*------------------------ END Featured_New --------------*/
+/*------------------------ Exclusive ---------------------*/
+.exclusive {
+    clear: both;
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    flex-wrap: wrap;
+}
+
+.item {
+    height: 683px;
+    width: 683px;
+}
+
+.item .slider_content {
+    margin-top: 33%;
+    margin-left: 7.4%;
+}
+
+.detailed_text {
+    width: 60%;
+}
+
+.item.promo1 {
+    background-image: url(img/promo-img1.jpg);
+}
+
+.item.promo2 {
+    background-image: url(img/promo-img2.jpg);
+}
+
+/*------------------------- END Exclusive ------------------*/
+/*------------------------- Trending Products --------------*/
+/*
+    наследуется от .featured_new
+*/
+#trending_products .product_content .description {
+    width: 370px;
+    height: 370px;
+}
+
+#trending_products {
+    min-height: 1008px;
+    min-width: 740px;
+}
+/*------------------------ END Trending Products -----------*/
+/*------------------------ Hot Deal ------------------------*/
+/*
+    наследуется от #slider
+*/
+#hot_deal {
+    background-image: url('img/slider2.jpg');
+}
+
+/*------------------------ END Hot Deal --------------------*/
+/*------------------------ Exclusive_and_list --------------*/
+.exclusive_and_list {
+    padding-left: 98px;
+    padding-right: 98px;
+    padding-top: 120px;
+    min-height: 810px;
+    margin-bottom: 120px;
+    display: flex;
+    flex-wrap:wrap;
+    justify-content: space-between;
+}
+
+.exclusive_and_list .item {
+    background-image: url('img/product-1-lg.jpg');
+    width: 570px;
+    height: 570px;
+}
+
+.exclusive_and_list .product_content {
+    margin: 0;
+    padding: 0;
+}
+
+.exclusive_and_list .product_container {
+    height: 570px;
+    width: 570px;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-content: space-between;
+}
+
+/*------------------------ END Exclusive_and_list ----------*/
+/*------------------------ Page Bottom ---------------------*/
+
+/*
+    Page Bottom версталась отдельно, поэтому просто вставил код
+        сюда и немного подровнял
+*/
+
+.up_container {
+    height: 516px;
+    background-image: url('img/back-img.jpg');
+    overflow: hidden;
+}
+
+.up_container .detailed_text {
+    margin-left: 99px;
+    margin-top: 125px;
+    width: 450px;
+}
+
+a.mobile {
+    display: inline-block;
+    margin-top: 33px;
+    margin-right: 10px;
+    margin-left: 0px;
+    padding: 0px;
+}
+
+.bot_container {
+    background-color: #f7f7f7;
+    min-height: 384px;
+    padding-left: 97px;
+    overflow: hidden;
+}
+
+.contact {
+    width: 221px;
+    margin-right: 81px;
+}
+
+.little_header {
+    color: #6c6c6c;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 24px;
+    text-align: left;
+    margin-left: 2px;
+    margin-bottom: 24px;
+}
+
+.contact p:not(.little_header),
+.lets_stay p:not(.little_header),
+::placeholder {
+    color: #212121;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 22px;
+    text-align: left;
+}
+
+.useful_info {
+    width: 422px;
+    margin-right: 79px;
+}
+
+.page_bottom ul {
+    column-count: 2;
+}
+
+.page_bottom ul li {
+    list-style-type: none;
+    display: block;
+
+}
+
+.page_bottom ul li a {
+    text-decoration: none;
+    color: #212121;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 26px;
+    text-align: left;
+}
+
+.contact,
+.useful_info,
+.lets_stay {
+    margin-top: 120px;
+    float: left;
+}
+
+.lets_stay {
+    width: 388px;
+}
+
+.page_bottom input {
+    margin-top: 26px;
+    width: 310px;
+    height: 48px;
+    padding-left: 19px;
+    border: 1px solid #d9dee1;
+    border-right: none;
+    float: left;
+    /* шрифт увеличивает высоту email*/
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+::placeholder {
+    color: #6c6c6c;
+}
+
+.page_bottom input[type="button"] {
+    background: #fff url(img/arrow.png) no-repeat center;
+    background-size: auto;
+    border: 1px solid #d9dee1;
+    border-left: none;
+    width: 50px;
+}
+
+.footer img {
+    width: 30px;
+}
+
+.bot_container .footer {
+    clear: both;
+    display: inline-block;
+    margin-top: 50px;
+}
+
+.footer * {
+    float: left;
+    display: inline-block;
+    text-decoration: none;
+    font-family: Montserrat;
+    color: #6c6c6c;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 26px;
+    text-align: right;
+}
+
+.page_bottom a {
+    padding: 0;
+}
+
+/*------------------------ END Page Bottom -----------------*/
+/**************************************/
+/*------------------------ :hover --------------------------*/
+ul.menu li a:hover {
+    border-bottom: 2px solid black;
+    color: #212121;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 48px;
+    text-align: right;
+}
+
+input[class="order_us"]:hover {
+    background: url(img/arrow.png) no-repeat 90% 50%;
+}
+
+input[class="dot"]:hover {
+    transform: scale(1.3);
+    margin: 0 20px;
+    opacity: 1;
+    filter: alpha(opacity=100);
+}
+
+.product_content .description:hover {
+    border: 1px solid #9c9c9c;
+    opacity: 1;
+    filter: alpha(opacity=100);
+}
+
+.links_list li a:hover {
+    color: #212121;
+}
+
+/**************************************/
+
+/*---------- шрифты ------------*/
+
+ul.menu li a {
+    color: #8c8c8c;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 48px;
+    text-align: right;
+    border-bottom: 2px solid;
+    border-color: transparent;
+}
+
+.detailed_text .feature,
+.links_list li a, #our_products_range .mid_container .menu li a{
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 48px;
+    text-align: left;
+}
+
+.detailed_text .fishnet {
+    color: #212121;
+    font-size: 62px;
+    font-weight: 100;
+    line-height: 72px;
+    letter-spacing: -0.05em;
+    text-align: left;
+}
+
+.detailed_text .detail {
+    color: #6c6c6c;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 24px;
+    text-align: left;
+}
+
+.slider_content .feature {
+    color: #43a047;
+}
+
+.item .slider_content .feature {
+    color: #1e88e5;
+}
+
+#hot_deal .feature {
+    color: #e53935;
+}
+
+input[class="order_us"] {
+    color: #212121;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 24px;
+    letter-spacing: 5px;
+    padding-top: 5px;
+}
+
+.featured_new ul.menu li a,
+.item .fishnet,
+.featured_new span.menu,
+.product_info .name {
+    font-size: 36px;
+    font-weight: 700;
+    text-align: left;
+    letter-spacing: -1px;
+}
+
+.description .p1,
+.contact_item .city {
+    color: #212121;
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 30px;
+    text-align: center;
+}
+
+.description .p2,
+.text_block .address {
+    color: #6c6c6c;
+    font-size: 13.94px;
+    font-weight: 300;
+    line-height: 22px;
+    text-align: center;
+}
+
+.page_bottom .detail {
+    color: #6c6c6c;
+    font-size: 22px;
+    font-weight: 300;
+    line-height: 24px;
+    text-align: left;
+}
+
+.text_block {
+    color: #212121;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 20px;
+    text-align: center;
+}
+
+.text_block .name,
+.links_list li a {
+    color: #6c6c6c;
+}
+
+.detailed_text .price {
+    color: #212121;
+    font-size: 36px;
+    font-weight: 300;
+    line-height: 48px;
+}
