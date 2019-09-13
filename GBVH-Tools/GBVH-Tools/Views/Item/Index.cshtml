@@ -1,0 +1,262 @@
+﻿@model IEnumerable<Items.ItemDto>
+
+@{
+    ViewData["Title"] = "Index";
+    bool HasChanges = (bool)ViewData["HasChanges"];
+    var status = (Dictionary<Items.ItemDto, string>)ViewData["Status"];
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+    @if (HasChanges)
+    {
+        <a asp-action="PushChanges" class="btn btn-danger">Push changes</a>
+    }
+    else
+    {
+        <a class="btn btn-success">OK</a>
+    }
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Class)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ModelId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IconId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Flags)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Quality)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BuyPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SellPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.InventorySlot)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ItemLevel)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RequiredLevel)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MaxCount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Weight)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AdditionalWeight)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DmgMin1)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DmgMax1)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DmgType1)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DmgMin2)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DmgMax2)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DmgType2)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Armor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Delay)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AmmoType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Range)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PageId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StartQuest)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Sheath)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LockId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BaseBlockChance)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BaseBlockValue)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ItemSet)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MaxDurability)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ScriptName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MaxDuration)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FlavorText)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MaxStack)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr class="@status.FirstOrDefault(kvp => kvp.Key == item).Value">
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Class)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ModelId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IconId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Flags)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quality)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BuyPrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SellPrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.InventorySlot)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ItemLevel)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RequiredLevel)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaxCount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Weight)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AdditionalWeight)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DmgMin1)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DmgMax1)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DmgType1)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DmgMin2)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DmgMax2)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DmgType2)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Armor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Delay)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AmmoType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Range)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PageId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartQuest)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sheath)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LockId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BaseBlockChance)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BaseBlockValue)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ItemSet)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaxDurability)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ScriptName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaxDuration)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FlavorText)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaxStack)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

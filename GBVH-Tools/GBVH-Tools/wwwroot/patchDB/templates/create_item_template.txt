@@ -1,0 +1,26 @@
+INSERT INTO item_template 
+(Id, Class, ModelId, IconId, Quality, Flags, BuyPrice, SellPrice, 
+	InventorySlot, ItemLevel, RequiredLevel, MaxCount, Weight, AdditionalWeight, 
+	RequiredStatType1, RequiredStatValue1, RequiredStatType2, RequiredStatValue2, RequiredStatType3, RequiredStatValue3, 
+	StatType1, StatValue1, StatType2, StatValue2, StatType3, StatValue3, StatType4, StatValue4, StatType5, StatValue5, StatType6, StatValue6, 
+	DmgMin1, DmgMax1, DmgType1, DmgMin2, DmgMax2, DmgType2, 
+	Armor, Delay, AmmoType, Range, 
+	SpellId1, SpellTrigger1, SpellProc1, SpellCooldown1, SpellShareGroup1, SpellCharges1, 
+	SpellId2, SpellTrigger2, SpellProc2, SpellCooldown2, SpellShareGroup2, SpellCharges2, 
+	PageId, StartQuest, Sheath, LockId, BlockChance, BlockValue, ItemSet, MaxDurability, 
+	ZoneId1, ZoneId2, ZoneId3, Duration, ScriptName, MaxStack) 
+	
+	VALUES 
+	
+('Id', 'Class', 'ModelId', 'IconId', 'Quality', 'Flags', 'BuyPrice', 'SellPrice', 
+	'InventorySlot', 'ItemLevel', 'RequiredLevel', 'MaxCount', 'Weight', 'AdditionalWeight', 
+	'RequiredStatType1', 'RequiredStatValue1', 'RequiredStatType2', 'RequiredStatValue2', 'RequiredStatType3', 'RequiredStatValue3', 
+	'StatType1', 'StatValue1', 'StatType2', 'StatValue2', 'StatType3', 'StatValue3', 'StatType4', 'StatValue4', 'StatType5', 'StatValue5', 'StatType6', 'StatValue6', 
+	'DmgMin1', 'DmgMax1', 'DmgType1', 'DmgMin2', 'DmgMax2', 'DmgType2', 
+	'Armor', 'Delay', 'AmmoType', 'Range', 
+	'SpellId1', 'SpellTrigger1', 'SpellProc1', 'SpellCooldown1', 'SpellShareGroup1', 'SpellCharges1', 
+	'SpellId2', 'SpellTrigger2', 'SpellProc2', 'SpellCooldown2', 'SpellShareGroup2', 'SpellCharges2', 
+	'PageId', 'StartQuest', 'Sheath', 'LockId', 'BlockChance', 'BlockValue', 'ItemSet', 'MaxDurability', 
+	'ZoneId1', 'ZoneId2', 'ZoneId3', 'Duration', 'ScriptName', 'MaxStack');
+	
+INSERT INTO item_template_locale_ru (Id, ItemId, Title, FlavorText) VALUES (1, 4, 'Кольцо невезучего тестера', 'Какой-то странный текст');

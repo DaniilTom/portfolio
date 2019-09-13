@@ -1,0 +1,345 @@
+﻿@using Items
+@model ItemViewModel
+
+@{
+    ViewData["Title"] = "Create";
+    int Id = (int)ViewData["Id"];
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>View</h2>
+
+<h4>TempItemDto</h4>
+<hr />
+<div class="row">
+    <div class="col-md-5">
+        <form asp-action="Create" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="TempItemDto.Id" class="control-label"></label>
+                <input asp-for="TempItemDto.Id" class="form-control" value="@Id" />
+                <span asp-validation-for="TempItemDto.Id" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TempItemDto.Class" class="control-label"></label>
+                <select asp-for="TempItemDto.Class" asp-items="Html.GetEnumSelectList<ItemClasses>()">
+                    <option selected="selected" value="">Please select</option>
+                </select>
+                <span asp-validation-for="TempItemDto.Class" class="text-danger"></span>
+            </div>
+            
+        <div class="form-group">
+            <label asp-for="TempItemDto.ModelId" class="control-label"></label>
+            <input asp-for="TempItemDto.ModelId" class="form-control" />
+            <span asp-validation-for="TempItemDto.ModelId" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="TempItemDto.IconId" class="control-label"></label>
+            <input asp-for="TempItemDto.IconId" class="form-control" />
+            <span asp-validation-for="TempItemDto.IconId" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="TempItemDto.Flags" class="control-label"></label>
+            <input asp-for="TempItemDto.Flags" class="form-control" />
+            <span asp-validation-for="TempItemDto.Flags" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="TempItemDto.Quality" class="control-label"></label>
+            <input asp-for="TempItemDto.Quality" class="form-control" />
+            <span asp-validation-for="TempItemDto.Quality" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="TempItemDto.BuyPrice" class="control-label"></label>
+            <input asp-for="TempItemDto.BuyPrice" class="form-control" />
+            <span asp-validation-for="TempItemDto.BuyPrice" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="TempItemDto.SellPrice" class="control-label"></label>
+            <input asp-for="TempItemDto.SellPrice" class="form-control" />
+            <span asp-validation-for="TempItemDto.SellPrice" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="TempItemDto.InventorySlot" class="control-label"></label>
+            <input asp-for="TempItemDto.InventorySlot" class="form-control" />
+            <span asp-validation-for="TempItemDto.InventorySlot" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="TempItemDto.ItemLevel" class="control-label"></label>
+            <input asp-for="TempItemDto.ItemLevel" class="form-control" />
+            <span asp-validation-for="TempItemDto.ItemLevel" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="TempItemDto.RequiredLevel" class="control-label"></label>
+            <input asp-for="TempItemDto.RequiredLevel" class="form-control" />
+            <span asp-validation-for="TempItemDto.RequiredLevel" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="TempItemDto.MaxCount" class="control-label"></label>
+            <input asp-for="TempItemDto.MaxCount" class="form-control" />
+            <span asp-validation-for="TempItemDto.MaxCount" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="TempItemDto.Weight" class="control-label"></label>
+            <input asp-for="TempItemDto.Weight" class="form-control" />
+            <span asp-validation-for="TempItemDto.Weight" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="TempItemDto.AdditionalWeight" class="control-label"></label>
+            <input asp-for="TempItemDto.AdditionalWeight" class="form-control" />
+            <span asp-validation-for="TempItemDto.AdditionalWeight" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="TempItemDto.DmgMin1" class="control-label"></label>
+            <input asp-for="TempItemDto.DmgMin1" class="form-control" />
+            <span asp-validation-for="TempItemDto.DmgMin1" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="TempItemDto.DmgMax1" class="control-label"></label>
+            <input asp-for="TempItemDto.DmgMax1" class="form-control" />
+            <span asp-validation-for="TempItemDto.DmgMax1" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="TempItemDto.DmgType1" class="control-label"></label>
+            <input asp-for="TempItemDto.DmgType1" class="form-control" />
+            <span asp-validation-for="TempItemDto.DmgType1" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="TempItemDto.DmgMin2" class="control-label"></label>
+            <input asp-for="TempItemDto.DmgMin2" class="form-control" />
+            <span asp-validation-for="TempItemDto.DmgMin2" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="TempItemDto.DmgMax2" class="control-label"></label>
+            <input asp-for="TempItemDto.DmgMax2" class="form-control" />
+            <span asp-validation-for="TempItemDto.DmgMax2" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="TempItemDto.DmgType2" class="control-label"></label>
+            <input asp-for="TempItemDto.DmgType2" class="form-control" />
+            <span asp-validation-for="TempItemDto.DmgType2" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="TempItemDto.Armor" class="control-label"></label>
+            <input asp-for="TempItemDto.Armor" class="form-control" />
+            <span asp-validation-for="TempItemDto.Armor" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="TempItemDto.Delay" class="control-label"></label>
+            <input asp-for="TempItemDto.Delay" class="form-control" />
+            <span asp-validation-for="TempItemDto.Delay" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="TempItemDto.AmmoType" class="control-label"></label>
+            <input asp-for="TempItemDto.AmmoType" class="form-control" />
+            <span asp-validation-for="TempItemDto.AmmoType" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="TempItemDto.Range" class="control-label"></label>
+            <input asp-for="TempItemDto.Range" class="form-control" />
+            <span asp-validation-for="TempItemDto.Range" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="TempItemDto.PageId" class="control-label"></label>
+            <input asp-for="TempItemDto.PageId" class="form-control" />
+            <span asp-validation-for="TempItemDto.PageId" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="TempItemDto.StartQuest" class="control-label"></label>
+            <input asp-for="TempItemDto.StartQuest" class="form-control" />
+            <span asp-validation-for="TempItemDto.StartQuest" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="TempItemDto.Sheath" class="control-label"></label>
+            <input asp-for="TempItemDto.Sheath" class="form-control" />
+            <span asp-validation-for="TempItemDto.Sheath" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="TempItemDto.LockId" class="control-label"></label>
+            <input asp-for="TempItemDto.LockId" class="form-control" />
+            <span asp-validation-for="TempItemDto.LockId" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="TempItemDto.BaseBlockChance" class="control-label"></label>
+            <input asp-for="TempItemDto.BaseBlockChance" class="form-control" />
+            <span asp-validation-for="TempItemDto.BaseBlockChance" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="TempItemDto.BaseBlockValue" class="control-label"></label>
+            <input asp-for="TempItemDto.BaseBlockValue" class="form-control" />
+            <span asp-validation-for="TempItemDto.BaseBlockValue" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="TempItemDto.ItemSet" class="control-label"></label>
+            <input asp-for="TempItemDto.ItemSet" class="form-control" />
+            <span asp-validation-for="TempItemDto.ItemSet" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="TempItemDto.MaxDurability" class="control-label"></label>
+            <input asp-for="TempItemDto.MaxDurability" class="form-control" />
+            <span asp-validation-for="TempItemDto.MaxDurability" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="TempItemDto.ScriptName" class="control-label"></label>
+            <input asp-for="TempItemDto.ScriptName" class="form-control" />
+            <span asp-validation-for="TempItemDto.ScriptName" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="TempItemDto.MaxDuration" class="control-label"></label>
+            <input asp-for="TempItemDto.MaxDuration" class="form-control" />
+            <span asp-validation-for="TempItemDto.MaxDuration" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="TempItemDto.Name" class="control-label"></label>
+            <input asp-for="TempItemDto.Name" class="form-control" />
+            <span asp-validation-for="TempItemDto.Name" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="TempItemDto.FlavorText" class="control-label"></label>
+            <input asp-for="TempItemDto.FlavorText" class="form-control" />
+            <span asp-validation-for="TempItemDto.FlavorText" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="TempItemDto.MaxStack" class="control-label"></label>
+            <input asp-for="TempItemDto.MaxStack" class="form-control" />
+            <span asp-validation-for="TempItemDto.MaxStack" class="text-danger"></span>
+        </div>
+
+            <div class="form-group">
+                <label asp-for="RequiredStats[0]"></label>
+                <select class="form-inline" asp-for="RequiredStats[0].Key" asp-items="Html.GetEnumSelectList<Character.Stats>()">
+                    <option selected="selected" value="">Please select</option>
+                </select>
+                <input asp-for="RequiredStats[0].Value" class="form-inline" value="0" />
+                <span asp-validation-for="RequiredStats[0].Value" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RequiredStats[1]"></label>
+                <select asp-for="RequiredStats[1].Key" asp-items="Html.GetEnumSelectList<Character.Stats>()">
+                    <option selected="selected" value="">Please select</option>
+                </select>
+                <input asp-for="RequiredStats[1].Value" class="form-inline" value="0" />
+                <span asp-validation-for="RequiredStats[1].Value" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RequiredStats[2]"></label>
+                <select asp-for="RequiredStats[2].Key" asp-items="Html.GetEnumSelectList<Character.Stats>()">
+                    <option selected="selected" value="">Please select</option>
+                </select>
+                <input asp-for="RequiredStats[2].Value" class="form-inline" value="0" />
+                <span asp-validation-for="RequiredStats[2].Value" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="BonusStats[0]"></label>
+                <select asp-for="BonusStats[0].Key" asp-items="Html.GetEnumSelectList<Character.Stats>()">
+                    <option selected="selected" value="">Please select</option>
+                </select>
+                <input asp-for="BonusStats[0].Value" class="form-inline" value="0" />
+                <span asp-validation-for="BonusStats[0].Value" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BonusStats[1]"></label>
+                <select asp-for="BonusStats[1].Key" asp-items="Html.GetEnumSelectList<Character.Stats>()">
+                    <option selected="selected" value="">Please select</option>
+                </select>
+                <input asp-for="BonusStats[1].Value" class="form-inline" value="0" />
+                <span asp-validation-for="BonusStats[1].Value" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BonusStats[2]"></label>
+                <select asp-for="BonusStats[2].Key" asp-items="Html.GetEnumSelectList<Character.Stats>()">
+                    <option selected="selected" value="">Please select</option>
+                </select>
+                <input asp-for="BonusStats[2].Value" class="form-inline" value="0" />
+                <span asp-validation-for="BonusStats[2].Value" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BonusStats[3]"></label>
+                <select asp-for="BonusStats[3].Key" asp-items="Html.GetEnumSelectList<Character.Stats>()">
+                    <option selected="selected" value="">Please select</option>
+                </select>
+                <input asp-for="BonusStats[3].Value" class="form-inline" value="0" />
+                <span asp-validation-for="BonusStats[3].Value" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BonusStats[4]"></label>
+                <select asp-for="BonusStats[4].Key" asp-items="Html.GetEnumSelectList<Character.Stats>()">
+                    <option selected="selected" value="">Please select</option>
+                </select>
+                <input asp-for="BonusStats[4].Value" class="form-inline" value="0" />
+                <span asp-validation-for="BonusStats[4].Value" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BonusStats[5]"></label>
+                <select asp-for="BonusStats[5].Key" asp-items="Html.GetEnumSelectList<Character.Stats>()">
+                    <option selected="selected" value="">Please select</option>
+                </select>
+                <input asp-for="BonusStats[5].Value" class="form-inline" value="0" />
+                <span asp-validation-for="BonusStats[5].Value" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@*@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}*@
+
+@section Scripts {
+    <script>
+
+        $("select[name = 'RequiredStats\[1\].Key']").parent("div").hide();
+        $("select[name = 'RequiredStats\[2\].Key']").parent("div").hide();
+
+        $("select[name='RequiredStats\[0\].Key']").change(
+            function () {
+                $("select[name='RequiredStats\[1\].Key']").parent("div").show();
+            }
+        );
+        $("select[name='RequiredStats\[1\].Key']").change(
+            function () {
+                $("select[name='RequiredStats\[2\].Key']").parent("div").show();
+            }
+        );
+
+        $("select[name = 'BonusStats\[1\].Key']").parent("div").hide();
+        $("select[name = 'BonusStats\[2\].Key']").parent("div").hide();
+        $("select[name = 'BonusStats\[3\].Key']").parent("div").hide();
+        $("select[name = 'BonusStats\[4\].Key']").parent("div").hide();
+        $("select[name = 'BonusStats\[5\].Key']").parent("div").hide();
+
+
+        $("select[name='BonusStats\[0\].Key']").change(
+            function () {
+                $("select[name='BonusStats\[1\].Key']").parent("div").show();
+            }
+        );
+        $("select[name='BonusStats\[1\].Key']").change(
+            function () {
+                $("select[name='BonusStats\[2\].Key']").parent("div").show();
+            }
+        );
+        $("select[name='BonusStats\[2\].Key']").change(
+            function () {
+                $("select[name='BonusStats\[3\].Key']").parent("div").show();
+            }
+        );
+        $("select[name='BonusStats\[3\].Key']").change(
+            function () {
+                $("select[name='BonusStats\[4\].Key']").parent("div").show();
+            }
+        );
+        $("select[name='BonusStats\[4\].Key']").change(
+            function () {
+                $("select[name='BonusStats\[5\].Key']").parent("div").show();
+            }
+        );
+    </script>
+}

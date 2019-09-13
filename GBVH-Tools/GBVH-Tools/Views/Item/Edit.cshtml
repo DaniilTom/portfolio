@@ -1,0 +1,379 @@
+﻿@using Items
+@model ItemViewModel
+
+@{
+    bool IsCreate = (bool)ViewData["IsCreate"];
+
+    if (IsCreate)
+    {
+        ViewData["Title"] = "Create";
+    }
+    else
+    {
+        ViewData["Title"] = "Edit";
+    }
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    bool hide = false;
+}
+
+<h2>View</h2>
+
+<h4>TempItemDto</h4>
+<hr />
+<div class="row">
+    <div class="col-md-6 col-md-offset-2">
+        <form asp-action="@(IsCreate ? "Create" : "Edit")" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="TempItemDto.Id" class="control-label"></label>
+                <input asp-for="TempItemDto.Id" class="form-control" readonly />
+                <span asp-validation-for="TempItemDto.Id" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TempItemDto.Class" class="control-label"></label>
+                <select asp-for="TempItemDto.Class" asp-items="Html.GetEnumSelectList<ItemClasses>()">
+                    <option selected="selected" value="">Please select</option>
+                </select>
+                <span asp-validation-for="TempItemDto.Class" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="TempItemDto.ModelId" class="control-label"></label>
+                <input asp-for="TempItemDto.ModelId" class="form-control" />
+                <span asp-validation-for="TempItemDto.ModelId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TempItemDto.IconId" class="control-label"></label>
+                <input asp-for="TempItemDto.IconId" class="form-control" />
+                <span asp-validation-for="TempItemDto.IconId" class="text-danger"></span>
+            </div>
+            <div class="panel panel-default form-group">
+                <div class="panel-heading">Flags</div>
+                <div class="panel-body">
+                    <ul class="list-inline">
+                        @for (int i = 0; i < Model.Flags.Count; i++)
+                        {
+                            <li class="list-group-item">
+
+                                <label asp-for="@Model.Flags[i].Value" class="control-label">@Model.Flags[i].Key.ToString()</label>
+                                <input asp-for="@Model.Flags[i].Value" class="form-control" />
+                                <input asp-for="@Model.Flags[i].Key" hidden />
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="TempItemDto.Quality" class="control-label"></label>
+                <select asp-for="TempItemDto.Quality" asp-items="Html.GetEnumSelectList<ItemQuality>()">
+                    <option selected="selected" value="">Please select</option>
+                </select>
+                <span asp-validation-for="TempItemDto.Quality" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TempItemDto.BuyPrice" class="control-label"></label>
+                <input asp-for="TempItemDto.BuyPrice" class="form-control" />
+                <span asp-validation-for="TempItemDto.BuyPrice" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TempItemDto.SellPrice" class="control-label"></label>
+                <input asp-for="TempItemDto.SellPrice" class="form-control" />
+                <span asp-validation-for="TempItemDto.SellPrice" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TempItemDto.InventorySlot" class="control-label"></label>
+                <select asp-for="TempItemDto.InventorySlot" asp-items="Html.GetEnumSelectList<InventorySlots>()">
+                    <option selected="selected" value="">Please select</option>
+                </select>
+                <span asp-validation-for="TempItemDto.InventorySlot" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TempItemDto.ItemLevel" class="control-label"></label>
+                <input asp-for="TempItemDto.ItemLevel" class="form-control" />
+                <span asp-validation-for="TempItemDto.ItemLevel" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TempItemDto.RequiredLevel" class="control-label"></label>
+                <input asp-for="TempItemDto.RequiredLevel" class="form-control" />
+                <span asp-validation-for="TempItemDto.RequiredLevel" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TempItemDto.MaxCount" class="control-label"></label>
+                <input asp-for="TempItemDto.MaxCount" class="form-control" />
+                <span asp-validation-for="TempItemDto.MaxCount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TempItemDto.Weight" class="control-label"></label>
+                <input asp-for="TempItemDto.Weight" class="form-control" />
+                <span asp-validation-for="TempItemDto.Weight" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TempItemDto.AdditionalWeight" class="control-label"></label>
+                <input asp-for="TempItemDto.AdditionalWeight" class="form-control" />
+                <span asp-validation-for="TempItemDto.AdditionalWeight" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TempItemDto.DmgMin1" class="control-label"></label>
+                <input asp-for="TempItemDto.DmgMin1" class="form-control" />
+                <span asp-validation-for="TempItemDto.DmgMin1" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TempItemDto.DmgMax1" class="control-label"></label>
+                <input asp-for="TempItemDto.DmgMax1" class="form-control" />
+                <span asp-validation-for="TempItemDto.DmgMax1" class="text-danger"></span>
+            </div>
+            <div class="panel panel-default form-group">
+                <div class="panel-heading">DmgType1</div>
+                <div class="panel-body">
+                    <ul class="list-inline list-group">
+                        @for (int i = 0; i < Model.DmgType1.Count; i++)
+                        {
+                            <li class="list-group-item">
+                                <label asp-for="@Model.DmgType1[i].Value" class="control-label">@Model.DmgType1[i].Key.ToString()</label>
+                                <input asp-for="@Model.DmgType1[i].Value" class="form-control" />
+                                <input asp-for="@Model.DmgType1[i].Key" hidden />
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="TempItemDto.DmgMin2" class="control-label"></label>
+                <input asp-for="TempItemDto.DmgMin2" class="form-control" />
+                <span asp-validation-for="TempItemDto.DmgMin2" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TempItemDto.DmgMax2" class="control-label"></label>
+                <input asp-for="TempItemDto.DmgMax2" class="form-control" />
+                <span asp-validation-for="TempItemDto.DmgMax2" class="text-danger"></span>
+            </div>
+            <div class="panel panel-default form-group">
+                <div class="panel-heading">DmgType2</div>
+                <div class="panel-body">
+                    <ul class="list-inline">
+                        @for (int i = 0; i < Model.DmgType2.Count; i++)
+                        {
+                            <li class="list-group-item">
+                                <label asp-for="@Model.DmgType2[i].Value" class="control-label">@Model.DmgType2[i].Key.ToString()</label>
+                                <input asp-for="@Model.DmgType2[i].Value" class="form-control" />
+                                <input asp-for="@Model.DmgType2[i].Key" hidden />
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="TempItemDto.Armor" class="control-label"></label>
+                <input asp-for="TempItemDto.Armor" class="form-control" />
+                <span asp-validation-for="TempItemDto.Armor" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TempItemDto.Delay" class="control-label"></label>
+                <input asp-for="TempItemDto.Delay" class="form-control" />
+                <span asp-validation-for="TempItemDto.Delay" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TempItemDto.AmmoType" class="control-label"></label>
+                <select asp-for="TempItemDto.AmmoType" asp-items="Html.GetEnumSelectList<ItemClasses>()">
+                    <option selected="selected" value="">Please select</option>
+                </select>
+                <span asp-validation-for="TempItemDto.AmmoType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TempItemDto.Range" class="control-label"></label>
+                <input asp-for="TempItemDto.Range" class="form-control" />
+                <span asp-validation-for="TempItemDto.Range" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TempItemDto.PageId" class="control-label"></label>
+                <input asp-for="TempItemDto.PageId" class="form-control" />
+                <span asp-validation-for="TempItemDto.PageId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TempItemDto.StartQuest" class="control-label"></label>
+                <input asp-for="TempItemDto.StartQuest" class="form-control" />
+                <span asp-validation-for="TempItemDto.StartQuest" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TempItemDto.Sheath" class="control-label"></label>
+                <select asp-for="TempItemDto.Sheath" asp-items="Html.GetEnumSelectList<SheathTypes>()">
+                    <option selected="selected" value="">Please select</option>
+                </select>
+                <span asp-validation-for="TempItemDto.Sheath" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TempItemDto.LockId" class="control-label"></label>
+                <input asp-for="TempItemDto.LockId" class="form-control" />
+                <span asp-validation-for="TempItemDto.LockId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TempItemDto.BaseBlockChance" class="control-label"></label>
+                <input asp-for="TempItemDto.BaseBlockChance" class="form-control" />
+                <span asp-validation-for="TempItemDto.BaseBlockChance" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TempItemDto.BaseBlockValue" class="control-label"></label>
+                <input asp-for="TempItemDto.BaseBlockValue" class="form-control" />
+                <span asp-validation-for="TempItemDto.BaseBlockValue" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TempItemDto.ItemSet" class="control-label"></label>
+                <input asp-for="TempItemDto.ItemSet" class="form-control" />
+                <span asp-validation-for="TempItemDto.ItemSet" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TempItemDto.MaxDurability" class="control-label"></label>
+                <input asp-for="TempItemDto.MaxDurability" class="form-control" />
+                <span asp-validation-for="TempItemDto.MaxDurability" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TempItemDto.ScriptName" class="control-label"></label>
+                <input asp-for="TempItemDto.ScriptName" class="form-control" />
+                <span asp-validation-for="TempItemDto.ScriptName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TempItemDto.MaxDuration" class="control-label"></label>
+                <input asp-for="TempItemDto.MaxDuration" class="form-control" />
+                <span asp-validation-for="TempItemDto.MaxDuration" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TempItemDto.Name" class="control-label"></label>
+                <input asp-for="TempItemDto.Name" class="form-control" />
+                <span asp-validation-for="TempItemDto.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TempItemDto.FlavorText" class="control-label"></label>
+                <input asp-for="TempItemDto.FlavorText" class="form-control" />
+                <span asp-validation-for="TempItemDto.FlavorText" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TempItemDto.MaxStack" class="control-label"></label>
+                <input asp-for="TempItemDto.MaxStack" class="form-control" />
+                <span asp-validation-for="TempItemDto.MaxStack" class="text-danger"></span>
+            </div>
+
+            <div class="panel panel-default form-group">
+                <div class="panel-heading">Required Stats</div>
+                <div class="panel-body">
+                    <ul>
+                        @{ hide = false;
+                            for (int i = 0; i < Model.RequiredStats.Count; i++)
+                            {
+                                <li class="form-group @(hide ? "hidden" : string.Empty)">
+                                    <label asp-for="RequiredStats[i]"></label>
+                                    <select asp-for="RequiredStats[i].Key" asp-items="Html.GetEnumSelectList<Character.Stats>()">
+                                        <option selected="selected" value="">Please select</option>
+                                    </select>
+                                    <input asp-for="RequiredStats[i].Value" class="form-inline" />
+                                    <span asp-validation-for="RequiredStats[i].Value" class="text-danger"></span>
+                                </li>
+
+                                if (Model.RequiredStats[i].Key == 0)
+                                {
+                                    hide = true;
+                                }
+                            }
+                        }
+                    </ul>
+                </div>
+            </div>
+
+            <div class="panel panel-default form-group">
+                <div class="panel-heading">BonusStats</div>
+                <div class="panel-body">
+                    <ul>
+                        @{ hide = false;
+                            for (int i = 0; i < Model.BonusStats.Count; i++)
+                            {
+                                <li class="form-group @(hide ? "hidden" : string.Empty)">
+                                    <label asp-for="BonusStats[i]"></label>
+                                    <select asp-for="BonusStats[i].Key" asp-items="Html.GetEnumSelectList<Character.Stats>()">
+                                        <option selected="selected" value="">Please select</option>
+                                    </select>
+                                    <input asp-for="BonusStats[i].Value" class="form-inline" />
+                                    <span asp-validation-for="BonusStats[i].Value" class="text-danger"></span>
+                                </li>
+
+                                if (Model.BonusStats[i].Key == 0)
+                                {
+                                    hide = true;
+                                }
+                            }
+                        }
+                    </ul>
+                </div>
+            </div>
+
+
+            <div class="panel panel-default form-group">
+                <div class="panel-heading">UsableInZones</div>
+                <div class="panel-body">
+                    <ul class="list-inline">
+                        @for (int i = 0; i < Model.UsableInZones.Count; i++)
+                        {
+                            <li class="list-group-item">
+                                <label asp-for="@Model.UsableInZones[i]" class="control-label">@i</label>
+                                <input asp-for="@Model.UsableInZones[i]" class="form-control" />
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="@(IsCreate ? "Create" : "Save")" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@*@section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }*@
+
+@section Scripts {
+    <script>
+
+        $("select[name='RequiredStats\[0\].Key']").change(
+            function () {
+                $("select[name='RequiredStats\[1\].Key']").parent("li").removeClass("hidden");
+            }
+        );
+        $("select[name='RequiredStats\[1\].Key']").change(
+            function () {
+                $("select[name='RequiredStats\[2\].Key']").parent("li").removeClass("hidden");
+            }
+        );
+        
+        $("select[name='BonusStats\[0\].Key']").change(
+            function () {
+                $("select[name='BonusStats\[1\].Key']").parent("li").removeClass("hidden");
+            }
+        );
+        $("select[name='BonusStats\[1\].Key']").change(
+            function () {
+                $("select[name='BonusStats\[2\].Key']").parent("li").removeClass("hidden");
+            }
+        );
+        $("select[name='BonusStats\[2\].Key']").change(
+            function () {
+                $("select[name='BonusStats\[3\].Key']").parent("li").removeClass("hidden");
+            }
+        );
+        $("select[name='BonusStats\[3\].Key']").change(
+            function () {
+                $("select[name='BonusStats\[4\].Key']").parent("li").removeClass("hidden");
+            }
+        );
+        $("select[name='BonusStats\[4\].Key']").change(
+            function () {
+                $("select[name='BonusStats\[5\].Key']").parent("li").removeClass("hidden");
+            }
+        );
+    </script>
+}
