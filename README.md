@@ -1,2 +1,2 @@
-# portfolio
- Portfolio
+# GBVH_Tool
+ Редактор игровых предметов с генерацией SQL-запросов
