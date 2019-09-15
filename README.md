@@ -1,2 +1,4 @@
-# portfolio
- Portfolio
+# Интернет магазин
+ ДЗ, над которым работали в течение курса ASP.NET Core.
+ 
+ p.s.: курсы GeekBrains
