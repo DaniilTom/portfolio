@@ -149,5 +149,5 @@ ul.top-menu > li {
 }
 
 .current-route{
-    border: 1px solid red;
+    border: 1px solid red !important;
 }

@@ -4,7 +4,7 @@
 @for (int i = 0; i < ViewBag.PageCount; i++)
 {
     @*<a class="page-num btn" current-route asp-controller="Home" asp-action="GetPartialCatalog" asp-route-page="@(i+1)">@(i+1)</a>*@
-    <button class="page-num btn" data-page="@(i+1)">@(i+1)</button>
+    <button class="page-num btn" data-page="@(i+1)" current-route>@(i+1)</button>
 }
 
 <ul class="cat_menu" style="list-style: none;">

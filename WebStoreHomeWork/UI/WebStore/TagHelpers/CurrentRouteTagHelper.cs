@@ -33,12 +33,13 @@ namespace WebStore.TagHelpers
         {
             base.Process(context, output);
 
-            if(RouteValues.ContainsKey("page"))
+            if(context.AllAttributes.ContainsName("data-page"))
             {
                 string current_page = ViewContext.HttpContext.Request.Query["page"];
-                if (current_page == _RouteValues["page"])
+                if (!String.IsNullOrEmpty(current_page) && (current_page == context.AllAttributes["data-page"].Value.ToString()))
                 {
-                    output.Attributes.Add("class", "current-route");
+                    var class_attr = output.Attributes.FirstOrDefault(a => a.Name == "class");
+                    output.Attributes.SetAttribute("class", class_attr.Value + " " + "current-route");
                 }
                 return;
             }
