@@ -1,0 +1,6 @@
+{
+      "Name" : "Test Sight Name",
+      "ShortDescription" : "Very short description",
+      "FullDescription" : "So full description",
+      "TypeName" : "TestName"
+}
