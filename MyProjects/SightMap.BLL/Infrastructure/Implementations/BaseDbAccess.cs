@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using SightMap.BLL.DTO;
 using SightMap.BLL.Filters;
 using SightMap.BLL.Infrastructure.Interfaces;
 using SightMap.DAL;
@@ -11,8 +12,9 @@ using SightMap.DAL.Repositories;
 
 namespace SightMap.BLL.Infrastructure.Implementations.Test
 {
-    public abstract class BaseDbAccess<TFullDto, TShortDto, Source> : IDataAccess<TFullDto, TShortDto, Source>
+    public abstract class BaseDbAccess<TFullDto, TShortDto, TFilterDto, Source> : IDataAccess<TFullDto, TShortDto, TFilterDto>
                                                                             where TFullDto : TShortDto
+                                                                            where TFilterDto : BaseFilterDTO
                                                                             where Source : Base
     {
 
@@ -75,8 +77,10 @@ namespace SightMap.BLL.Infrastructure.Implementations.Test
             return result;
         }
 
-        public IEnumerable<TShortDto> GetListObjects(IFilter<Source> filter)
+        public IEnumerable<TShortDto> GetListObjects(TFilterDto filterDto)
         {
+            IFilter<Source> filter = ConfigureFilter(filterDto);
+
             IEnumerable<Source> collection = null;
 
             try
@@ -113,5 +117,6 @@ namespace SightMap.BLL.Infrastructure.Implementations.Test
         protected abstract Source DtoToSource(TFullDto dto);
         protected abstract TFullDto SourceToDto(Source item);
         protected abstract TShortDto SourceToShortDto(Source item);
+        protected abstract IFilter<Source> ConfigureFilter(TFilterDto dto);
     }
 }

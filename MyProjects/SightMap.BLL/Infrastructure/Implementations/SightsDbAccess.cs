@@ -1,12 +1,13 @@
 ﻿using Microsoft.Extensions.Logging;
 using SightMap.BLL.DTO;
+using SightMap.BLL.Filters;
 using SightMap.BLL.Mappers;
 using SightMap.DAL.Models;
 using SightMap.DAL.Repositories;
 
 namespace SightMap.BLL.Infrastructure.Implementations.Test
 {
-    public class SightsDbAccess : BaseDbAccess<SightDTO, ShortSightDTO, Sight>
+    public class SightsDbAccess : BaseDbAccess<SightDTO, ShortSightDTO, SightFilterDTO, Sight>
     {
         public SightsDbAccess(ILogger<SightsDbAccess> _logger, IRepository<Sight> _repo) : base(_logger, _repo) { }
 
@@ -15,5 +16,7 @@ namespace SightMap.BLL.Infrastructure.Implementations.Test
         protected override SightDTO SourceToDto(Sight item) => item?.ToDTO();
 
         protected override ShortSightDTO SourceToShortDto(Sight item) => item?.ToShortDTO();
+
+        protected override IFilter<Sight> ConfigureFilter(SightFilterDTO dto) => new SightFilter(dto);
     }
 }
