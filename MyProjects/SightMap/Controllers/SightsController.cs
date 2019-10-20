@@ -1,14 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SightMap.Attributes;
 using SightMap.BLL.DTO;
-using SightMap.BLL.Filters;
 using SightMap.BLL.Infrastructure.Interfaces;
-using SightMap.DAL.Models;
 using SightMap.Models;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace SightMap.Controllers
 {
@@ -16,8 +11,8 @@ namespace SightMap.Controllers
     [ApiController]
     public class SightsController : Controller
     {
-        private IDataAccess<SightDTO, ShortSightDTO, Sight> dataStore;
-        public SightsController(IDataAccess<SightDTO, ShortSightDTO, Sight> _dataStore)
+        private IDataAccess<SightDTO, ShortSightDTO, SightFilterDTO> dataStore;
+        public SightsController(IDataAccess<SightDTO, ShortSightDTO, SightFilterDTO> _dataStore)
         {
             dataStore = _dataStore;
         }
@@ -57,7 +52,7 @@ namespace SightMap.Controllers
         }
 
         [HttpGet]
-        public ResultState<IEnumerable<ShortSightDTO>> Get([FromQuery] SightFilter filter)
+        public ResultState<IEnumerable<ShortSightDTO>> Get([FromQuery] SightFilterDTO filter)
         {
             var resultObject = dataStore.GetListObjects(filter);
             var resultState = ResultState<IEnumerable<ShortSightDTO>>.CreateResulState<IEnumerable<ShortSightDTO>>(resultObject);
