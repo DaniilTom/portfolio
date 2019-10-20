@@ -1,4 +1,6 @@
-﻿namespace SightMap.BLL.Filters
+﻿using SightMap.DAL.Models;
+
+namespace SightMap.BLL.Filters
 {
-    public class SightTypeFilter : BaseFilter { }
+    public class SightTypeFilter : BaseFilter<SightType> { }
 }

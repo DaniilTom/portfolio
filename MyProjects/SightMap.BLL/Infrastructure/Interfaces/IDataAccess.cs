@@ -1,10 +1,11 @@
 ﻿using SightMap.BLL.Filters;
+using SightMap.DAL.Models;
 using System.Collections.Generic;
 
 namespace SightMap.BLL.Infrastructure.Interfaces
 {
-    public interface IDataAccess<TFullDto, TShortDto, TFilter> where TFullDto : TShortDto
-                                                               where TFilter : BaseFilter
+    public interface IDataAccess<TFullDto, TShortDto, Source> where TFullDto : TShortDto
+                                                              where Source : Base
     {
         TFullDto Add(TFullDto dto);
 
@@ -26,7 +27,7 @@ namespace SightMap.BLL.Infrastructure.Interfaces
         /// </summary>
         /// <param name="filter"></param>
         /// <returns></returns>
-        IEnumerable<TShortDto> GetListObjects(TFilter filter);
+        IEnumerable<TShortDto> GetListObjects(IFilter<Source> filter);
 
         /// <summary>
         /// Метод получения целого объекта.
@@ -34,5 +35,6 @@ namespace SightMap.BLL.Infrastructure.Interfaces
         /// <param name="id"></param>
         /// <returns></returns>
         TFullDto GetObject(int id);
+
     }
 }

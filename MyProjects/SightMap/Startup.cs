@@ -8,8 +8,11 @@ using Microsoft.Extensions.Logging;
 using SightMap.BLL.DTO;
 using SightMap.BLL.Filters;
 using SightMap.BLL.Infrastructure.Implementations;
+using SightMap.BLL.Infrastructure.Implementations.Test;
 using SightMap.BLL.Infrastructure.Interfaces;
 using SightMap.DAL;
+using SightMap.DAL.Models;
+using SightMap.DAL.Repositories;
 
 namespace SightMap
 {
@@ -28,8 +31,14 @@ namespace SightMap
 
             services.AddDbContext<DataDbContext>(options => options.UseSqlServer(config["ConnectionString"]));
 
-            services.AddScoped<IDataAccess<SightDTO, ShortSightDTO, SightFilter>, SightsDbAccess>();
-            services.AddScoped<IDataAccess<SightTypeDTO, SightTypeDTO, SightTypeFilter>, SightTypesDbAccess>();
+            //services.AddScoped<IDataAccess<SightDTO, ShortSightDTO, SightFilter>, SightsDbAccess>();
+            //services.AddScoped<IDataAccess<SightTypeDTO, SightTypeDTO, SightTypeFilter>, SightTypesDbAccess>();
+
+            services.AddScoped<IDataAccess<SightDTO, ShortSightDTO, Sight>, SightsDbAccess>();
+            services.AddScoped<IDataAccess<SightTypeDTO, SightTypeDTO, SightType>, SightTypesDbAccess>();
+
+            services.AddScoped<IRepository<Sight>, SightRepo>();
+            services.AddScoped<IRepository<SightType>, SightTypeRepo>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

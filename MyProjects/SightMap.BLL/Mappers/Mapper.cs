@@ -9,14 +9,32 @@ namespace SightMap.BLL.Mappers
     /// <summary>
     /// Класс, содержащий методы отображения объектов <see cref="Sight"/> в объекты DTO.
     /// </summary>
-    public static class SightMapper
+    public static class Mapper
     {
+        public static SightTypeDTO ToDTO(this SightType type)
+        {
+            return new SightTypeDTO
+            {
+                Id = type.Id,
+                Name = type.Name
+            };
+        }
+
+        public static SightTypeDTO ToShortDTO(this SightType type)
+        {
+            return new SightTypeDTO
+            {
+                Id = type.Id,
+                Name = type.Name
+            };
+        }
+
         /// <summary>
         /// Метод отображения <see cref="Sight"/> в <see cref="SightDTO"/>.
         /// </summary>
         /// <param name="sight"></param>
         /// <returns></returns>
-        public static SightDTO ToSightDTO(this Sight sight)
+        public static SightDTO ToDTO(this Sight sight)
         {
             return new SightDTO
             {
@@ -35,7 +53,7 @@ namespace SightMap.BLL.Mappers
         /// </summary>
         /// <param name="sight"></param>
         /// <returns></returns>
-        public static ShortSightDTO ToShortSightDTO(this Sight sight)
+        public static ShortSightDTO ToShortDTO(this Sight sight)
         {
             return new ShortSightDTO
             {
@@ -47,11 +65,11 @@ namespace SightMap.BLL.Mappers
         }
 
         /// <summary>
-        /// Метод отображения DTO в <see cref="Sight"/>. Привязка <see cref="Sight.Type"/> выполняется отдельно.
+        /// Метод отображения DTO в <see cref="Sight"/>.
         /// </summary>
         /// <param name="dto"></param>
         /// <returns></returns>
-        public static Sight ToSight(this SightDTO dto)
+        public static Sight ToSource(this SightDTO dto)
         {
             return new Sight
             {
@@ -59,7 +77,15 @@ namespace SightMap.BLL.Mappers
                 FullDescription = dto.FullDescription,
                 ShortDescription = dto.ShortDescription,
                 PhotoPath = dto.PhotoPath,
-                AuthorId = dto.AuthorId
+                AuthorId = dto.AuthorId,
+                SightTypeId = dto.SightTypeId
+            };
+        }
+        public static SightType ToSource(this SightTypeDTO dto)
+        {
+            return new SightType
+            {
+                Name = dto.Name
             };
         }
     }

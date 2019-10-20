@@ -1,44 +1,146 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using SightMap.BLL.DTO;
+using SightMap.BLL.Filters;
 using SightMap.BLL.Infrastructure.Interfaces;
+using SightMap.BLL.Mappers;
 using SightMap.DAL;
+using SightMap.DAL.Models;
+using SightMap.DAL.Repositories;
 
-namespace SightMap.BLL.Infrastructure.Implementations
+namespace SightMap.BLL.Infrastructure.Implementations.Test
 {
-    public class BaseDbAccess<TFullDto, TShortDto, Filter> : IDataAccess<TFullDto, TShortDto, Filter>
+    public abstract class BaseDbAccess<TFullDto, TShortDto, Source> : IDataAccess<TFullDto, TShortDto, Source>
+                                                                            where TFullDto : TShortDto
+                                                                            where Source : Base
     {
-        private DataDbContext db;
-        private ILogger<SightTypesDbAccess> logger;
 
-        public BaseDbAccess(ILogger<SightTypesDbAccess> _logger, DataDbContext _db)
+        protected IRepository<Source> repo;
+        private ILogger logger;
+
+        protected BaseDbAccess(ILogger _logger, IRepository<Source> _repo)
         {
-            db = _db;
             logger = _logger;
+            repo = _repo;
         }
 
-        public virtual TFullDto Add(TFullDto dto)
+        public TFullDto Add(TFullDto dto)
         {
-            throw new System.NotImplementedException();
+            Source temp = null;
+            TFullDto fullDto = default(TFullDto);
+            try
+            {
+                temp = repo.Add(DtoToSource(dto));
+                fullDto = SourceToDto(temp);
+            }
+            catch (Exception e)
+            {
+                logger.LogError(e.Message);
+            }
+
+            return fullDto;
         }
 
-        public virtual bool Delete(int id)
+        public TFullDto Edit(TFullDto dto)
         {
-            throw new System.NotImplementedException();
+            Source temp = null;
+            TFullDto fullDto = default(TFullDto);
+
+            try
+            {
+                temp = repo.Update(DtoToSource(dto));
+                fullDto = SourceToDto(temp);
+            }
+            catch (Exception e)
+            {
+                logger.LogError(e.Message);
+            }
+
+            return fullDto;
         }
 
-        public virtual TFullDto Edit(TFullDto dto)
+        public bool Delete(int id)
         {
-            throw new System.NotImplementedException();
+            bool result = false;
+            try
+            {
+                result = repo.Delete(id);
+            }
+            catch (Exception e)
+            {
+                logger.LogError(e.Message);
+            }
+
+            return result;
         }
 
-        public virtual IEnumerable<TShortDto> GetListObjects(Filter filter)
+        public IEnumerable<TShortDto> GetListObjects(IFilter<Source> filter)
         {
-            throw new System.NotImplementedException();
+            IEnumerable<Source> collection = null;
+
+            try
+            {
+                collection = repo.GetList(filter.IsStatisfy);
+            }
+            catch (Exception e)
+            {
+                logger.LogError(e.Message);
+            }
+
+            return collection.Skip(filter.Offset)
+                             .Take(filter.Size)
+                             .Select(s => SourceToShortDto(s));
         }
 
-        public virtual TFullDto GetObject(int id)
+        public TFullDto GetObject(int id)
         {
-            throw new System.NotImplementedException();
+            TFullDto fullDto = default(TFullDto);
+
+            try
+            {
+                fullDto = SourceToDto(repo.GetById(id));
+            }
+            catch (Exception e)
+            {
+                logger.LogError(e.Message);
+            }
+            logger.LogWarning("In GetFullObject(int id) method.");
+
+            return fullDto;
         }
+
+        protected abstract Source DtoToSource(TFullDto dto);
+        protected abstract TFullDto SourceToDto(Source item);
+        protected abstract TShortDto SourceToShortDto(Source item);
+
+    }
+
+    public class SightsDbAccess : BaseDbAccess<SightDTO, ShortSightDTO, Sight>
+    {
+        //private ILogger<SightsDbAccess> logger;
+
+        public SightsDbAccess(ILogger<SightsDbAccess> _logger, IRepository<Sight> _repo) : base(_logger, _repo) { }
+
+        protected override Sight DtoToSource(SightDTO dto) => dto?.ToSource();
+
+        protected override SightDTO SourceToDto(Sight item) => item?.ToDTO();
+
+        protected override ShortSightDTO SourceToShortDto(Sight item) => item?.ToShortDTO();
+    }
+
+    public class SightTypesDbAccess : BaseDbAccess<SightTypeDTO, SightTypeDTO, SightType>
+    {
+        //private ILogger<SightTypesDbAccess> logger;
+
+        public SightTypesDbAccess(ILogger<SightsDbAccess> _logger, IRepository<SightType> _repo) : base(_logger, _repo) { }
+
+        protected override SightType DtoToSource(SightTypeDTO dto) => dto?.ToSource();
+
+        protected override SightTypeDTO SourceToDto(SightType item) => item?.ToDTO();
+
+        protected override SightTypeDTO SourceToShortDto(SightType item) => item?.ToShortDTO();
     }
 }

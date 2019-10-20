@@ -10,8 +10,10 @@ namespace SightMap.BLL.DTO
         //public string Name { get; set; }
         //public string ShortDescription { get; set; }
         //public string PhotoPath { get; set; }
+        //public string TypeName { get; set; }
+
+        public int SightTypeId { get; set; }
         public string FullDescription { get; set; }
-        public string TypeName { get; set; }
         public int AuthorId { get; set; }
     }
 }

@@ -3,6 +3,7 @@ using SightMap.Attributes;
 using SightMap.BLL.DTO;
 using SightMap.BLL.Filters;
 using SightMap.BLL.Infrastructure.Interfaces;
+using SightMap.DAL.Models;
 using SightMap.Models;
 using System;
 using System.Collections.Generic;
@@ -15,8 +16,8 @@ namespace SightMap.Controllers
     [ApiController]
     public class SightsController : Controller
     {
-        private IDataAccess<SightDTO, ShortSightDTO, SightFilter> dataStore;
-        public SightsController(IDataAccess<SightDTO, ShortSightDTO, SightFilter> _dataStore)
+        private IDataAccess<SightDTO, ShortSightDTO, Sight> dataStore;
+        public SightsController(IDataAccess<SightDTO, ShortSightDTO, Sight> _dataStore)
         {
             dataStore = _dataStore;
         }
