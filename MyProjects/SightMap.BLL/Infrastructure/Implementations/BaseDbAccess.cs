@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using SightMap.BLL.DTO;
 using SightMap.BLL.Filters;
 using SightMap.BLL.Infrastructure.Interfaces;
-using SightMap.BLL.Mappers;
 using SightMap.DAL;
 using SightMap.DAL.Models;
 using SightMap.DAL.Repositories;
@@ -115,32 +113,5 @@ namespace SightMap.BLL.Infrastructure.Implementations.Test
         protected abstract Source DtoToSource(TFullDto dto);
         protected abstract TFullDto SourceToDto(Source item);
         protected abstract TShortDto SourceToShortDto(Source item);
-
-    }
-
-    public class SightsDbAccess : BaseDbAccess<SightDTO, ShortSightDTO, Sight>
-    {
-        //private ILogger<SightsDbAccess> logger;
-
-        public SightsDbAccess(ILogger<SightsDbAccess> _logger, IRepository<Sight> _repo) : base(_logger, _repo) { }
-
-        protected override Sight DtoToSource(SightDTO dto) => dto?.ToSource();
-
-        protected override SightDTO SourceToDto(Sight item) => item?.ToDTO();
-
-        protected override ShortSightDTO SourceToShortDto(Sight item) => item?.ToShortDTO();
-    }
-
-    public class SightTypesDbAccess : BaseDbAccess<SightTypeDTO, SightTypeDTO, SightType>
-    {
-        //private ILogger<SightTypesDbAccess> logger;
-
-        public SightTypesDbAccess(ILogger<SightsDbAccess> _logger, IRepository<SightType> _repo) : base(_logger, _repo) { }
-
-        protected override SightType DtoToSource(SightTypeDTO dto) => dto?.ToSource();
-
-        protected override SightTypeDTO SourceToDto(SightType item) => item?.ToDTO();
-
-        protected override SightTypeDTO SourceToShortDto(SightType item) => item?.ToShortDTO();
     }
 }
