@@ -10,6 +10,16 @@ namespace SightMap.DAL.Repositories
     public class SightRepo : BaseRepository<Sight>
     {
         public SightRepo(DataDbContext _context) : base(_context) { }
+
+        protected override Sight EagerLoadItemById(int id)
+        {
+            return set.Include(s => s.Type).FirstOrDefault(s => s.Id == id);
+        }
+
+        protected override IQueryable<Sight> EagerLoadCollection(Func<Sight, bool> filter)
+        {
+            return set.Include(s => s.Type).Where(filter).AsQueryable();
+        }
     }
 
     public class SightTypeRepo : BaseRepository<SightType>
@@ -19,7 +29,7 @@ namespace SightMap.DAL.Repositories
 
     public class BaseRepository<T> : IRepository<T> where T : Base, new()
     {
-        private DbSet<T> set;
+        protected DbSet<T> set;
         private DataDbContext context;
 
         public BaseRepository(DataDbContext _context)
@@ -58,14 +68,30 @@ namespace SightMap.DAL.Repositories
 
         public T GetById(int id)
         {
-            var item = set.Find(id);
+            var item = EagerLoadItemById(id);
             context.Entry(item).State = EntityState.Detached;
             return item;
         }
 
         public IEnumerable<T> GetList(Func<T, bool> filter)
         {
-            return set.AsNoTracking().Where(filter).AsEnumerable();
+            var collection = EagerLoadCollection(filter);
+            return collection.AsNoTracking().AsEnumerable();
+        }
+
+        /// <summary>
+        /// Переопределяется для жадной загрузки.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        protected virtual T EagerLoadItemById(int id)
+        {
+            return set.Find(id);
+        }
+
+        protected virtual IQueryable<T> EagerLoadCollection(Func<T, bool> filter)
+        {
+            return set.Where(filter).AsQueryable();
         }
 
     }
