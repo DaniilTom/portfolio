@@ -1,0 +1,158 @@
+2019-10-18 14:03:30.4957||DEBUG|SightMap.Program|init main |url: |action: 
+2019-10-18 14:03:31.5720|6|FATAL|Microsoft.AspNetCore.Hosting.Diagnostics|Application startup exception System.Exception: Could not resolve a service of type 'Microsoft.Extensions.Logging.ILogger' for the parameter 'logger' of method 'Configure' on type 'SightMap.Startup'.
+ ---> System.InvalidOperationException: No service for type 'Microsoft.Extensions.Logging.ILogger' has been registered.
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService(IServiceProvider provider, Type serviceType)
+   at Microsoft.AspNetCore.Hosting.ConfigureBuilder.Invoke(Object instance, IApplicationBuilder builder)
+   --- End of inner exception stack trace ---
+   at Microsoft.AspNetCore.Hosting.ConfigureBuilder.Invoke(Object instance, IApplicationBuilder builder)
+   at Microsoft.AspNetCore.Hosting.ConfigureBuilder.<>c__DisplayClass4_0.<Build>b__0(IApplicationBuilder builder)
+   at Microsoft.AspNetCore.Hosting.GenericWebHostBuilder.<>c__DisplayClass13_0.<UseStartup>b__2(IApplicationBuilder app)
+   at Microsoft.AspNetCore.Mvc.Filters.MiddlewareFilterBuilderStartupFilter.<>c__DisplayClass0_0.<Configure>g__MiddlewareFilterBuilder|0(IApplicationBuilder builder)
+   at Microsoft.AspNetCore.Server.IIS.Core.IISServerSetupFilter.<>c__DisplayClass2_0.<Configure>b__0(IApplicationBuilder app)
+   at Microsoft.AspNetCore.HostFilteringStartupFilter.<>c__DisplayClass0_0.<Configure>b__0(IApplicationBuilder app)
+   at Microsoft.AspNetCore.Hosting.GenericWebHostService.StartAsync(CancellationToken cancellationToken)|url: |action: 
+2019-10-18 14:03:31.6556||ERROR|SightMap.Program|Stopped program because of exception System.Exception: Could not resolve a service of type 'Microsoft.Extensions.Logging.ILogger' for the parameter 'logger' of method 'Configure' on type 'SightMap.Startup'.
+ ---> System.InvalidOperationException: No service for type 'Microsoft.Extensions.Logging.ILogger' has been registered.
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService(IServiceProvider provider, Type serviceType)
+   at Microsoft.AspNetCore.Hosting.ConfigureBuilder.Invoke(Object instance, IApplicationBuilder builder)
+   --- End of inner exception stack trace ---
+   at Microsoft.AspNetCore.Hosting.ConfigureBuilder.Invoke(Object instance, IApplicationBuilder builder)
+   at Microsoft.AspNetCore.Hosting.ConfigureBuilder.<>c__DisplayClass4_0.<Build>b__0(IApplicationBuilder builder)
+   at Microsoft.AspNetCore.Hosting.GenericWebHostBuilder.<>c__DisplayClass13_0.<UseStartup>b__2(IApplicationBuilder app)
+   at Microsoft.AspNetCore.Mvc.Filters.MiddlewareFilterBuilderStartupFilter.<>c__DisplayClass0_0.<Configure>g__MiddlewareFilterBuilder|0(IApplicationBuilder builder)
+   at Microsoft.AspNetCore.Server.IIS.Core.IISServerSetupFilter.<>c__DisplayClass2_0.<Configure>b__0(IApplicationBuilder app)
+   at Microsoft.AspNetCore.HostFilteringStartupFilter.<>c__DisplayClass0_0.<Configure>b__0(IApplicationBuilder app)
+   at Microsoft.AspNetCore.Hosting.GenericWebHostService.StartAsync(CancellationToken cancellationToken)
+   at Microsoft.Extensions.Hosting.Internal.Host.StartAsync(CancellationToken cancellationToken)
+   at Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.RunAsync(IHost host, CancellationToken token)
+   at Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.RunAsync(IHost host, CancellationToken token)
+   at Microsoft.Extensions.Hosting.HostingAbstractionsHostExtensions.Run(IHost host)
+   at SightMap.Program.Main(String[] args) in D:\MyProjects\SightMap\Program.cs:line 23|url: |action: 
+2019-10-18 14:05:38.7676||DEBUG|SightMap.Program|init main |url: |action: 
+2019-10-18 14:05:40.4083||INFO|SightMap.Startup|LogInformation in startup.cs |url: |action: 
+2019-10-18 14:05:40.4118||DEBUG|SightMap.Startup|LogDebug in startup.cs |url: |action: 
+2019-10-18 14:10:52.4302||DEBUG|SightMap.Program|init main |url: |action: 
+2019-10-18 14:10:54.1800||INFO|SightMap.Startup|LogInformation in startup.cs |url: |action: 
+2019-10-18 14:10:54.1892||DEBUG|SightMap.Startup|LogDebug in startup.cs |url: |action: 
+2019-10-18 14:19:56.2571||DEBUG|SightMap.Program|init main |url: |action: 
+2019-10-18 14:19:57.6983||INFO|SightMap.Startup|LogInformation in startup.cs |url: |action: 
+2019-10-18 14:19:57.6983||DEBUG|SightMap.Startup|LogDebug in startup.cs |url: |action: 
+2019-10-18 14:20:16.7448||WARN|SightMap.BLL.Infrastructure.Implementations.SightsDbAccess|In GetFullObject(int id) method. |url: https://localhost/api/sights/|action: Get
+2019-10-18 14:20:29.3383||WARN|SightMap.BLL.Infrastructure.Implementations.SightsDbAccess|In GetFullObject(int id) method. |url: https://localhost/api/sights/|action: Get
+2019-10-18 14:21:56.6453||DEBUG|SightMap.Program|init main |url: |action: 
+2019-10-18 14:21:59.6315||INFO|SightMap.Startup|LogInformation in startup.cs |url: |action: 
+2019-10-18 14:21:59.6315||DEBUG|SightMap.Startup|LogDebug in startup.cs |url: |action: 
+2019-10-18 14:25:28.6456||DEBUG|SightMap.Program|init main |url: |action: 
+2019-10-18 14:25:29.8079||INFO|SightMap.Startup|LogInformation in startup.cs |url: |action: 
+2019-10-18 14:25:29.8151||DEBUG|SightMap.Startup|LogDebug in startup.cs |url: |action: 
+2019-10-18 14:35:24.2261||DEBUG|SightMap.Program|init main |url: |action: 
+2019-10-18 14:35:25.2697||INFO|SightMap.Startup|LogInformation in startup.cs |url: |action: 
+2019-10-18 14:35:25.2697||DEBUG|SightMap.Startup|LogDebug in startup.cs |url: |action: 
+2019-10-18 14:38:29.3685||DEBUG|SightMap.Program|init main |url: |action: 
+2019-10-18 14:38:31.3642||INFO|SightMap.Startup|LogInformation in startup.cs |url: |action: 
+2019-10-18 14:38:31.3730||DEBUG|SightMap.Startup|LogDebug in startup.cs |url: |action: 
+2019-10-18 15:37:28.7922||DEBUG|SightMap.Program|init main |url: |action: 
+2019-10-18 15:37:31.0907||INFO|SightMap.Startup|LogInformation in startup.cs |url: |action: 
+2019-10-18 15:37:31.0955||DEBUG|SightMap.Startup|LogDebug in startup.cs |url: |action: 
+2019-10-18 15:37:44.5778|20102|ERROR|Microsoft.EntityFrameworkCore.Database.Command|Failed executing DbCommand (18ms) [Parameters=[@p0='?' (DbType = Int32), @p1='?' (Size = 4000), @p2='?' (Size = 50), @p3='?' (Size = 250), @p4='?' (Size = 100), @p5='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SET NOCOUNT ON;
+INSERT INTO [Sights] ([AuthorId], [FullDescription], [Name], [PhotoPath], [ShortDescription], [Type])
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5);
+SELECT [Id]
+FROM [Sights]
+WHERE @@ROWCOUNT = 1 AND [Id] = scope_identity(); |url: https://localhost/api/sights/|action: Post
+2019-10-18 15:37:44.6405|10000|ERROR|Microsoft.EntityFrameworkCore.Update|An exception occurred in the database while saving changes for context type 'SightMap.DAL.DataDbContext'.
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while updating the entries. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): The INSERT statement conflicted with the FOREIGN KEY constraint "FK__Sights__Type__29572725". The conflict occurred in database "Test", table "dbo.SightTypes", column 'Id'.
+The statement has been terminated.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at Microsoft.Data.SqlClient.SqlDataReader.get_MetaData()
+   at Microsoft.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean isAsync, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry, String method)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at Microsoft.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at System.Data.Common.DbCommand.ExecuteReader()
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReader(RelationalCommandParameterObject parameterObject)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.Execute(IRelationalConnection connection)
+ClientConnectionId:83cccbc7-f780-43e6-a9a2-48d41f1c502b
+Error Number:547,State:0,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.Execute(IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.Execute(DbContext _, ValueTuple`2 parameters)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.Execute[TState,TResult](TState state, Func`3 operation, Func`3 verifySucceeded)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.Execute(IEnumerable`1 commandBatches, IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabase.SaveChanges(IList`1 entries)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(IList`1 entriesToSave)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(Boolean acceptAllChangesOnSuccess)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChanges(Boolean acceptAllChangesOnSuccess) Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while updating the entries. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): The INSERT statement conflicted with the FOREIGN KEY constraint "FK__Sights__Type__29572725". The conflict occurred in database "Test", table "dbo.SightTypes", column 'Id'.
+The statement has been terminated.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at Microsoft.Data.SqlClient.SqlDataReader.get_MetaData()
+   at Microsoft.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean isAsync, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry, String method)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at Microsoft.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at System.Data.Common.DbCommand.ExecuteReader()
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReader(RelationalCommandParameterObject parameterObject)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.Execute(IRelationalConnection connection)
+ClientConnectionId:83cccbc7-f780-43e6-a9a2-48d41f1c502b
+Error Number:547,State:0,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.Execute(IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.Execute(DbContext _, ValueTuple`2 parameters)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.Execute[TState,TResult](TState state, Func`3 operation, Func`3 verifySucceeded)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.Execute(IEnumerable`1 commandBatches, IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabase.SaveChanges(IList`1 entries)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(IList`1 entriesToSave)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(Boolean acceptAllChangesOnSuccess)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChanges(Boolean acceptAllChangesOnSuccess)|url: https://localhost/api/sights/|action: Post
+2019-10-18 15:37:44.7126||ERROR|SightMap.BLL.Infrastructure.Implementations.SightsDbAccess|An error occurred while updating the entries. See the inner exception for details. |url: https://localhost/api/sights/|action: Post
+2019-10-18 15:38:21.4893|1|ERROR|Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware|An unhandled exception has occurred while executing the request. System.NullReferenceException: Object reference not set to an instance of an object.
+   at SightMap.BLL.Mappers.SightMapper.ToSightDTO(Sight sight) in D:\MyProjects\SightMap.BLL\Mappers\SightMapper.cs:line 21
+   at SightMap.BLL.Infrastructure.Implementations.SightsDbAccess.Add(SightDTO dto) in D:\MyProjects\SightMap.BLL\Infrastructure\Implementations\SightsDbAccess.cs:line 44
+   at SightMap.Controllers.SightsController.Post(SightDTO dto) in D:\MyProjects\SightMap\Controllers\SightsController.cs:line 27
+   at lambda_method(Closure , Object , Object[] )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutor.Execute(Object target, Object[] parameters)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.SyncObjectResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeActionMethodAsync()
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeNextActionFilterAsync()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|24_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeFilterPipelineAsync()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Builder.RouterMiddleware.Invoke(HttpContext httpContext)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)|url: https://localhost/api/sights/|action: Post
+2019-10-18 15:40:21.8354||DEBUG|SightMap.Program|init main |url: |action: 
+2019-10-18 15:40:23.9589||INFO|SightMap.Startup|LogInformation in startup.cs |url: |action: 
+2019-10-18 15:40:23.9589||DEBUG|SightMap.Startup|LogDebug in startup.cs |url: |action: 
+2019-10-18 15:43:02.9550||DEBUG|SightMap.Program|init main |url: |action: 
+2019-10-18 15:43:04.1243||INFO|SightMap.Startup|LogInformation in startup.cs |url: |action: 
+2019-10-18 15:43:04.1243||DEBUG|SightMap.Startup|LogDebug in startup.cs |url: |action: 
+2019-10-18 15:45:47.1945||DEBUG|SightMap.Program|init main |url: |action: 
+2019-10-18 15:45:49.9902||INFO|SightMap.Startup|LogInformation in startup.cs |url: |action: 
+2019-10-18 15:45:49.9902||DEBUG|SightMap.Startup|LogDebug in startup.cs |url: |action: 
+2019-10-18 15:49:07.5313||DEBUG|SightMap.Program|init main |url: |action: 
+2019-10-18 15:49:08.8445||INFO|SightMap.Startup|LogInformation in startup.cs |url: |action: 
+2019-10-18 15:49:08.8445||DEBUG|SightMap.Startup|LogDebug in startup.cs |url: |action: 
+2019-10-18 15:49:33.9080||WARN|SightMap.BLL.Infrastructure.Implementations.SightsDbAccess|In GetFullObject(int id) method. |url: https://localhost/api/sights/|action: Get

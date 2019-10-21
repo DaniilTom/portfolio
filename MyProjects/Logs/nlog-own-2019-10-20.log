@@ -1,0 +1,6 @@
+2019-10-20 14:31:11.3632||DEBUG|SightMap.Program|init main |url: |action: 
+2019-10-20 14:31:12.5013||INFO|SightMap.Startup|LogInformation in startup.cs |url: |action: 
+2019-10-20 14:31:12.5063||DEBUG|SightMap.Startup|LogDebug in startup.cs |url: |action: 
+2019-10-20 16:20:52.6399||DEBUG|SightMap.Program|init main |url: |action: 
+2019-10-20 16:20:56.0501||INFO|SightMap.Startup|LogInformation in startup.cs |url: |action: 
+2019-10-20 16:20:56.0501||DEBUG|SightMap.Startup|LogDebug in startup.cs |url: |action: 
