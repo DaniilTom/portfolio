@@ -2,16 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using SightMap.BLL.DTO;
 using SightMap.BLL.Filters;
 using SightMap.BLL.Infrastructure.Interfaces;
-using SightMap.DAL;
 using SightMap.DAL.Models;
 using SightMap.DAL.Repositories;
 
-namespace SightMap.BLL.Infrastructure.Implementations.Test
+namespace SightMap.BLL.Infrastructure.Implementations
 {
     public abstract class BaseDbManager<TFullDto, TShortDto, TFilterDto, TSource> : IDbManager<TFullDto, TShortDto, TFilterDto>
         where TFullDto : TShortDto
@@ -39,9 +37,6 @@ namespace SightMap.BLL.Infrastructure.Implementations.Test
                 var src = mapper.Map<TSource>(dto);
                 temp = repo.Add(src);
                 fullDto = mapper.Map<TFullDto>(temp);
-
-                //temp = repo.Add(DtoToSource(dto));
-                //fullDto = SourceToDto(temp);
             }
             catch (Exception e)
             {
@@ -59,8 +54,9 @@ namespace SightMap.BLL.Infrastructure.Implementations.Test
 
             try
             {
-                temp = repo.Update(DtoToSource(dto));
-                fullDto = SourceToDto(temp);
+                var src = mapper.Map<TSource>(dto);
+                temp = repo.Update(src);
+                fullDto = mapper.Map<TFullDto>(temp);
             }
             catch (Exception e)
             {
@@ -96,7 +92,7 @@ namespace SightMap.BLL.Infrastructure.Implementations.Test
             try
             {
                 collection = repo.GetList(filter.IsStatisfy, filter.Offset, filter.Size);
-                dtoCollection = collection.Select(s => SourceToShortDto(s)).AsEnumerable();
+                dtoCollection = collection.Select(s => mapper.Map<TShortDto>(s)).AsEnumerable();
 
             }
             catch (Exception e)
@@ -114,7 +110,7 @@ namespace SightMap.BLL.Infrastructure.Implementations.Test
 
             try
             {
-                fullDto = SourceToDto(repo.GetById(id));
+                fullDto = mapper.Map<TFullDto>(repo.GetById(id));
             }
             catch (Exception e)
             {
@@ -125,9 +121,6 @@ namespace SightMap.BLL.Infrastructure.Implementations.Test
             return fullDto;
         }
 
-        protected abstract TSource DtoToSource(TFullDto dto);
-        protected abstract TFullDto SourceToDto(TSource item);
-        protected abstract TShortDto SourceToShortDto(TSource item);
         protected abstract IFilter<TSource> ConfigureFilter(TFilterDto dto);
     }
 }
