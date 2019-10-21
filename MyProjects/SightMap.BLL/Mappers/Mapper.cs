@@ -41,6 +41,7 @@ namespace SightMap.BLL.Mappers
                 Id = sight.Id,
                 Name = sight.Name,
                 TypeName = sight.Type.Name,
+                SightTypeId = sight.Type.Id,
                 ShortDescription = sight.ShortDescription,
                 FullDescription = sight.FullDescription,
                 PhotoPath = sight.PhotoPath,
@@ -59,6 +60,7 @@ namespace SightMap.BLL.Mappers
             {
                 Id = sight.Id,
                 Name = sight.Name,
+                TypeName = sight.Type.Name,
                 ShortDescription = sight.ShortDescription,
                 PhotoPath = sight.PhotoPath
             };
