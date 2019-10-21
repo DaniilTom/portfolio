@@ -7,27 +7,7 @@ using System.Text;
 
 namespace SightMap.DAL.Repositories
 {
-    public class SightRepo : BaseRepository<Sight>
-    {
-        public SightRepo(DataDbContext _context) : base(_context) { }
-
-        protected override Sight EagerLoadItemById(int id)
-        {
-            return set.Include(s => s.Type).FirstOrDefault(s => s.Id == id);
-        }
-
-        protected override IQueryable<Sight> EagerLoadCollection(Func<Sight, bool> filter)
-        {
-            return set.Include(s => s.Type).Where(filter).AsQueryable();
-        }
-    }
-
-    public class SightTypeRepo : BaseRepository<SightType>
-    {
-        public SightTypeRepo(DataDbContext _context) : base(_context) { }
-    }
-
-    public class BaseRepository<T> : IRepository<T> where T : Base, new()
+    public abstract class BaseRepository<T> : IRepository<T> where T : Base, new()
     {
         protected DbSet<T> set;
         private DataDbContext context;
@@ -84,15 +64,9 @@ namespace SightMap.DAL.Repositories
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        protected virtual T EagerLoadItemById(int id)
-        {
-            return set.Find(id);
-        }
+        protected abstract T EagerLoadItemById(int id);
 
-        protected virtual IQueryable<T> EagerLoadCollection(Func<T, bool> filter)
-        {
-            return set.Where(filter).AsQueryable();
-        }
+        protected abstract IQueryable<T> EagerLoadCollection(Func<T, bool> filter);
 
     }
 }
