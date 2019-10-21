@@ -94,7 +94,8 @@ namespace SightMap.BLL.Infrastructure.Implementations.Test
 
             return collection.Skip(filter.Offset)
                              .Take(filter.Size)
-                             .Select(s => SourceToShortDto(s));
+                             .Select(s => SourceToShortDto(s))
+                             .AsEnumerable();
         }
 
         public TFullDto GetObject(int id)

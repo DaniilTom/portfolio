@@ -26,6 +26,6 @@ namespace SightMap.DAL.Models
         //[ForeignKey(nameof(Type))]
         public int SightTypeId { get; set; }
         [ForeignKey(nameof(SightTypeId))]
-        public virtual SightType Type { get; set; }
+        public SightType Type { get; set; }
     }
 }
