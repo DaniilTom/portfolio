@@ -11,8 +11,9 @@ namespace SightMap.Controllers
     [ApiController]
     public class SightsController : Controller
     {
-        private IDataAccess<SightDTO, ShortSightDTO, SightFilterDTO> dataStore;
-        public SightsController(IDataAccess<SightDTO, ShortSightDTO, SightFilterDTO> _dataStore)
+        private IDbManager<SightDTO, ShortSightDTO, SightFilterDTO> dataStore;
+
+        public SightsController(IDbManager<SightDTO, ShortSightDTO, SightFilterDTO> _dataStore)
         {
             dataStore = _dataStore;
         }
@@ -65,6 +66,7 @@ namespace SightMap.Controllers
         {
             var resultObject = dataStore.GetObject(id);
             var resultState = ResultState<SightDTO>.CreateResulState<SightDTO>(resultObject);
+
             return resultState;
         }
     }

@@ -3,7 +3,7 @@ using SightMap.DAL.Models;
 
 namespace SightMap.BLL.Filters
 {
-    public interface IFilter<T> where T : Base
+    public interface IFilter<T> where T : BaseEntity
     {
         bool IsStatisfy(T itemToCheck);
         int Offset { get; }

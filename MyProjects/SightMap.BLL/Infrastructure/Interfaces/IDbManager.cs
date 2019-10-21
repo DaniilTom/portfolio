@@ -5,8 +5,9 @@ using System.Collections.Generic;
 
 namespace SightMap.BLL.Infrastructure.Interfaces
 {
-    public interface IDataAccess<TFullDto, TShortDto, TFilterDto> where TFullDto : TShortDto
-                                                              where TFilterDto : BaseFilterDTO
+    public interface IDbManager<TFullDto, TShortDto, TFilterDto> 
+        where TFullDto : TShortDto
+        where TFilterDto : BaseFilterDTO
     {
         TFullDto Add(TFullDto dto);
 

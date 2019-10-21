@@ -3,7 +3,7 @@ using SightMap.DAL.Models;
 
 namespace SightMap.BLL.Filters
 {
-    public abstract class BaseFilter<T> : IFilter<T> where T : Base
+    public abstract class BaseFilter<T> : IFilter<T> where T : BaseEntity
     {
         protected BaseFilterDTO filterData;
         protected BaseFilter(BaseFilterDTO _filterData) { filterData = _filterData; }

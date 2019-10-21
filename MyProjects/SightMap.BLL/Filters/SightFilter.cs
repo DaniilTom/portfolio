@@ -5,13 +5,16 @@ namespace SightMap.BLL.Filters
 {
     public class SightFilter : BaseFilter<Sight>
     {
-        public string TypeName { get; }
+        public int SightTypeId { get; }
 
-        public SightFilter(SightFilterDTO dto) : base(dto) { TypeName = dto.TypeName; }
+        public SightFilter(SightFilterDTO dto) : base(dto)
+        {
+            SightTypeId = dto.SightTypeId;
+        }
 
         public override bool IsStatisfy(Sight obj)
         {
-            return base.IsStatisfy(obj) || (obj.Type.Name.Equals(TypeName, System.StringComparison.CurrentCultureIgnoreCase));
+            return (obj.SightTypeId == SightTypeId) || base.IsStatisfy(obj);
         }
     }
 }

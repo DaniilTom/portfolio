@@ -10,7 +10,7 @@ namespace SightMap.BLL.DTO
         {
             Offset = 0;
             Size = int.MaxValue;
-            Name = "";
+            Name = string.Empty;
         }
 
         public int Id { get; set; }

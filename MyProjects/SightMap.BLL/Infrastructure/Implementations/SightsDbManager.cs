@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using AutoMapper;
+using Microsoft.Extensions.Logging;
 using SightMap.BLL.DTO;
 using SightMap.BLL.Filters;
 using SightMap.BLL.Mappers;
@@ -7,9 +8,9 @@ using SightMap.DAL.Repositories;
 
 namespace SightMap.BLL.Infrastructure.Implementations.Test
 {
-    public class SightsDbAccess : BaseDbAccess<SightDTO, ShortSightDTO, SightFilterDTO, Sight>
+    public class SightsDbManager : BaseDbManager<SightDTO, ShortSightDTO, SightFilterDTO, Sight>
     {
-        public SightsDbAccess(ILogger<SightsDbAccess> _logger, IRepository<Sight> _repo) : base(_logger, _repo) { }
+        public SightsDbManager(ILogger<SightsDbManager> _logger, IRepository<Sight> _repo, IMapper _mapper) : base(_logger, _repo, _mapper) { }
 
         protected override Sight DtoToSource(SightDTO dto) => dto?.ToSource();
 

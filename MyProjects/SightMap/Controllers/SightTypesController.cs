@@ -11,8 +11,8 @@ namespace SightMap.Controllers
     [ApiController]
     public class SightTypesController : Controller
     {
-        private IDataAccess<SightTypeDTO, SightTypeDTO, SightTypeFilterDTO> dataStore;
-        public SightTypesController(IDataAccess<SightTypeDTO, SightTypeDTO, SightTypeFilterDTO> _dataStore)
+        private IDbManager<SightTypeDTO, SightTypeDTO, SightTypeFilterDTO> dataStore;
+        public SightTypesController(IDbManager<SightTypeDTO, SightTypeDTO, SightTypeFilterDTO> _dataStore)
         {
             dataStore = _dataStore;
         }

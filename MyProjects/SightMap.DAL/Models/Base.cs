@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SightMap.DAL.Models
 {
-    public class Base
+    public class BaseEntity
     {
         [Key]
         public int Id { get; set; }

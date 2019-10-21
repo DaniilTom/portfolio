@@ -5,9 +5,6 @@ namespace SightMap.DAL
 {
     public class DataDbContext : DbContext
     {
-        public DbSet<Sight> Sights { get; set; }
-        public DbSet<SightType> SightTypes { get; set; }
-
         public DataDbContext(DbContextOptions<DataDbContext> options) : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

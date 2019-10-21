@@ -3,7 +3,7 @@
 namespace SightMap.DAL.Models
 {
     [Table("SightTypes")]
-    public class SightType : Base
+    public class SightType : BaseEntity
     {
         //[Key]
         //public int Id { get; set; }

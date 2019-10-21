@@ -8,7 +8,7 @@ namespace SightMap.DAL.Repositories
     public interface IRepository<T>
     {
         T GetById(int id);
-        IEnumerable<T> GetList(Func<T, bool> filter);
+        IEnumerable<T> GetList(Func<T, bool> filter, int offset = 0, int size = int.MaxValue);
         T Add(T item);
         T Update(T item);
         bool Delete(int id);
