@@ -5,8 +5,8 @@ using System.Collections.Generic;
 
 namespace SightMap.BLL.Infrastructure.Interfaces
 {
-    public interface IDbManager<TFullDto, TShortDto, TFilterDto> 
-        where TFullDto : TShortDto
+    public interface IDbManager<TFullDto, TFilterDto> 
+        where TFullDto : BaseDTO
         where TFilterDto : BaseFilterDTO
     {
         TFullDto Add(TFullDto dto);
@@ -25,18 +25,10 @@ namespace SightMap.BLL.Infrastructure.Interfaces
         bool Delete(int id);
 
         /// <summary>
-        /// Метод постраничного получения кратких сведений об ообъектах.
+        /// Метод постраничного получения сведений об ообъектах.
         /// </summary>
         /// <param name="filter"></param>
         /// <returns></returns>
-        IEnumerable<TShortDto> GetListObjects(TFilterDto filterDto);
-
-        /// <summary>
-        /// Метод получения целого объекта.
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        TFullDto GetObject(int id);
-
+        IEnumerable<TFullDto> GetListObjects(TFilterDto filterDto);
     }
 }

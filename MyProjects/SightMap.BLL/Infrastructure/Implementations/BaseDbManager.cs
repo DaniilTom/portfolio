@@ -11,8 +11,8 @@ using SightMap.DAL.Repositories;
 
 namespace SightMap.BLL.Infrastructure.Implementations
 {
-    public abstract class BaseDbManager<TFullDto, TShortDto, TFilterDto, TModel> : IDbManager<TFullDto, TShortDto, TFilterDto>
-        where TFullDto : TShortDto
+    public abstract class BaseDbManager<TFullDto, TFilterDto, TModel> : IDbManager<TFullDto, TFilterDto>
+        where TFullDto : BaseDTO
         where TFilterDto : BaseFilterDTO
         where TModel : BaseEntity
     {
@@ -54,6 +54,9 @@ namespace SightMap.BLL.Infrastructure.Implementations
 
             try
             {
+                if (!(dto.Id > 0))
+                    throw new ArgumentOutOfRangeException("Указана неверный Id.");
+
                 var src = mapper.Map<TModel>(dto);
                 temp = repo.Update(src);
                 fullDto = mapper.Map<TFullDto>(temp);
@@ -82,17 +85,17 @@ namespace SightMap.BLL.Infrastructure.Implementations
             return result;
         }
 
-        public IEnumerable<TShortDto> GetListObjects(TFilterDto filterDto)
+        public IEnumerable<TFullDto> GetListObjects(TFilterDto filterDto)
         {
             IFilter<TModel> filter = ConfigureFilter(filterDto);
 
             IEnumerable<TModel> collection;
-            IEnumerable<TShortDto> dtoCollection;
+            IEnumerable<TFullDto> dtoCollection;
 
             try
             {
                 collection = repo.GetList(filter.IsStatisfy, filter.Offset, filter.Size);
-                dtoCollection = collection.Select(s => mapper.Map<TShortDto>(s)).AsEnumerable();
+                dtoCollection = collection.Select(s => mapper.Map<TFullDto>(s)).ToList();
 
             }
             catch (Exception e)
@@ -102,23 +105,6 @@ namespace SightMap.BLL.Infrastructure.Implementations
             }
 
             return dtoCollection;
-        }
-
-        public TFullDto GetObject(int id)
-        {
-            TFullDto fullDto;
-
-            try
-            {
-                fullDto = mapper.Map<TFullDto>(repo.GetById(id));
-            }
-            catch (Exception e)
-            {
-                logger.LogError(e, e.Message);
-                fullDto = default(TFullDto);
-            }
-
-            return fullDto;
         }
 
         protected abstract IFilter<TModel> ConfigureFilter(TFilterDto dto);

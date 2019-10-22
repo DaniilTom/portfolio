@@ -29,8 +29,8 @@ namespace SightMap
             //services.AddScoped<IDataAccess<SightDTO, ShortSightDTO, SightFilter>, SightsDbAccess>();
             //services.AddScoped<IDataAccess<SightTypeDTO, SightTypeDTO, SightTypeFilter>, SightTypesDbAccess>();
 
-            services.AddScoped<IDbManager<SightDTO, ShortSightDTO, SightFilterDTO>, SightsDbManager>();
-            services.AddScoped<IDbManager<SightTypeDTO, SightTypeDTO, SightTypeFilterDTO>, SightTypesDbManager>();
+            services.AddScoped<IDbManager<SightDTO, SightFilterDTO>, SightsDbManager>();
+            services.AddScoped<IDbManager<SightTypeDTO, SightTypeFilterDTO>, SightTypesDbManager>();
 
             var mappingConfig = MapperConfig.Initialize();
             IMapper mapper = mappingConfig.CreateMapper();

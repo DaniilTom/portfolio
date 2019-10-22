@@ -4,6 +4,7 @@ using SightMap.BLL.DTO;
 using SightMap.BLL.Infrastructure.Interfaces;
 using SightMap.Models;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SightMap.Controllers
 {
@@ -11,8 +12,8 @@ namespace SightMap.Controllers
     [ApiController]
     public class SightTypesController : Controller
     {
-        private IDbManager<SightTypeDTO, SightTypeDTO, SightTypeFilterDTO> dataStore;
-        public SightTypesController(IDbManager<SightTypeDTO, SightTypeDTO, SightTypeFilterDTO> _dataStore)
+        private IDbManager<SightTypeDTO, SightTypeFilterDTO> dataStore;
+        public SightTypesController(IDbManager<SightTypeDTO, SightTypeFilterDTO> _dataStore)
         {
             dataStore = _dataStore;
         }
@@ -63,8 +64,9 @@ namespace SightMap.Controllers
         [HttpGet]
         public ResultState<SightTypeDTO> Get([RequiredFromQuery]int id)
         {
-            var resultObject = dataStore.GetObject(id);
-            var resultState = ResultState<SightTypeDTO>.CreateResulState<SightTypeDTO>(resultObject);
+            var resultObject = dataStore.GetListObjects(new SightTypeFilterDTO { Id = id });
+            var resultState = ResultState<SightTypeDTO>.CreateResulState<SightTypeDTO>(resultObject?.FirstOrDefault());
+
             return resultState;
         }
     }

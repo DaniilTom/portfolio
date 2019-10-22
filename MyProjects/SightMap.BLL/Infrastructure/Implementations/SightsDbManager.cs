@@ -7,9 +7,10 @@ using SightMap.DAL.Repositories;
 
 namespace SightMap.BLL.Infrastructure.Implementations
 {
-    public class SightsDbManager : BaseDbManager<SightDTO, ShortSightDTO, SightFilterDTO, Sight>
+    public class SightsDbManager : BaseDbManager<SightDTO, SightFilterDTO, Sight>
     {
         public SightsDbManager(ILogger<SightsDbManager> _logger, IRepository<Sight> _repo, IMapper _mapper) : base(_logger, _repo, _mapper) { }
+
         protected override IFilter<Sight> ConfigureFilter(SightFilterDTO dto) => new SightFilter(dto);
     }
 }
