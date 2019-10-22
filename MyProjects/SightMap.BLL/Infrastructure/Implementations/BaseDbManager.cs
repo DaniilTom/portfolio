@@ -11,17 +11,17 @@ using SightMap.DAL.Repositories;
 
 namespace SightMap.BLL.Infrastructure.Implementations
 {
-    public abstract class BaseDbManager<TFullDto, TShortDto, TFilterDto, TSource> : IDbManager<TFullDto, TShortDto, TFilterDto>
+    public abstract class BaseDbManager<TFullDto, TShortDto, TFilterDto, TModel> : IDbManager<TFullDto, TShortDto, TFilterDto>
         where TFullDto : TShortDto
         where TFilterDto : BaseFilterDTO
-        where TSource : BaseEntity
+        where TModel : BaseEntity
     {
 
-        protected IRepository<TSource> repo;
+        protected IRepository<TModel> repo;
         private ILogger logger;
         protected IMapper mapper;
 
-        protected BaseDbManager(ILogger _logger, IRepository<TSource> _repo, IMapper _mapper)
+        protected BaseDbManager(ILogger _logger, IRepository<TModel> _repo, IMapper _mapper)
         {
             logger = _logger;
             repo = _repo;
@@ -30,11 +30,11 @@ namespace SightMap.BLL.Infrastructure.Implementations
 
         public TFullDto Add(TFullDto dto)
         {
-            TSource temp = null;
+            TModel temp = null;
             TFullDto fullDto;
             try
             {
-                var src = mapper.Map<TSource>(dto);
+                var src = mapper.Map<TModel>(dto);
                 temp = repo.Add(src);
                 fullDto = mapper.Map<TFullDto>(temp);
             }
@@ -49,12 +49,12 @@ namespace SightMap.BLL.Infrastructure.Implementations
 
         public TFullDto Edit(TFullDto dto)
         {
-            TSource temp;
+            TModel temp;
             TFullDto fullDto;
 
             try
             {
-                var src = mapper.Map<TSource>(dto);
+                var src = mapper.Map<TModel>(dto);
                 temp = repo.Update(src);
                 fullDto = mapper.Map<TFullDto>(temp);
             }
@@ -84,9 +84,9 @@ namespace SightMap.BLL.Infrastructure.Implementations
 
         public IEnumerable<TShortDto> GetListObjects(TFilterDto filterDto)
         {
-            IFilter<TSource> filter = ConfigureFilter(filterDto);
+            IFilter<TModel> filter = ConfigureFilter(filterDto);
 
-            IEnumerable<TSource> collection;
+            IEnumerable<TModel> collection;
             IEnumerable<TShortDto> dtoCollection;
 
             try
@@ -121,6 +121,6 @@ namespace SightMap.BLL.Infrastructure.Implementations
             return fullDto;
         }
 
-        protected abstract IFilter<TSource> ConfigureFilter(TFilterDto dto);
+        protected abstract IFilter<TModel> ConfigureFilter(TFilterDto dto);
     }
 }
