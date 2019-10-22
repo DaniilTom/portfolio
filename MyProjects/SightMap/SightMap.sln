@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SightMap", "SightMap.csproj
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SightMap.DAL", "..\SightMap.DAL\SightMap.DAL.csproj", "{2FB85031-7E7F-48B3-ACAB-21D9C68A90E7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SightMap.BLL", "..\SightMap.BLL\SightMap.BLL.csproj", "{E08338F5-D8C1-40F5-A104-EDF8D98F648C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SightMap.BLL", "..\SightMap.BLL\SightMap.BLL.csproj", "{E08338F5-D8C1-40F5-A104-EDF8D98F648C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

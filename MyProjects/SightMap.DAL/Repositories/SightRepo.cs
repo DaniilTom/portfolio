@@ -1,22 +1,28 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SightMap.DAL.Models;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace SightMap.DAL.Repositories
 {
     public class SightRepo : BaseRepository<Sight>
     {
-        public SightRepo(DataDbContext _context) : base(_context) { }
-
-        protected override Sight EagerLoadItemById(int id)
+        private IRepository<SightType> typeRepo;
+        public SightRepo(DataDbContext _context, IRepository<SightType> _typeRepo) : base(_context)
         {
-            return set.Include(s => s.Type).FirstOrDefault(s => s.Id == id);
+            typeRepo = _typeRepo;
         }
 
-        protected override IQueryable<Sight> EagerLoadCollection(Func<Sight, bool> filter)
+        public override IEnumerable<Sight> GetList(Func<Sight, bool> filter, int offset = 0, int size = int.MaxValue)
         {
-            return set.Include(s => s.Type).Where(filter).AsQueryable();
+            var sights = base.GetList(filter, offset, size);
+            foreach(var s in sights)
+            {
+                s.Type = typeRepo.GetList(t => t.Id == s.SightTypeId).FirstOrDefault();
+            }
+
+            return sights;
         }
     }
 }

@@ -7,66 +7,55 @@ using System.Text;
 
 namespace SightMap.DAL.Repositories
 {
-    public abstract class BaseRepository<T> : IRepository<T> where T : Base, new()
+    public abstract class BaseRepository<T> : IRepository<T> where T : BaseEntity, new()
     {
-        protected DbSet<T> set;
+        private DbSet<T> dBSet;
         private DataDbContext context;
 
         public BaseRepository(DataDbContext _context)
         {
             context = _context;
-            set = _context.Set<T>();
+            dBSet = _context.Set<T>();
         }
 
-        public T Add(T item)
+        public virtual T Add(T item)
         {
+            //return dBSet.Add(item)?.Entity;
+
             T temp = null;
-            var entityEntry = set.Add(item);
+            var entityEntry = dBSet.Add(item);
             if (context.SaveChanges() > 0)
                 temp = entityEntry.Entity;
             return temp;
         }
 
-        public T Update(T item)
+        public virtual T Update(T item)
         {
             T temp = null;
-            var entityEntry = set.Update(item);
+            
+            if (!(item.Id > 0))
+                return temp;
+
+            var entityEntry = dBSet.Update(item);
             if (context.SaveChanges() > 0)
                 temp = entityEntry.Entity;
+            
             return temp;
         }
 
-        public bool Delete(int id)
+        public virtual bool Delete(int id)
         {
             T item = new T { Id = id };
-            set.Attach(item);
-            set.Remove(item);
+            dBSet.Attach(item);
+            dBSet.Remove(item);
             if (context.SaveChanges() > 0)
                 return true;
             return false;
         }
 
-        public T GetById(int id)
+        public virtual IEnumerable<T> GetList(Func<T, bool> filter, int offset = 0, int size = int.MaxValue)
         {
-            var item = EagerLoadItemById(id);
-            context.Entry(item).State = EntityState.Detached;
-            return item;
+            return dBSet.AsNoTracking().Where(filter).Skip(offset).Take(size).ToArray();
         }
-
-        public IEnumerable<T> GetList(Func<T, bool> filter)
-        {
-            var collection = EagerLoadCollection(filter);
-            return collection.AsNoTracking().AsEnumerable();
-        }
-
-        /// <summary>
-        /// Переопределяется для жадной загрузки.
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        protected abstract T EagerLoadItemById(int id);
-
-        protected abstract IQueryable<T> EagerLoadCollection(Func<T, bool> filter);
-
     }
 }
