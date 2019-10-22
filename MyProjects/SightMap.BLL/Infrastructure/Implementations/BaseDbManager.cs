@@ -85,7 +85,7 @@ namespace SightMap.BLL.Infrastructure.Implementations
             return result;
         }
 
-        public IEnumerable<TFullDto> GetListObjects(TFilterDto filterDto)
+        public virtual IEnumerable<TFullDto> GetListObjects(TFilterDto filterDto)
         {
             IFilter<TModel> filter = ConfigureFilter(filterDto);
 

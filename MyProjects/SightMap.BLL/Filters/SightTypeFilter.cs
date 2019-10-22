@@ -5,6 +5,12 @@ namespace SightMap.BLL.Filters
 {
     public class SightTypeFilter : BaseFilter<SightType>
     {
-        public SightTypeFilter(SightTypeFilterDTO dto) : base(dto) { }
+        public string Name { get; set; }
+
+        public SightTypeFilter(SightTypeFilterDTO dto) : base(dto)
+        {
+            Name = string.Empty;
+        }
+
     }
 }

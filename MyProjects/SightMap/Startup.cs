@@ -31,6 +31,7 @@ namespace SightMap
 
             services.AddScoped<IDbManager<SightDTO, SightFilterDTO>, SightsDbManager>();
             services.AddScoped<IDbManager<SightTypeDTO, SightTypeFilterDTO>, SightTypesDbManager>();
+            services.AddScoped<IDbManager<ReviewDTO, ReviewFilterDTO>, ReviewsDbManager>();
 
             var mappingConfig = MapperConfig.Initialize();
             IMapper mapper = mappingConfig.CreateMapper();

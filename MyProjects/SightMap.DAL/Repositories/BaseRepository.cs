@@ -55,7 +55,7 @@ namespace SightMap.DAL.Repositories
 
         public virtual IEnumerable<T> GetList(Func<T, bool> filter, int offset = 0, int size = int.MaxValue)
         {
-            return dBSet.AsNoTracking().Where(filter).Skip(offset).Take(size).ToArray();
+            return dBSet.AsNoTracking().Where(filter).Skip(offset).Take(size).ToList();
         }
     }
 }

@@ -17,6 +17,17 @@ namespace SightMap.DAL
 
                 entity.Property(nameof(Sight.SightTypeId)).HasColumnName("Type");
             });
+
+            modelBuilder.Entity<Review>(entity =>
+            {
+                entity.HasOne<Sight>()
+                      .WithOne()
+                      .HasForeignKey<Review>(r => r.ItemId);
+
+                //entity.HasOne<Review>(r => r.Parent)
+                //      .WithOne()
+                //      .HasForeignKey<Review>(r => r.ParentId);
+            });
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SightMap.DAL.Models
@@ -6,6 +7,9 @@ namespace SightMap.DAL.Models
     [Table("Sights")]
     public class Sight : BaseEntity
     {
+        [MaxLength(50)]
+        public string Name { get; set; }
+
         [MaxLength(100)]
         public string ShortDescription { get; set; }
 
@@ -21,5 +25,9 @@ namespace SightMap.DAL.Models
 
         [ForeignKey(nameof(SightTypeId))]
         public SightType Type { get; set; }
+
+        public DateTime CreateDate { get; set; }
+
+        public DateTime UpdateDate { get; set; }
     }
 }

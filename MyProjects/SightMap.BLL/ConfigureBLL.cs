@@ -18,6 +18,7 @@ namespace SightMap.BLL
 
             services.AddScoped<IRepository<Sight>, SightRepo>();
             services.AddScoped<IRepository<SightType>, SightTypeRepo>();
+            services.AddScoped<IRepository<Review>, ReviewRepo>();
 
             return services;
         }

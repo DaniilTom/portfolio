@@ -11,10 +11,10 @@ namespace SightMap.BLL.Filters
         public int Offset { get => filterData.Offset; }
         public int Size { get => filterData.Size; }
 
-        public virtual bool IsStatisfy(T obj)
+        public virtual bool IsStatisfy(T item)
         {
-            return (obj.Id == filterData.Id) || 
-                (obj.Name.Equals(filterData.Name, System.StringComparison.CurrentCultureIgnoreCase));
+            return (item.Id == filterData.Id); // || 
+                //(item.Name.Equals(filterData.Name, System.StringComparison.CurrentCultureIgnoreCase)); // TODO: Filter Bug
         }
     }
 }
