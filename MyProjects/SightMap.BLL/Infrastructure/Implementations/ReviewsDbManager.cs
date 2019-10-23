@@ -15,46 +15,90 @@ namespace SightMap.BLL.Infrastructure.Implementations
 
         public override IEnumerable<ReviewDTO> GetListObjects(ReviewFilterDTO filterDto)
         {
-            var temp = base.GetListObjects(filterDto).ToList();
+            var source = base.GetListObjects(filterDto).ToList();
             var result = new List<ReviewDTO>();
 
-            foreach (var r in temp)
-            {
-                if (r.ParentId == 0)
-                {
-                    result.Add(r);
-                    temp.Remove(r);
-                }
-            }
-
-            Fill(result, temp);
-
+            Fill(result, source);
 
             return result;
         }
 
         protected override IFilter<Review> ConfigureFilter(ReviewFilterDTO dto) => new ReviewFilter(dto);
 
-        public void Fill(List<ReviewDTO> review, List<ReviewDTO> source)
+        private void Fill(List<ReviewDTO> result, List<ReviewDTO> source)
         {
-            if (source.Count == 0)
+            if (source.Count == 0) // условие выхода
                 return;
 
-            if()
-
-            foreach (var r in review)
+            if (result.Count == 0) // инициализация
             {
-                foreach (var src in source)
+                for (int i = 0; i < source.Count; i++)
                 {
-                    if (src.ParentId == r.Id)
+                    var tempItem = source[i];
+                    if (tempItem.ParentId == 0)
                     {
-                        r.Children.Add(src);
-                        source.Remove(src);
+                        result.Add(tempItem);
+                        source.Remove(tempItem);
+                        i--; // из-за смещения элементов коллекции
+                    }
+                }
+            }
+
+            for (int i = 0; i < result.Count; i++) // для каждого родителя
+            {
+                var parent = result[i];
+
+                for (int l = 0; l < source.Count; l++)
+                {
+                    var tempItem = source[l];
+                    if (tempItem.ParentId == parent.Id)
+                    {
+                        parent.Children.Add(tempItem);
+                        source.Remove(tempItem);
+                        l--; // из-за смещения элементов коллекции
                     }
                 }
 
-                Fill(r.Children, source);
+                Fill(parent.Children, source);
             }
         }
+
+        //private void Fill(List<ReviewDTO> result, List<ReviewDTO> source)
+        //{
+        //    if (source.Count == 0) // условие выхода
+        //        return;
+
+        //    if(result.Count == 0) // инициализация
+        //    {
+        //        for (int i = 0; i < source.Count; i++)
+        //        {
+        //            var tempItem = source[i];
+        //            if (tempItem.ParentId == 0)
+        //            {
+        //                result.Add(tempItem);
+        //                source.Remove(tempItem);
+        //                i--; // из-за смещения элементов коллекции
+        //            }
+        //        }
+        //    }
+
+        //    for(int i = 0; i < result.Count; i ++) // для каждого родителя
+        //    {
+        //        var parent = result[i];
+
+        //        for (int l = 0; l < source.Count; l++)
+        //        {
+        //            var tempItem = source[l];
+        //            if (tempItem.ParentId == parent.Id)
+        //            {
+        //                parent.Children.Add(tempItem);
+        //                source.Remove(tempItem);
+        //                l--; // из-за смещения элементов коллекции
+        //            }
+        //        }
+
+        //        Fill(parent.Children, source);
+        //    }
+        //}
     }
 }
