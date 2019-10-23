@@ -9,8 +9,6 @@ using System.Linq;
 
 namespace SightMap.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
     public class SightsController : BaseController<SightDTO, SightFilterDTO>
     {
         public SightsController(IBaseManager<SightDTO, SightFilterDTO> manager) : base(manager) { }
