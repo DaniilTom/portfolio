@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SightMap.Attributes;
 using SightMap.BLL.DTO;
+using SightMap.BLL.Infrastructure;
 using SightMap.BLL.Infrastructure.Interfaces;
 using SightMap.Models;
 using System.Collections.Generic;
@@ -12,18 +13,18 @@ namespace SightMap.Controllers
     [ApiController]
     public class SightsController : Controller
     {
-        private IDbManager<SightDTO, SightFilterDTO> dataStore;
+        private IBaseManager<SightDTO, SightFilterDTO> _manager;
 
-        public SightsController(IDbManager<SightDTO, SightFilterDTO> _dataStore)
+        public SightsController(IBaseManager<SightDTO, SightFilterDTO> manager)
         {
-            dataStore = _dataStore;
+            _manager = manager;
         }
 
         [HttpPost]
         public ResultState<SightDTO> Post([FromBody] SightDTO dto)
         {
-            var resultObject = dataStore.Add(dto);
-            var resultState = ResultState<SightDTO>.CreateResulState<SightDTO>(resultObject);
+            var resultObject = _manager.Add(dto);
+            var resultState = new ResultState<SightDTO>(resultObject);
 
             return resultState;
         }
@@ -31,8 +32,8 @@ namespace SightMap.Controllers
         [HttpPut]
         public ResultState<SightDTO> Put(SightDTO dto)
         {
-            var resultObject = dataStore.Edit(dto);
-            var resultState = ResultState<SightDTO>.CreateResulState<SightDTO>(resultObject);
+            var resultObject = _manager.Edit(dto);
+            var resultState = new ResultState<SightDTO>(resultObject);
 
             return resultState;
         }
@@ -40,14 +41,14 @@ namespace SightMap.Controllers
         [HttpDelete]
         public ResultState<SightDTO> Delete(int id)
         {
-            var success = dataStore.Delete(id);
-            ResultState<SightDTO> resultState = new ResultState<SightDTO>();
+            var success = _manager.Delete(id);
+            ResultState<SightDTO> resultState = new ResultState<SightDTO>(null);
             if (success)
                 resultState.IsSuccess = true;
             else
             {
                 resultState.IsSuccess = false;
-                resultState.Message = "Что-то пошло не так.";
+                resultState.Message = Constants.ErrorIdWrong;
             }
 
             return resultState;
@@ -56,8 +57,8 @@ namespace SightMap.Controllers
         [HttpGet]
         public ResultState<IEnumerable<ShortSightDTO>> Get([FromQuery] SightFilterDTO filter)
         {
-            var resultObject = dataStore.GetListObjects(filter);
-            var resultState = ResultState<IEnumerable<ShortSightDTO>>.CreateResulState<IEnumerable<ShortSightDTO>>(resultObject);
+            var resultObject = _manager.GetListObjects(filter);
+            var resultState = new ResultState<IEnumerable<ShortSightDTO>>(resultObject);
 
             return resultState;
         }
@@ -65,8 +66,8 @@ namespace SightMap.Controllers
         [HttpGet]
         public ResultState<SightDTO> Get([RequiredFromQuery]int id)
         {
-            var resultObject = dataStore.GetListObjects(new SightFilterDTO { Id = id });
-            var resultState = ResultState<SightDTO>.CreateResulState<SightDTO>(resultObject?.FirstOrDefault());
+            var resultObject = _manager.GetListObjects(new SightFilterDTO { Id = id });
+            var resultState = new ResultState<SightDTO>(resultObject.FirstOrDefault());
 
             return resultState;
         }

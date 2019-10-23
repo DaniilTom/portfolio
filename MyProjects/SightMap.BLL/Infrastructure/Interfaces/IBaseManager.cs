@@ -1,11 +1,9 @@
 ﻿using SightMap.BLL.DTO;
-using SightMap.BLL.Filters;
-using SightMap.DAL.Models;
 using System.Collections.Generic;
 
 namespace SightMap.BLL.Infrastructure.Interfaces
 {
-    public interface IDbManager<TFullDto, TFilterDto> 
+    public interface IBaseManager<TFullDto, TFilterDto> 
         where TFullDto : BaseDTO
         where TFilterDto : BaseFilterDTO
     {

@@ -11,7 +11,7 @@ using SightMap.DAL.Repositories;
 
 namespace SightMap.BLL.Infrastructure.Implementations
 {
-    public abstract class BaseDbManager<TFullDto, TFilterDto, TModel> : IDbManager<TFullDto, TFilterDto>
+    public abstract class BaseDbManager<TFullDto, TFilterDto, TModel> : IBaseManager<TFullDto, TFilterDto>
         where TFullDto : BaseDTO
         where TFilterDto : BaseFilterDTO
         where TModel : BaseEntity
@@ -54,8 +54,8 @@ namespace SightMap.BLL.Infrastructure.Implementations
 
             try
             {
-                if (!(dto.Id > 0))
-                    throw new ArgumentOutOfRangeException("Указана неверный Id.");
+                if (dto.Id <= 0)
+                    throw new ArgumentOutOfRangeException(Constants.ErrorIdWrong);
 
                 var src = mapper.Map<TModel>(dto);
                 temp = repo.Update(src);
