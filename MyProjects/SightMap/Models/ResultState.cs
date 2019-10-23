@@ -1,31 +1,35 @@
-﻿using System;
+﻿using SightMap.BLL.Infrastructure;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace SightMap.Models
 {
-    public class ResultState<T>
+    public class ResultState<T> where T : class
     {
         public bool IsSuccess { get; set; }
         public T Value { get; set; }
         public string Message { get; set; }
 
-        public static ResultState<T> CreateResulState<T>(T resultObject) where T : class
-        {
-            ResultState<T> resultState = new ResultState<T>();
+        public ResultState() { }
+        public ResultState(T resultObject)
+        { 
             if (!(resultObject is null))
             {
-                resultState.IsSuccess = true;
-                resultState.Value = resultObject;
+                IsSuccess = true;
+                Value = resultObject;
             }
             else
             {
-                resultState.IsSuccess = false;
-                resultState.Value = null;
-                resultState.Message = "Что-то пошло не так.";
+                IsSuccess = false;
+                Value = null;
+                Message = Constants.ErrorSmthWrong;
             }
-            return resultState;
+        }
+        public ResultState(T resultObject, string Message) : this(resultObject)
+        {
+            this.Message = Message;
         }
     }
 }
