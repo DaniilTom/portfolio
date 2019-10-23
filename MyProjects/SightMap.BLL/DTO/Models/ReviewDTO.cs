@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace SightMap.BLL.DTO
 {
@@ -11,6 +9,5 @@ namespace SightMap.BLL.DTO
         public string Message { get; set; }
         public int AuthorId { get; set; }
         public List<ReviewDTO> Children { get; set; } = new List<ReviewDTO>();
-        public ReviewDTO Parent { get; set; }
     }
 }

@@ -26,9 +26,6 @@ namespace SightMap
         {
             services.AddMvc(options => options.EnableEndpointRouting = false);
 
-            //services.AddScoped<IDataAccess<SightDTO, ShortSightDTO, SightFilter>, SightsDbAccess>();
-            //services.AddScoped<IDataAccess<SightTypeDTO, SightTypeDTO, SightTypeFilter>, SightTypesDbAccess>();
-
             services.AddScoped<IDbManager<SightDTO, SightFilterDTO>, SightsDbManager>();
             services.AddScoped<IDbManager<SightTypeDTO, SightTypeFilterDTO>, SightTypesDbManager>();
             services.AddScoped<IDbManager<ReviewDTO, ReviewFilterDTO>, ReviewsDbManager>();
