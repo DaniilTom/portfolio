@@ -5,16 +5,23 @@ namespace SightMap.BLL.Filters
 {
     public abstract class BaseFilter<T> : IFilter<T> where T : BaseEntity
     {
-        protected BaseFilterDTO filterData;
-        protected BaseFilter(BaseFilterDTO _filterData) { filterData = _filterData; }
+        public int Id { get; }
+        public int Offset { get; }
+        public int Size { get; }
 
-        public int Offset { get => filterData.Offset; }
-        public int Size { get => filterData.Size; }
-
-        public virtual bool IsStatisfy(T item)
+        protected BaseFilter(BaseFilterDTO filterDto)
         {
-            return (item.Id == filterData.Id); // || 
-                //(item.Name.Equals(filterData.Name, System.StringComparison.CurrentCultureIgnoreCase)); // TODO: Filter Bug
+            Id = filterDto.Id;
+            Offset = filterDto.Offset;
+            Size = filterDto.Size;
         }
+
+        /// <summary>
+        /// Метод проверки объекта на соответствие заланным параметрам. 
+        /// Параметр считается незаданным, если имеет значение по умолчанию (null или 0).
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
+        public abstract bool IsStatisfy(T item);
     }
 }

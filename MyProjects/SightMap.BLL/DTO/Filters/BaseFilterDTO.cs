@@ -4,7 +4,7 @@ using System.Text;
 
 namespace SightMap.BLL.DTO
 {
-    public class BaseFilterDTO
+    public abstract class BaseFilterDTO
     {
         public BaseFilterDTO()
         {

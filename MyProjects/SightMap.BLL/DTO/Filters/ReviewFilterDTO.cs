@@ -6,6 +6,7 @@ namespace SightMap.BLL.DTO
 {
     public class ReviewFilterDTO : BaseFilterDTO
     {
+        public int ParentId { get; set; }
         public int ItemId { get; set; }
     }
 }

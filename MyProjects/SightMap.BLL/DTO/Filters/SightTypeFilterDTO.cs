@@ -4,5 +4,8 @@ using System.Text;
 
 namespace SightMap.BLL.DTO
 {
-    public class SightTypeFilterDTO : BaseFilterDTO { }
+    public class SightTypeFilterDTO : BaseFilterDTO
+    {
+        public string Name { get; set; }
+    }
 }

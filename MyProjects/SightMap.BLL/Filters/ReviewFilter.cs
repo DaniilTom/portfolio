@@ -1,22 +1,43 @@
 ﻿using SightMap.BLL.DTO;
 using SightMap.DAL.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SightMap.BLL.Filters
 {
     public class ReviewFilter : BaseFilter<Review>
     {
+        public int ParentId { get; set; }
         public int ItemId { get; set; }
-        public ReviewFilter(ReviewFilterDTO dto) : base(dto)
+        public ReviewFilter(ReviewFilterDTO filterDto) : base(filterDto)
         {
-            ItemId = dto.ItemId;
+            ItemId = filterDto.ItemId;
+            ParentId = filterDto.ParentId;
         }
 
         public override bool IsStatisfy(Review item)
         {
-            return (ItemId == item.ItemId) || base.IsStatisfy(item);
+            if (Id != 0)
+            {
+                if (Id == item.Id)
+                    return true;
+                else
+                    return false;
+            }
+            
+            if (ItemId != 0)
+            {
+                // проверка имени
+                if (ItemId != item.ItemId)
+                    return false;
+            }
+            
+            if (ParentId != 0)
+            {
+                // проверка имени
+                if (ParentId != item.ParentId)
+                    return false;
+            }
+
+            return true;
         }
     }
 }

@@ -7,10 +7,29 @@ namespace SightMap.BLL.Filters
     {
         public string Name { get; set; }
 
-        public SightTypeFilter(SightTypeFilterDTO dto) : base(dto)
+        public SightTypeFilter(SightTypeFilterDTO filterDto) : base(filterDto)
         {
-            Name = string.Empty;
+            Name = filterDto.Name;
         }
 
+        public override bool IsStatisfy(SightType item)
+        {
+            if (Id != 0)
+            {
+                if (Id == item.Id)
+                    return true;
+                else
+                    return false;
+            }
+            
+            if (!string.IsNullOrEmpty(Name))
+            {
+                // проверка имени
+                if (Name != item.Name)
+                    return false;
+            }
+
+            return true;
+        }
     }
 }
