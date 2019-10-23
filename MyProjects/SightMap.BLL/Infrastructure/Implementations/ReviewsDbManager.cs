@@ -32,10 +32,11 @@ namespace SightMap.BLL.Infrastructure.Implementations
 
             if (result.Count == 0) // инициализация
             {
+                var minParentId = source.Min(s => s.ParentId);
                 for (int i = 0; i < source.Count; i++)
                 {
                     var tempItem = source[i];
-                    if (tempItem.ParentId == 0)
+                    if (tempItem.ParentId == minParentId)
                     {
                         result.Add(tempItem);
                         source.Remove(tempItem);
@@ -62,43 +63,5 @@ namespace SightMap.BLL.Infrastructure.Implementations
                 Fill(parent.Children, source);
             }
         }
-
-        //private void Fill(List<ReviewDTO> result, List<ReviewDTO> source)
-        //{
-        //    if (source.Count == 0) // условие выхода
-        //        return;
-
-        //    if(result.Count == 0) // инициализация
-        //    {
-        //        for (int i = 0; i < source.Count; i++)
-        //        {
-        //            var tempItem = source[i];
-        //            if (tempItem.ParentId == 0)
-        //            {
-        //                result.Add(tempItem);
-        //                source.Remove(tempItem);
-        //                i--; // из-за смещения элементов коллекции
-        //            }
-        //        }
-        //    }
-
-        //    for(int i = 0; i < result.Count; i ++) // для каждого родителя
-        //    {
-        //        var parent = result[i];
-
-        //        for (int l = 0; l < source.Count; l++)
-        //        {
-        //            var tempItem = source[l];
-        //            if (tempItem.ParentId == parent.Id)
-        //            {
-        //                parent.Children.Add(tempItem);
-        //                source.Remove(tempItem);
-        //                l--; // из-за смещения элементов коллекции
-        //            }
-        //        }
-
-        //        Fill(parent.Children, source);
-        //    }
-        //}
     }
 }
