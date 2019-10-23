@@ -64,14 +64,5 @@ namespace SightMap.Controllers
 
             return resultState;
         }
-
-        [HttpGet]
-        public ResultState<TFullDto> Get([RequiredFromQuery]int id)
-        {
-            var resultObject = _manager.GetListObjects(new TFilterDto { Id = id });
-            var resultState = new ResultState<TFullDto>(resultObject?.FirstOrDefault());
-
-            return resultState;
-        }
     }
 }
