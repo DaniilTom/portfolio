@@ -10,9 +10,9 @@ namespace SightMap.BLL.Filters
 
         public int SightTypeId { get => ((SightFilterDTO)filterData).SightTypeId; }
 
-        public DateTime UpDate { get => ((SightFilterDTO)filterData).UpDate; }
+        public DateTime? UpDate { get => ((SightFilterDTO)filterData).UpDate; }
 
-        public DateTime DownDate { get => ((SightFilterDTO)filterData).DownDate; }
+        public DateTime? DownDate { get => ((SightFilterDTO)filterData).DownDate; }
 
         public SightFilter(SightFilterDTO dto) : base(dto)
         {
@@ -22,31 +22,31 @@ namespace SightMap.BLL.Filters
         public override bool IsStatisfy(Sight item)
         {
             return (item.SightTypeId == SightTypeId) 
-                || CreateDateComparing(item)
-                || UpdateDateComparing(item)
+                //|| CreateDateComparing(item)
+                //|| UpdateDateComparing(item)
                 || base.IsStatisfy(item);
         }
 
-        private bool CreateDateComparing(Sight item)
-        {
-            var resultUp = DateTime.Compare(item.CreateDate, UpDate);
-            var resultDown = DateTime.Compare(item.CreateDate, DownDate);
+        //private bool CreateDateComparing(Sight item)
+        //{
+        //    var resultUp = DateTime.Compare(item.CreateDate, UpDate);
+        //    var resultDown = DateTime.Compare(item.CreateDate, DownDate);
 
-            if ((resultUp <= 0) && (resultDown >= 0))
-                return true;
+        //    if ((resultUp <= 0) && (resultDown >= 0))
+        //        return true;
 
-            return false;
-        }
+        //    return false;
+        //}
 
-        private bool UpdateDateComparing(Sight item)
-        {
-            var resultUp = DateTime.Compare(item.UpdateDate, UpDate);
-            var resultDown = DateTime.Compare(item.UpdateDate, DownDate);
+        //private bool UpdateDateComparing(Sight item)
+        //{
+        //    var resultUp = DateTime.Compare(item.UpdateDate, UpDate);
+        //    var resultDown = DateTime.Compare(item.UpdateDate, DownDate);
 
-            if ((resultUp <= 0) && (resultDown >= 0))
-                return true;
+        //    if ((resultUp <= 0) && (resultDown >= 0))
+        //        return true;
 
-            return false;
-        }
+        //    return false;
+        //}
     }
 }

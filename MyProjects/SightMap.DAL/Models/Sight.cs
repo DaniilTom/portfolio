@@ -26,8 +26,8 @@ namespace SightMap.DAL.Models
         [ForeignKey(nameof(SightTypeId))]
         public SightType Type { get; set; }
 
-        public DateTime CreateDate { get; set; }
+        public DateTime? CreateDate { get; set; }
 
-        public DateTime UpdateDate { get; set; }
+        public DateTime? UpdateDate { get; set; }
     }
 }
