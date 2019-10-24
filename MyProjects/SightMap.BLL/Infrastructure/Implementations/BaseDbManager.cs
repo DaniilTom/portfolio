@@ -94,7 +94,7 @@ namespace SightMap.BLL.Infrastructure.Implementations
 
             try
             {
-                collection = repo.GetList(filter.IsStatisfy, filter.Offset, filter.Size);
+                collection = repo.GetList(filter.GetExpression(), filter.Offset, filter.Size);
                 dtoCollection = collection.Select(s => mapper.Map<TFullDto>(s)).ToList();
 
             }

@@ -1,4 +1,7 @@
-﻿using SightMap.BLL.DTO;
+﻿using System;
+using System.Linq.Expressions;
+using Microsoft.EntityFrameworkCore;
+using SightMap.BLL.DTO;
 using SightMap.DAL.Models;
 
 namespace SightMap.BLL.Filters
@@ -13,31 +16,31 @@ namespace SightMap.BLL.Filters
             ParentId = filterDto.ParentId;
         }
 
-        public override bool IsStatisfy(Review item)
+        public override Expression<Func<Review, bool>> GetExpression()
         {
+            Expression<Func<Review, bool>> resultExp = base.GetExpression();
+
             if (Id != 0)
             {
-                if (Id == item.Id)
-                    return true;
-                else
-                    return false;
+                Expression<Func<Review, bool>> idExp = r => r.Id == Id;
+                return idExp;
             }
-            
-            if (ItemId != 0)
-            {
-                // проверка имени
-                if (ItemId != item.ItemId)
-                    return false;
-            }
-            
+
             if (ParentId != 0)
             {
                 // проверка имени
-                if (ParentId != item.ParentId)
-                    return false;
+                Expression<Func<Review, bool>> parentIdExp = r => r.ParentId == ParentId;
+                resultExp = AndExp(resultExp, parentIdExp);
             }
 
-            return true;
+            if (ItemId != 0)
+            {
+                // проверка имени
+                Expression<Func<Review, bool>> itemIdExp = r => r.ItemId == ItemId;
+                resultExp = AndExp(resultExp, itemIdExp);
+            }
+
+            return resultExp;
         }
     }
 }

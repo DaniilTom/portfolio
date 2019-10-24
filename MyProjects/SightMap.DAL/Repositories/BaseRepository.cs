@@ -3,6 +3,7 @@ using SightMap.DAL.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 
 namespace SightMap.DAL.Repositories
@@ -53,9 +54,12 @@ namespace SightMap.DAL.Repositories
             return false;
         }
 
-        public virtual IEnumerable<T> GetList(Func<T, bool> filter, int offset = 0, int size = int.MaxValue)
+        public virtual IEnumerable<T> GetList(Expression<Func<T, bool>> filter, int offset = 0, int size = int.MaxValue)
         {
-            return dBSet.AsNoTracking().Where(filter).Skip(offset).Take(size).ToList();
+            //int Id = new Random().Next(1, 5);
+            //Expression<Func<T, bool>> exp1 = t => t.Id == Id;
+
+            return dBSet.Where(filter).Skip(offset).Take(size).ToList();
         }
     }
 }

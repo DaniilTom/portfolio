@@ -1,6 +1,10 @@
 ﻿using SightMap.BLL.DTO;
 using SightMap.DAL.Models;
 using System;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
+using System.Collections.Generic;
 
 namespace SightMap.BLL.Filters
 {
@@ -24,59 +28,66 @@ namespace SightMap.BLL.Filters
             UpdateDownDate = filterDto.UpdateDownDate;
         }
 
-        public override bool IsStatisfy(Sight item)
+        #region Почти работает
+        public override Expression<Func<Sight, bool>> GetExpression()
         {
-            if(Id != 0)
-            {
-                if (Id == item.Id)
-                    return true;
-                else
-                    return false;
-            }
+            //var collection = Enumerable.Empty<Sight>().AsQueryable();
             
-            if(!string.IsNullOrEmpty(Name))
+            Expression<Func<Sight, bool>> resultExp = base.GetExpression();
+
+            if (Id != 0)
             {
+                //collection = collection
+                //    .Where(s => s.Id == Id)
+                //    .AsQueryable();
+                Expression<Func<Sight, bool>> idExp = s => s.Id == Id;
+                return idExp;
+            }
+
+            if (!string.IsNullOrEmpty(Name))
+            {
+                // collection = collection.Where(s => EF.Functions.Like(s.Name, "%" + Name + "%"););
                 // проверка имени
-                if (Name != item.Name)
-                    return false;
+                Expression<Func<Sight, bool>> nameExp = s => EF.Functions.Like(s.Name, "%" + Name + "%");
+                resultExp = AndExp(resultExp, nameExp);
             }
-            
-            if(SightTypeId != 0)
+
+            if (SightTypeId != 0)
             {
                 // проверка SightTypeId
-                if (SightTypeId != item.SightTypeId)
-                    return false;
+                Expression<Func<Sight, bool>> sightTypeIdExp = s => s.SightTypeId == SightTypeId;
+                resultExp = AndExp(resultExp, sightTypeIdExp);
             }
-            
-            if(!(CreateUpDate is null))
+
+            if (!(CreateUpDate is null))
             {
                 // проверка CreateDate по верхнему порогу
-                if (CreateUpDate < item.CreateDate)
-                    return false;
+                Expression<Func<Sight, bool>> createUpDateExp = s => s.CreateDate <= CreateUpDate;
+                resultExp = AndExp(resultExp, createUpDateExp);
             }
-            
-            if(!(CreateDownDate is null))
+
+            if (!(CreateDownDate is null))
             {
                 // проверка CreateDate по нижнему порогу
-                if (CreateDownDate > item.CreateDate)
-                    return false;
+                Expression<Func<Sight, bool>> createDownDateExp = s => s.CreateDate >= CreateDownDate;
+                resultExp = AndExp(resultExp, createDownDateExp);
             }
-            
+
             if (!(UpdateUpDate is null))
             {
                 // проверка UpdateDate по верхнему порогу
-                if (UpdateUpDate < item.UpdateDate)
-                    return false;
+                Expression<Func<Sight, bool>> updateUpDateExp = s => s.UpdateDate <= UpdateUpDate;
+                resultExp = AndExp(resultExp, updateUpDateExp);
             }
-            
+
             if (!(UpdateDownDate is null))
             {
                 // проверка UpdateDate по нижнему порогу
-                if (UpdateDownDate < item.UpdateDate)
-                    return false;
+                Expression<Func<Sight, bool>> updateDownDateExp = s => s.UpdateDate >= UpdateDownDate;
+                resultExp = AndExp(resultExp, updateDownDateExp);
             }
-
-            return true;
+            return resultExp;
         }
+        #endregion
     }
 }
