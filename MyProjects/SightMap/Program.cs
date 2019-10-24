@@ -14,12 +14,9 @@ namespace SightMap
     {
         public static void Main(string[] args)
         {
-            //CreateHostBuilder(args).Build().Run();
-
             var logger = NLog.Web.NLogBuilder.ConfigureNLog("nlog.config").GetCurrentClassLogger();
             try
             {
-                logger.Debug("init main");
                 CreateHostBuilder(args).Build().Run();
             }
             catch (Exception exception)
