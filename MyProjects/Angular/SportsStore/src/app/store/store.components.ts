@@ -8,7 +8,7 @@ import { ProductRepository } from "../model/product.repository";
     templateUrl: "store.component.html"
 })
 export class StoreComponent {
-    constructor(private repository: ProductRepository) {}
+    constructor(private repository: ProductRepository) { }
 
     get products(): Product[] {
         return this.repository.getProducts();
