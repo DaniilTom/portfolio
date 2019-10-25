@@ -11,9 +11,9 @@ namespace SightMap.BLL.Mappers
             MapperConfiguration am_config = new MapperConfiguration(cnfg =>
             {
                 cnfg.CreateMap<Sight, SightDTO>()
-                    .ForMember(d => d.TypeName, opt => opt.MapFrom(s => s.Type.Name))
-                    .ReverseMap()
-                    .ForMember(s => s.Type, memConf => memConf.Ignore());
+                    .ForPath(d => d.Type.Id, opt => opt.MapFrom(s => s.SightTypeId))
+                    .ReverseMap();
+                    //.ForMember(s => s.Type, memConf => memConf.Ignore());
 
                 cnfg.CreateMap<SightType, SightTypeDTO>()
                     .ReverseMap();

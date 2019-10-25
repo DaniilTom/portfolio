@@ -64,26 +64,26 @@ namespace SightMap.Controllers
             var key = RouteData.Values["controller"];
             IEnumerable<TFullDto> resultObject;
 
-            if ((filter.Offset == 0) && (HttpContext.Request.Query.Count == 0))
-            {
-                if (!_cache.TryGetValue<IEnumerable<TFullDto>>(key, out resultObject))
-                {
-                    resultObject = _manager.GetListObjects(new TFilterDto { Size = CacheConst.DefaultSize });
+            //if ((filter.Offset == 0) && (HttpContext.Request.Query.Count == 0))
+            //{
+            //    if (!_cache.TryGetValue<IEnumerable<TFullDto>>(key, out resultObject))
+            //    {
+            //        resultObject = _manager.GetListObjects(new TFilterDto { Size = CacheConst.DefaultSize });
 
-                    var memCacheOptions = new MemoryCacheEntryOptions();
+            //        var memCacheOptions = new MemoryCacheEntryOptions();
 
-                    memCacheOptions.RegisterPostEvictionCallback(CacheConst.PostEvictionCallbackMethod);
-                    memCacheOptions.SetAbsoluteExpiration(TimeSpan.FromSeconds(CacheConst.DefaultExpirationTime));
+            //        memCacheOptions.RegisterPostEvictionCallback(CacheConst.PostEvictionCallbackMethod);
+            //        memCacheOptions.SetAbsoluteExpiration(TimeSpan.FromSeconds(CacheConst.DefaultExpirationTime));
 
-                    _cache.Set<IEnumerable<TFullDto>>(key, resultObject, memCacheOptions);
-                }
-            }
-            else
-            {
-                resultObject = _manager.GetListObjects(filter);
-            }
+            //        _cache.Set<IEnumerable<TFullDto>>(key, resultObject, memCacheOptions);
+            //    }
+            //}
+            //else
+            //{
+            //    resultObject = _manager.GetListObjects(filter);
+            //}
 
-            //resultObject = _manager.GetListObjects(filter);
+            resultObject = _manager.GetListObjects(filter);
             var resultState = new ResultState<IEnumerable<TFullDto>>(resultObject);
 
             return resultState;
