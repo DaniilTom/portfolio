@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SightMap.Attributes;
+using Microsoft.Extensions.Caching.Memory;
 using SightMap.BLL.DTO;
 using SightMap.BLL.Infrastructure;
 using SightMap.BLL.Infrastructure.Interfaces;
 using SightMap.Models;
+using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace SightMap.Controllers
 {
@@ -16,10 +16,12 @@ namespace SightMap.Controllers
         where TFilterDto : BaseFilterDTO, new()
     {
         private IBaseManager<TFullDto, TFilterDto> _manager;
+        private IMemoryCache _cache;
 
-        protected BaseController(IBaseManager<TFullDto, TFilterDto> manager)
+        protected BaseController(IBaseManager<TFullDto, TFilterDto> manager, IMemoryCache cache)
         {
             _manager = manager;
+            _cache = cache;
         }
 
         [HttpPost]
@@ -59,7 +61,29 @@ namespace SightMap.Controllers
         [HttpGet]
         public ResultState<IEnumerable<TFullDto>> Get([FromQuery] TFilterDto filter)
         {
-            var resultObject = _manager.GetListObjects(filter);
+            var key = RouteData.Values["controller"];
+            IEnumerable<TFullDto> resultObject;
+
+            if ((filter.Offset == 0) && (HttpContext.Request.Query.Count == 0))
+            {
+                if (!_cache.TryGetValue<IEnumerable<TFullDto>>(key, out resultObject))
+                {
+                    resultObject = _manager.GetListObjects(new TFilterDto { Size = CacheConst.DefaultSize });
+
+                    var memCacheOptions = new MemoryCacheEntryOptions();
+
+                    memCacheOptions.RegisterPostEvictionCallback(CacheConst.PostEvictionCallbackMethod);
+                    memCacheOptions.SetAbsoluteExpiration(TimeSpan.FromSeconds(CacheConst.DefaultExpirationTime));
+
+                    _cache.Set<IEnumerable<TFullDto>>(key, resultObject, memCacheOptions);
+                }
+            }
+            else
+            {
+                resultObject = _manager.GetListObjects(filter);
+            }
+
+            //resultObject = _manager.GetListObjects(filter);
             var resultState = new ResultState<IEnumerable<TFullDto>>(resultObject);
 
             return resultState;

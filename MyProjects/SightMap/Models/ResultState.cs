@@ -12,7 +12,7 @@ namespace SightMap.Models
         {
             IsSuccess = resultObject != null;
             Value = resultObject;
-            Message = string.IsNullOrWhiteSpace(message) ? Constants.ErrorSmthWrong : message;
+            Message = resultObject is null ? Constants.ErrorSmthWrong : message;
         }
         public bool IsSuccess { get; set; }
         public T Value { get; set; }

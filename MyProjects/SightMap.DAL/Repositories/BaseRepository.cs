@@ -60,6 +60,8 @@ namespace SightMap.DAL.Repositories
             //Expression<Func<T, bool>> exp1 = t => t.Id == Id;
 
             return dBSet.Where(filter).Skip(offset).Take(size).ToList();
+            //return dBSet.Where(t => t.Id == 1).Skip(offset).Take(size).ToList();
+            //return dBSet.AsEnumerable().Where(t => t.Id == 1).AsQueryable().Skip(offset).Take(size).ToList();
         }
     }
 }
