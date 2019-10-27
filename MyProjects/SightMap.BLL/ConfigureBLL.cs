@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using SightMap.BLL.CustomCache;
 using SightMap.BLL.DTO;
 using SightMap.DAL;
 using SightMap.DAL.Models;
@@ -19,6 +20,10 @@ namespace SightMap.BLL
             services.AddScoped<IRepository<Sight>, SightRepo>();
             services.AddScoped<IRepository<SightType>, SightTypeRepo>();
             services.AddScoped<IRepository<Review>, ReviewRepo>();
+
+            services.AddScoped<ICustomCache<SightDTO>, SlidingCustomCache<SightDTO>>();
+            services.AddScoped<ICustomCache<SightTypeDTO>, AbsoluteCustomCache<SightTypeDTO>>();
+            services.AddScoped<ICustomCache<ReviewDTO>, AbsoluteCustomCache<ReviewDTO>>();
 
             return services;
         }

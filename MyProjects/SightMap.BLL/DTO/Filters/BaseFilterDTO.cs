@@ -11,9 +11,9 @@ namespace SightMap.BLL.DTO
             Offset = 0;
             Size = int.MaxValue;
         }
-
         public int Id { get; set; }
         public int Offset { get; set; }
         public int Size { get; set; }
+        public string QueryString { get; set; }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using Microsoft.Extensions.Logging;
+using SightMap.BLL.CustomCache;
 using SightMap.BLL.DTO;
 using SightMap.BLL.Filters;
 using SightMap.BLL.Infrastructure.Interfaces;
@@ -18,14 +19,17 @@ namespace SightMap.BLL.Infrastructure.Implementations
     {
 
         protected IRepository<TModel> repo;
-        private ILogger logger;
         protected IMapper mapper;
+        protected ICustomCache<TFullDto> cache;
 
-        protected BaseDbManager(ILogger _logger, IRepository<TModel> _repo, IMapper _mapper)
+        private ILogger logger;
+
+        protected BaseDbManager(ILogger _logger, IRepository<TModel> _repo, IMapper _mapper, ICustomCache<TFullDto> _cache)
         {
             logger = _logger;
             repo = _repo;
             mapper = _mapper;
+            cache = _cache;
         }
 
         public TFullDto Add(TFullDto dto)
@@ -94,8 +98,13 @@ namespace SightMap.BLL.Infrastructure.Implementations
 
             try
             {
-                collection = repo.GetList(filter.GetExpression(), filter.Offset, filter.Size);
-                dtoCollection = collection.Select(s => mapper.Map<TFullDto>(s)).ToList();
+                if(!cache.TryGetCachedValue(filterDto.QueryString, out dtoCollection))
+                {
+                    collection = repo.GetList(filter.GetExpression(), filter.Offset, filter.Size);
+                    dtoCollection = collection.Select(s => mapper.Map<TFullDto>(s)).ToList();
+
+                    cache.SetValueToCache(filterDto.QueryString, dtoCollection);
+                } 
             }
             catch (Exception e)
             {
