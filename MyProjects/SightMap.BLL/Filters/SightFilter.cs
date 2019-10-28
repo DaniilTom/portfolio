@@ -72,7 +72,49 @@ namespace SightMap.BLL.Filters
                 set.Where(s => s.UpdateDate >= UpdateDownDate);
             }
 
+            #region Монадическое выражение
+            //set.ContainsInName(Name)
+            //       .IsType(SightTypeId)
+            //       .CreatedBeforeInclude(CreateUpDate)
+            //       .UpdatedAfter(UpdateDownDate); 
+            #endregion
+
             return set;
+        }
+    }
+
+    public static class Monads
+    {
+        public static IQueryable<Sight> ContainsInName(this IQueryable<Sight> set, string str)
+        {
+            if (string.IsNullOrEmpty(str))
+                return set;
+
+            return set.Where(t => EF.Functions.Like(t.Name, "%" + str + "%"));
+        }
+
+        public static IQueryable<Sight> IsType(this IQueryable<Sight> set, int id)
+        {
+            if (id == default(int))
+                return set;
+
+            return set.Where(s => s.SightTypeId == id);
+        }
+
+        public static IQueryable<Sight> CreatedBeforeInclude(this IQueryable<Sight> set, DateTime? date)
+        {
+            if (date is null)
+                return set;
+
+            return set.Where(s => s.CreateDate <= date);
+        }
+
+        public static IQueryable<Sight> UpdatedAfter(this IQueryable<Sight> set, DateTime? date)
+        {
+            if (date is null)
+                return set;
+
+            return set.Where(s => s.UpdateDate > date);
         }
     }
 }
