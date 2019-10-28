@@ -10,6 +10,8 @@ import { ProductRepository } from "../model/product.repository";
 export class StoreComponent {
     constructor(private repository: ProductRepository) { }
 
+    num = 6;
+
     get products(): Product[] {
         return this.repository.getProducts();
     }
