@@ -2,6 +2,7 @@
 using System.Linq;
 using AutoMapper;
 using Microsoft.Extensions.Logging;
+using SightMap.BLL.CustomCache;
 using SightMap.BLL.DTO;
 using SightMap.BLL.Filters;
 using SightMap.DAL.Models;
@@ -11,9 +12,12 @@ namespace SightMap.BLL.Infrastructure.Implementations
 {
     public class ReviewsDbManager : BaseDbManager<ReviewDTO, ReviewFilterDTO, Review>
     {
-        public ReviewsDbManager(ILogger<ReviewsDbManager> _logger, IRepository<Review> _repo, IMapper _mapper) : base(_logger, _repo, _mapper) { }
+        public ReviewsDbManager(ILogger<ReviewsDbManager> _logger,
+                                IRepository<Review> _repo,
+                                IMapper _mapper,
+                                ICustomCache<ReviewDTO> _cache) : base(_logger, _repo, _mapper, _cache) { }
 
-        public override IEnumerable<ReviewDTO> GetListObjects(ReviewFilterDTO filterDto)
+        public override IEnumerable<ReviewDTO> GetListObjects(ReviewFilterDTO filterDto, bool IsCacheUsed = true)
         {
             var source = base.GetListObjects(filterDto).ToList();
             var result = new List<ReviewDTO>();

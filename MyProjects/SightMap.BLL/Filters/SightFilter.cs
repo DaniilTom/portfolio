@@ -28,66 +28,51 @@ namespace SightMap.BLL.Filters
             UpdateDownDate = filterDto.UpdateDownDate;
         }
 
-        #region Почти работает
-        public override Expression<Func<Sight, bool>> GetExpression()
+        public override IQueryable<Sight> ApplyFilter(IQueryable<Sight> set)
         {
-            //var collection = Enumerable.Empty<Sight>().AsQueryable();
-            
-            Expression<Func<Sight, bool>> resultExp = base.GetExpression();
-
             if (Id != 0)
             {
-                //collection = collection
-                //    .Where(s => s.Id == Id)
-                //    .AsQueryable();
-                Expression<Func<Sight, bool>> idExp = s => s.Id == Id;
-                return idExp;
+                set.Where(s => s.Id == Id);
+                return set;
             }
 
             if (!string.IsNullOrEmpty(Name))
             {
-                // collection = collection.Where(s => EF.Functions.Like(s.Name, "%" + Name + "%"););
                 // проверка имени
-                Expression<Func<Sight, bool>> nameExp = s => EF.Functions.Like(s.Name, "%" + Name + "%");
-                resultExp = AndExp(resultExp, nameExp);
+                set.Where(s => EF.Functions.Like(s.Name, "%" + Name + "%"));
             }
 
             if (SightTypeId != 0)
             {
                 // проверка SightTypeId
-                Expression<Func<Sight, bool>> sightTypeIdExp = s => s.SightTypeId == SightTypeId;
-                resultExp = AndExp(resultExp, sightTypeIdExp);
+                set.Where(s => s.SightTypeId == SightTypeId);
             }
 
             if (!(CreateUpDate is null))
             {
                 // проверка CreateDate по верхнему порогу
-                Expression<Func<Sight, bool>> createUpDateExp = s => s.CreateDate <= CreateUpDate;
-                resultExp = AndExp(resultExp, createUpDateExp);
+                set.Where(s => s.CreateDate <= CreateUpDate);
             }
 
             if (!(CreateDownDate is null))
             {
                 // проверка CreateDate по нижнему порогу
-                Expression<Func<Sight, bool>> createDownDateExp = s => s.CreateDate >= CreateDownDate;
-                resultExp = AndExp(resultExp, createDownDateExp);
+                set.Where(s => s.CreateDate >= CreateDownDate);
             }
 
             if (!(UpdateUpDate is null))
             {
                 // проверка UpdateDate по верхнему порогу
-                Expression<Func<Sight, bool>> updateUpDateExp = s => s.UpdateDate <= UpdateUpDate;
-                resultExp = AndExp(resultExp, updateUpDateExp);
+                set.Where(s => s.UpdateDate <= UpdateUpDate);
             }
 
             if (!(UpdateDownDate is null))
             {
                 // проверка UpdateDate по нижнему порогу
-                Expression<Func<Sight, bool>> updateDownDateExp = s => s.UpdateDate >= UpdateDownDate;
-                resultExp = AndExp(resultExp, updateDownDateExp);
+                set.Where(s => s.UpdateDate >= UpdateDownDate);
             }
-            return resultExp;
+
+            return set;
         }
-        #endregion
     }
 }

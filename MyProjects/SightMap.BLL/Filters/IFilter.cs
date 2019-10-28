@@ -11,6 +11,7 @@ namespace SightMap.BLL.Filters
     {
         int Offset { get; }
         int Size { get; }
-        Expression<Func<T, bool>> GetExpression();
+        //Expression<Func<T, bool>> GetExpression();
+        IQueryable<T> ApplyFilter(IQueryable<T> set);
     }
 }

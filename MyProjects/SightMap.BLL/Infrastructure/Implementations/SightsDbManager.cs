@@ -2,6 +2,7 @@
 using System.Linq;
 using AutoMapper;
 using Microsoft.Extensions.Logging;
+using SightMap.BLL.CustomCache;
 using SightMap.BLL.DTO;
 using SightMap.BLL.Filters;
 using SightMap.BLL.Infrastructure.Interfaces;
@@ -15,20 +16,38 @@ namespace SightMap.BLL.Infrastructure.Implementations
         private IBaseManager<SightTypeDTO, SightTypeFilterDTO> _typeManager;
 
         public SightsDbManager(ILogger<SightsDbManager> _logger,
-                                IRepository<Sight> _repo,
-                                IMapper _mapper,
-                                IBaseManager<SightTypeDTO, SightTypeFilterDTO> typeManager) : base(_logger, _repo, _mapper)
+                               IRepository<Sight> _repo,
+                               IMapper _mapper,
+                               ICustomCache<SightDTO> _cache,
+                               IBaseManager<SightTypeDTO, SightTypeFilterDTO> typeManager) : base(_logger, _repo, _mapper, _cache)
         {
             _typeManager = typeManager;
         }
 
-        public override IEnumerable<SightDTO> GetListObjects(SightFilterDTO filterDto)
+        public override IEnumerable<SightDTO> GetListObjects(SightFilterDTO filterDto, bool IsCacheUsed = true)
         {
-            var result = base.GetListObjects(filterDto);
+            IEnumerable<SightDTO> result;
 
-            foreach(var sight in result)
+            if (IsCacheUsed)
             {
-                sight.Type = _typeManager.GetListObjects(new SightTypeFilterDTO { Id = sight.Type.Id }).FirstOrDefault();
+                if (!cache.TryGetCachedValue(filterDto.QueryString, out result))
+                {
+                    result = base.GetListObjects(filterDto, false);
+                    foreach (var sight in result)
+                    {
+                        sight.Type = _typeManager.GetListObjects(new SightTypeFilterDTO { Id = sight.Type.Id }, false).FirstOrDefault();
+                    }
+
+                    cache.SetValueToCache(filterDto.QueryString, result);
+                }
+            }
+            else
+            {
+                result = base.GetListObjects(filterDto, false);
+                foreach (var sight in result)
+                {
+                    sight.Type = _typeManager.GetListObjects(new SightTypeFilterDTO { Id = sight.Type.Id }, false).FirstOrDefault();
+                }
             }
 
             return result;

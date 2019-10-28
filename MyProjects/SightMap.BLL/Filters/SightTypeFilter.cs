@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 using SightMap.BLL.DTO;
@@ -15,24 +16,21 @@ namespace SightMap.BLL.Filters
             Name = filterDto.Name;
         }
 
-        public override Expression<Func<SightType, bool>> GetExpression()
+        public override IQueryable<SightType> ApplyFilter(IQueryable<SightType> set)
         {
-            Expression<Func<SightType, bool>> resultExp = base.GetExpression();
-
             if (Id != 0)
             {
-                Expression<Func<SightType, bool>> idExp = s => s.Id == Id;
-                return idExp;
+                set.Where(s => s.Id == Id);
+                return set;
             }
 
             if (!string.IsNullOrEmpty(Name))
             {
                 // проверка имени
-                Expression<Func<SightType, bool>> nameExp = s => EF.Functions.Like(s.Name, "%" + Name + "%");
-                resultExp = AndExp(resultExp, nameExp);
+                set.Where(s => EF.Functions.Like(s.Name, "%" + Name + "%"));
             }
 
-            return resultExp;
+            return set;
         }
     }
 }

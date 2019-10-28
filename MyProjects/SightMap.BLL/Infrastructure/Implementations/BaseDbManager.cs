@@ -89,22 +89,30 @@ namespace SightMap.BLL.Infrastructure.Implementations
             return result;
         }
 
-        public virtual IEnumerable<TFullDto> GetListObjects(TFilterDto filterDto)
+        public virtual IEnumerable<TFullDto> GetListObjects(TFilterDto filterDto, bool IsCacheUsed = true)
         {
             IFilter<TModel> filter = ConfigureFilter(filterDto);
 
-            IEnumerable<TModel> collection;
             IEnumerable<TFullDto> dtoCollection;
 
             try
             {
-                if(!cache.TryGetCachedValue(filterDto.QueryString, out dtoCollection))
+                if (IsCacheUsed)
                 {
-                    collection = repo.GetList(filter.GetExpression(), filter.Offset, filter.Size);
-                    dtoCollection = collection.Select(s => mapper.Map<TFullDto>(s)).ToList();
+                    if (!cache.TryGetCachedValue(filterDto.QueryString, out dtoCollection))
+                    {
+                        IEnumerable<TModel>  collection = repo.GetList(filter.ApplyFilter, filter.Offset, filter.Size);
+                        dtoCollection = collection.Select(s => mapper.Map<TFullDto>(s)).ToList();
 
-                    cache.SetValueToCache(filterDto.QueryString, dtoCollection);
-                } 
+                        cache.SetValueToCache(filterDto.QueryString, dtoCollection);
+                    }
+                }
+                else
+                {
+                    IEnumerable<TModel> collection = repo.GetList(filter.ApplyFilter, filter.Offset, filter.Size);
+                    dtoCollection = collection.Select(s => mapper.Map<TFullDto>(s)).ToList();
+                }
+
             }
             catch (Exception e)
             {

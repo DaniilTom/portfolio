@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 using SightMap.BLL.DTO;
@@ -16,31 +17,27 @@ namespace SightMap.BLL.Filters
             ParentId = filterDto.ParentId;
         }
 
-        public override Expression<Func<Review, bool>> GetExpression()
+        public override IQueryable<Review> ApplyFilter(IQueryable<Review> set)
         {
-            Expression<Func<Review, bool>> resultExp = base.GetExpression();
-
             if (Id != 0)
             {
-                Expression<Func<Review, bool>> idExp = r => r.Id == Id;
-                return idExp;
+                set.Where(r => r.Id == Id);
+                return set;
             }
 
             if (ParentId != 0)
             {
                 // проверка имени
-                Expression<Func<Review, bool>> parentIdExp = r => r.ParentId == ParentId;
-                resultExp = AndExp(resultExp, parentIdExp);
+                set.Where(r => r.ParentId == ParentId);
             }
 
             if (ItemId != 0)
             {
                 // проверка имени
-                Expression<Func<Review, bool>> itemIdExp = r => r.ItemId == ItemId;
-                resultExp = AndExp(resultExp, itemIdExp);
+                set.Where(r => r.ItemId == ItemId);
             }
 
-            return resultExp;
+            return set;
         }
     }
 }
