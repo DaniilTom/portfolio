@@ -19,10 +19,25 @@ namespace SightMap.BLL.Infrastructure.Implementations
 
         public override IEnumerable<ReviewDTO> GetListObjects(ReviewFilterDTO filterDto, bool IsCacheUsed = true)
         {
-            var source = base.GetListObjects(filterDto).ToList();
             var result = new List<ReviewDTO>();
 
-            Fill(result, source);
+            IEnumerable<ReviewDTO> tempResult;
+
+            if (IsCacheUsed)
+            {
+                if (!cache.TryGetCachedValue(filterDto.QueryString, out tempResult))
+                {
+                    tempResult = base.GetListObjects(filterDto, false);
+                    Fill(result, tempResult.ToList());
+
+                    cache.SetValueToCache(filterDto.QueryString, result);
+                }
+            }
+            else
+            {
+                tempResult = base.GetListObjects(filterDto, false);
+                Fill(result, tempResult.ToList());
+            }
 
             return result;
         }
