@@ -1,4 +1,13 @@
-
-<div *ngFor="let product of products;">
-    <span>{{product.id}}</span>
+<div class="row">
+    <div class="m-a-10 col-sm-4">
+        <button class="btn btn-primary float-right" (click)="SwitchCreate()">Создать</button>
+    </div>
+    <div class="m-a-10 col-sm-4">
+        <button class="btn btn-primary" (click)="SwitchShow()">Просмотр</button>
+    </div>
 </div>
+
+    <div calss="col-8 col-offset-5">
+        <create-comp *ngIf="renderCreate"></create-comp>
+        <show-comp *ngIf="renderShow"></show-comp>
+    </div>

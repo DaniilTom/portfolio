@@ -4,9 +4,21 @@ import { Component } from '@angular/core';
   selector: 'app',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  //template: `<div class="bg-success p-a-1 text-xs-centre">This is sportsstore</div>`
 })
 export class AppComponent {
-  title = 'app works!';
-  products = [{id: 1}, {id: 2}];
+  
+  renderCreate = false;
+  renderShow = false;
+
+  SwitchCreate()
+  {
+    this.renderCreate = !this.renderCreate;
+    this.renderShow = false;
+  }
+
+  SwitchShow()
+  {
+    this.renderShow = !this.renderShow;
+    this.renderCreate = false;
+  }
 }
