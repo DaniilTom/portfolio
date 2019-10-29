@@ -30,7 +30,7 @@ namespace SightMap.BLL.Infrastructure.Implementations
 
             if (IsCacheUsed)
             {
-                if (!cache.TryGetCachedValue(filterDto.QueryString, out result))
+                if (!_cache.TryGetCachedValue(filterDto.RequestPath, out result))
                 {
                     result = base.GetListObjects(filterDto, false);
                     foreach (var sight in result)
@@ -38,7 +38,7 @@ namespace SightMap.BLL.Infrastructure.Implementations
                         sight.Type = _typeManager.GetListObjects(new SightTypeFilterDTO { Id = sight.Type.Id }, false).FirstOrDefault();
                     }
 
-                    cache.SetValueToCache(filterDto.QueryString, result);
+                    _cache.SetValueToCache(filterDto.RequestPath, result);
                 }
             }
             else

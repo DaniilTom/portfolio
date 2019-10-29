@@ -25,12 +25,12 @@ namespace SightMap.BLL.Infrastructure.Implementations
 
             if (IsCacheUsed)
             {
-                if (!cache.TryGetCachedValue(filterDto.QueryString, out tempResult))
+                if (!_cache.TryGetCachedValue(filterDto.RequestPath, out tempResult))
                 {
                     tempResult = base.GetListObjects(filterDto, false);
                     Fill(result, tempResult.ToList());
 
-                    cache.SetValueToCache(filterDto.QueryString, result);
+                    _cache.SetValueToCache(filterDto.RequestPath, result);
                 }
             }
             else

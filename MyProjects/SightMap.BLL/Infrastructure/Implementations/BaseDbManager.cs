@@ -18,18 +18,18 @@ namespace SightMap.BLL.Infrastructure.Implementations
         where TModel : BaseEntity
     {
 
-        protected IRepository<TModel> repo;
-        protected IMapper mapper;
-        protected ICustomCache<TFullDto> cache;
+        protected IRepository<TModel> _repo;
+        protected IMapper _mapper;
+        protected ICustomCache<TFullDto> _cache;
 
-        private ILogger logger;
+        private ILogger _logger;
 
-        protected BaseDbManager(ILogger _logger, IRepository<TModel> _repo, IMapper _mapper, ICustomCache<TFullDto> _cache)
+        protected BaseDbManager(ILogger logger, IRepository<TModel> repo, IMapper mapper, ICustomCache<TFullDto> cache)
         {
-            logger = _logger;
-            repo = _repo;
-            mapper = _mapper;
-            cache = _cache;
+            _logger = logger;
+            _repo = repo;
+            _mapper = mapper;
+            _cache = cache;
         }
 
         public TFullDto Add(TFullDto dto)
@@ -38,13 +38,13 @@ namespace SightMap.BLL.Infrastructure.Implementations
             TFullDto fullDto;
             try
             {
-                var src = mapper.Map<TModel>(dto);
-                temp = repo.Add(src);
-                fullDto = mapper.Map<TFullDto>(temp);
+                var src = _mapper.Map<TModel>(dto);
+                temp = _repo.Add(src);
+                fullDto = _mapper.Map<TFullDto>(temp);
             }
             catch (Exception e)
             {
-                logger.LogError(e, e.Message);
+                _logger.LogError(e, e.Message);
                 fullDto = default(TFullDto);
             }
 
@@ -61,13 +61,13 @@ namespace SightMap.BLL.Infrastructure.Implementations
                 if (dto.Id <= 0)
                     throw new ArgumentOutOfRangeException(Constants.ErrorIdWrong);
 
-                var src = mapper.Map<TModel>(dto);
-                temp = repo.Update(src);
-                fullDto = mapper.Map<TFullDto>(temp);
+                var src = _mapper.Map<TModel>(dto);
+                temp = _repo.Update(src);
+                fullDto = _mapper.Map<TFullDto>(temp);
             }
             catch (Exception e)
             {
-                logger.LogError(e, e.Message);
+                _logger.LogError(e, e.Message);
                 fullDto = default(TFullDto);
             }
 
@@ -79,11 +79,11 @@ namespace SightMap.BLL.Infrastructure.Implementations
             bool result = false;
             try
             {
-                result = repo.Delete(id);
+                result = _repo.Delete(id);
             }
             catch (Exception e)
             {
-                logger.LogError(e, e.Message);
+                _logger.LogError(e, e.Message);
             }
 
             return result;
@@ -99,24 +99,24 @@ namespace SightMap.BLL.Infrastructure.Implementations
             {
                 if (IsCacheUsed)
                 {
-                    if (!cache.TryGetCachedValue(filterDto.QueryString, out dtoCollection))
+                    if (!_cache.TryGetCachedValue(filterDto.RequestPath, out dtoCollection))
                     {
-                        IEnumerable<TModel>  collection = repo.GetList(filter.ApplyFilter, filter.Offset, filter.Size);
-                        dtoCollection = collection.Select(s => mapper.Map<TFullDto>(s)).ToList();
+                        IEnumerable<TModel>  collection = _repo.GetList(filter.ApplyFilter, filter.Offset, filter.Size);
+                        dtoCollection = collection.Select(s => _mapper.Map<TFullDto>(s)).ToList();
 
-                        cache.SetValueToCache(filterDto.QueryString, dtoCollection);
+                        _cache.SetValueToCache(filterDto.RequestPath, dtoCollection);
                     }
                 }
                 else
                 {
-                    IEnumerable<TModel> collection = repo.GetList(filter.ApplyFilter, filter.Offset, filter.Size);
-                    dtoCollection = collection.Select(s => mapper.Map<TFullDto>(s)).ToList();
+                    IEnumerable<TModel> collection = _repo.GetList(filter.ApplyFilter, filter.Offset, filter.Size);
+                    dtoCollection = collection.Select(s => _mapper.Map<TFullDto>(s)).ToList();
                 }
 
             }
             catch (Exception e)
             {
-                logger.LogError(e, e.Message);
+                _logger.LogError(e, e.Message);
                 dtoCollection = null;
             }
 

@@ -12,6 +12,7 @@ namespace SightMap.BLL.CustomCache
         public CustomCache(IMemoryCache cache)
         {
             _cache = cache;
+            
         }
 
         public bool TryGetCachedValue(string key, out IEnumerable<TFullDto> result)

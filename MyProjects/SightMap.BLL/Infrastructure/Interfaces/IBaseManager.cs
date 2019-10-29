@@ -27,6 +27,6 @@ namespace SightMap.BLL.Infrastructure.Interfaces
         /// </summary>
         /// <param name="filter"></param>
         /// <returns></returns>
-        IEnumerable<TFullDto> GetListObjects(TFilterDto filterDto, bool IsCacheUsed);
+        IEnumerable<TFullDto> GetListObjects(TFilterDto filterDto, bool IsCacheUsed = true);
     }
 }

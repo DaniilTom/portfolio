@@ -14,6 +14,6 @@ namespace SightMap.BLL.DTO
         public int Id { get; set; }
         public int Offset { get; set; }
         public int Size { get; set; }
-        public string QueryString { get; set; }
+        public string RequestPath { get; set; }
     }
 }
