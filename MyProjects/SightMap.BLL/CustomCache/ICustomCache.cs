@@ -1,12 +1,12 @@
 ﻿using Microsoft.Extensions.Caching.Memory;
 using SightMap.BLL.DTO;
+using System;
 using System.Collections.Generic;
 
 namespace SightMap.BLL.CustomCache
 {
-    public interface ICustomCache<TFullDto> where TFullDto : BaseDTO
+    public interface ICustomCache
     {
-        bool TryGetCachedValue(string key, out IEnumerable<TFullDto> result);
-        void SetValueToCache(string key, IEnumerable<TFullDto> value, MemoryCacheEntryOptions options = null);
+        T GetOrAdd<T>(Func<T> func, string key, bool IsSliding);
     }
 }

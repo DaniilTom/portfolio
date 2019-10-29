@@ -1,31 +1,73 @@
-﻿using Microsoft.Extensions.Caching.Memory;
-using SightMap.BLL.DTO;
-using SightMap.DAL.Models;
-using System.Collections.Generic;
+﻿using System;
+using System.Runtime.Caching;
+using System.Threading;
 
 namespace SightMap.BLL.CustomCache
 {
-    public class CustomCache<TFullDto> : ICustomCache<TFullDto> where TFullDto : BaseDTO
+    public class CustomCache : ICustomCache
+
     {
-        protected IMemoryCache _cache;
+        private static MemoryCache _cache;
+        private static object lockObj;
 
-        public CustomCache(IMemoryCache cache)
+        public CustomCache()
         {
-            _cache = cache;
-            
+            _cache = new MemoryCache("CustomCache");
         }
 
-        public bool TryGetCachedValue(string key, out IEnumerable<TFullDto> result)
+        public T GetOrAdd<T>(Func<T> func, string key, bool IsSliding = false)
         {
-            return _cache.TryGetValue<IEnumerable<TFullDto>>(key, out result);
-        }
+            Monitor.Enter(lockObj);
 
-        public virtual void SetValueToCache(string key, IEnumerable<TFullDto> value, MemoryCacheEntryOptions options = null)
-        {
-            if (options is null)
-                _cache.Set<IEnumerable<TFullDto>>(key, value);
+            T result = (T)_cache.Get(key);
+
+            if (result != null)
+            {
+                Monitor.Exit(lockObj);
+                return result;
+            }
+
+            result = func();
+
+            if (result == null)
+            {
+                Monitor.Exit(lockObj);
+                return result;
+            }
+
+            CacheItemPolicy policy = new CacheItemPolicy();
+            if (IsSliding)
+            {
+                policy.SlidingExpiration = TimeSpan.FromSeconds(CacheConstants.DefaultSlidingExpirationTime);
+                policy.UpdateCallback = arg => { UpdateCallback(arg, func); };
+            }
             else
-                _cache.Set<IEnumerable<TFullDto>>(key, value, options);
+                policy.AbsoluteExpiration = DateTime.Now.AddSeconds(CacheConstants.DefaultAbsoluteExpirationTime);
+
+
+            _cache.Set(key, result, policy);
+
+            Monitor.Exit(lockObj);
+
+            return result;
+        }
+
+        public static void UpdateCallback<T>(CacheEntryUpdateArguments arg, Func<T> func)
+        {
+            Monitor.Enter(lockObj);
+
+            T result = (T)_cache.Get(arg.Key);
+
+            if(result == null)
+            {
+                result = func();
+
+                CacheItemPolicy policy = arg.UpdatedCacheItemPolicy;
+
+                _cache.Set(arg.Key, result, policy);
+            }
+
+            Monitor.Exit(lockObj);
         }
     }
 }

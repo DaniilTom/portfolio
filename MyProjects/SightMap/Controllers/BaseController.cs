@@ -61,8 +61,6 @@ namespace SightMap.Controllers
         [HttpGet]
         public ResultState<IEnumerable<TFullDto>> Get([FromQuery] TFilterDto filter)
         {
-            var request = HttpContext.Request;
-            filter.RequestPath = request.Path.ToString() + request.QueryString.ToString();
             var resultObject = _manager.GetListObjects(filter);
             var resultState = new ResultState<IEnumerable<TFullDto>>(resultObject);
 

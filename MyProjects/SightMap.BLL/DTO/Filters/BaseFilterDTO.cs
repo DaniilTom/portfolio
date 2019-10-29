@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SightMap.BLL.DTO
+﻿namespace SightMap.BLL.DTO
 {
     public abstract class BaseFilterDTO
     {
@@ -14,6 +10,10 @@ namespace SightMap.BLL.DTO
         public int Id { get; set; }
         public int Offset { get; set; }
         public int Size { get; set; }
-        public string RequestPath { get; set; }
+
+        public override string ToString()
+        {
+            return Id.ToString() + Offset + Size;
+        }
     }
 }

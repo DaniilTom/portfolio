@@ -20,11 +20,11 @@ namespace SightMap.BLL.Infrastructure.Implementations
 
         protected IRepository<TModel> _repo;
         protected IMapper _mapper;
-        protected ICustomCache<TFullDto> _cache;
+        protected ICustomCache _cache;
 
         private ILogger _logger;
 
-        protected BaseDbManager(ILogger logger, IRepository<TModel> repo, IMapper mapper, ICustomCache<TFullDto> cache)
+        protected BaseDbManager(ILogger logger, IRepository<TModel> repo, IMapper mapper, ICustomCache cache)
         {
             _logger = logger;
             _repo = repo;
@@ -97,22 +97,35 @@ namespace SightMap.BLL.Infrastructure.Implementations
 
             try
             {
+                Func<TFullDto[]> getQuery = () => _repo.GetList(filter.ApplyFilter, filter.Offset, filter.Size)
+                                                                .Select(s => _mapper.Map<TFullDto>(s)).ToArray();
+
                 if (IsCacheUsed)
                 {
-                    if (!_cache.TryGetCachedValue(filterDto.RequestPath, out dtoCollection))
-                    {
-                        IEnumerable<TModel>  collection = _repo.GetList(filter.ApplyFilter, filter.Offset, filter.Size);
-                        dtoCollection = collection.Select(s => _mapper.Map<TFullDto>(s)).ToList();
-
-                        _cache.SetValueToCache(filterDto.RequestPath, dtoCollection);
-                    }
+                    dtoCollection = _cache.GetOrAdd<TFullDto[]>(getQuery, filterDto.ToString(), true);
                 }
                 else
                 {
-                    IEnumerable<TModel> collection = _repo.GetList(filter.ApplyFilter, filter.Offset, filter.Size);
-                    dtoCollection = collection.Select(s => _mapper.Map<TFullDto>(s)).ToList();
+                    dtoCollection = getQuery();
                 }
 
+                //if (IsCacheUsed)
+                //{
+
+
+                //    //if (!_cache.TryGetCachedValue(filterDto.RequestPath, out dtoCollection))
+                //    //{
+                //    //    IEnumerable<TModel>  collection = _repo.GetList(filter.ApplyFilter, filter.Offset, filter.Size);
+                //    //    dtoCollection = collection.Select(s => _mapper.Map<TFullDto>(s)).ToArray();
+
+                //    //    _cache.SetValueToCache(filterDto.RequestPath, dtoCollection);
+                //    //}
+                //}
+                //else
+                //{
+                //    IEnumerable<TModel> collection = _repo.GetList(filter.ApplyFilter, filter.Offset, filter.Size);
+                //    dtoCollection = collection.Select(s => _mapper.Map<TFullDto>(s)).ToArray();
+                //}
             }
             catch (Exception e)
             {

@@ -61,7 +61,7 @@ namespace SightMap.DAL.Repositories
             //return dBSet.Where(t => t.Id == 1).Skip(offset).Take(size).ToList();
             //return dBSet.AsEnumerable().Where(t => t.Id == 1).AsQueryable().Skip(offset).Take(size).ToList();
 
-            return filter(dBSet).Skip(offset).Take(size).ToList();
+            return filter(dBSet).Skip(offset).Take(size).ToArray();
         }
     }
 }

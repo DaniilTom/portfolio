@@ -21,9 +21,11 @@ namespace SightMap.BLL
             services.AddScoped<IRepository<SightType>, SightTypeRepo>();
             services.AddScoped<IRepository<Review>, ReviewRepo>();
 
-            services.AddScoped<ICustomCache<SightDTO>, SlidingCustomCache<SightDTO>>();
-            services.AddScoped<ICustomCache<SightTypeDTO>, AbsoluteCustomCache<SightTypeDTO>>();
-            services.AddScoped<ICustomCache<ReviewDTO>, AbsoluteCustomCache<ReviewDTO>>();
+            //services.AddScoped<ICustomCache<SightDTO>, SlidingCustomCache<SightDTO>>();
+            //services.AddScoped<ICustomCache<SightTypeDTO>, AbsoluteCustomCache<SightTypeDTO>>();
+            //services.AddScoped<ICustomCache<ReviewDTO>, AbsoluteCustomCache<ReviewDTO>>();
+
+            services.AddSingleton<ICustomCache, CustomCache.CustomCache>();
 
             return services;
         }

@@ -8,5 +8,10 @@ namespace SightMap.BLL.DTO
     {
         public int ParentId { get; set; }
         public int ItemId { get; set; }
+
+        public override string ToString()
+        {
+            return base.ToString() + ParentId + ItemId;
+        }
     }
 }
