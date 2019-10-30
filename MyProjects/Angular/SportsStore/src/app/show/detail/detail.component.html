@@ -6,56 +6,57 @@
         <div class="col-3 float-right m-0" style="background-color: cadetblue;">
             <img class="img-thumbnail" src="" alt="some.jpg" />
         </div>
-        <form class="col">
+        <div class="col">
 
             <div class="form-group row">
                 <label class="col-1 col-form-label" for="Id">Id</label>
                 <div class="col">
-                    <input class="form-control" type="text" id="Id" value="" placeholder="Enter name" readonly/>
+                    <input class="form-control" type="text" id="Id" [value]="sight.Id" readonly />
                 </div>
             </div>
 
             <div class="form-group row">
                 <label class="col-1 col-form-label" for="Name">Name</label>
                 <div class="col">
-                    <input class="form-control" type="text" id="Name" value="" placeholder="Enter name" />
+                    <input class="form-control" type="text" id="Name" [value]="sight.Name" readonly/>
                 </div>
             </div>
 
             <div class="form-group row">
                 <label class="col-1 col-form-label" for="ShortDesc">ShortDesc</label>
                 <div class="col">
-                    <input class="form-control" type="text" id="ShortDesc" value=""
-                        placeholder="Short description..." />
+                    <input class="form-control" type="text" id="ShortDesc" [value]="sight.ShortDescription" readonly/>
                 </div>
             </div>
 
             <div class="form-group row">
                 <label class="col-1 col-form-label" for="FullDesc">FullDesc</label>
                 <div class="col">
-                    <input class="form-control" type="text" id="FullDesc" value="" placeholder="Full description..." />
+                    <input class="form-control" type="text" id="FullDesc" [value]="sight.FullDescription" readonly/>
                 </div>
             </div>
 
             <div class="form-group row">
-                <label class="col-1 col-form-label" for="Date">Date</label>
+                <label class="col-1 col-form-label" for="CreateDate">CreateDate</label>
                 <div class="col">
-                    <input class="form-control" type="date" id="Date" />
+                    <input class="form-control" type="date" id="CreateDate" [value]="sight.CreateDate" readonly/>
                 </div>
             </div>
+
+            <div class="form-group row">
+                    <label class="col-1 col-form-label" for="UpdateDate">UpdateDate</label>
+                    <div class="col">
+                        <input class="form-control" type="date" id="UpdateDate" [value]="sight.UpdateDate" readonly/>
+                    </div>
+                </div>
 
             <div class="form-group row">
                 <label class="col-1 col-form-label" for="Type">Type</label>
                 <div class="col">
-                    <select class="form-control" id="Type">
-                        <option selected>Choose type...</option>
-                        <option *ngFor="let type of dataService.getTypes()" [value]="type.Id" [text]="type.Name">
-                        </option>
-                    </select>
+                    <input class="form-control" type="text" id="Type" [value]="sight.Type.Name" readonly/>
                 </div>
             </div>
-
-            <button class="btn btn-primary" type="submit">Отправить</button>
-        </form>
+        </div>
+        <a class=" col btn btn-primary" style="color: white;" href="#">Изменить</a>
     </div>
 </div>

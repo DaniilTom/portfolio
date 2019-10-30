@@ -5,16 +5,20 @@
                 <th>Id</th>
                 <th>Name</th>
                 <th>Short Description</th>
-                <th>Image</th>
+                <th>TypeId</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>1</td>
-                <td>Name #1</td>
-                <td>Short Description #1</td>
-                <td>Image #1</td>
+            <tr *ngFor="let sight of dataservice.getSights()" (click)="SwitchDetail(sight)">
+                <td>{{sight.Id}}</td>
+                <td>{{sight.Name}}</td>
+                <td>{{sight.ShortDescription}}</td>
+                <td>{{sight.SightTypeId}}</td>
             </tr>
         </tbody>
     </table>
+</div>
+
+<div>
+    <detail-comp *ngIf="renderDetail" [Sight]="selectedSight"></detail-comp>
 </div>

@@ -8,10 +8,12 @@ import { AppComponent } from './app.component';
 import { CreateModule } from './create/create.module';
 import { ShowModule } from './show/show.module';
 
+import { DataService } from './data/data.service';
+
 @NgModule({
   declarations: [ AppComponent ],
   imports: [ BrowserModule, FormsModule, HttpModule, CreateModule, ShowModule ],
-  providers: [],
+  providers: [DataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
