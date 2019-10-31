@@ -3,18 +3,49 @@ using SightMap.DAL.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace SightMap.DAL.Repositories
 {
     public abstract class BaseRepository<T> : IRepository<T> where T : BaseEntity, new()
     {
-        private DbSet<T> dBSet;
+        private DbSet<T> _dBSet;
+        private DbSet<T> dBSet
+        {
+            get
+            {
+                //if (context.Database.GetDbConnection().State != System.Data.ConnectionState.Open)
+                //    context.Database.GetDbConnection().Open();
+
+                //if (!context.Database.CanConnect())
+                //{
+                //    context = new DataDbContext();
+                //    _dBSet = context.Set<T>();
+                //}
+
+                context = new DataDbContext();
+                _dBSet = context.Set<T>();
+
+                return _dBSet;
+            }
+
+            set
+            {
+                _dBSet = value;
+            }
+        }
         private DataDbContext context;
 
-        public BaseRepository(DataDbContext _context)
+        public BaseRepository()//DataDbContext _context)
         {
-            context = _context;
-            dBSet = _context.Set<T>();
+            //DataDbContext(DbContextOptions < DataDbContext > options) : base(options) { }
+
+            //DbContextOptionsBuilder<DataDbContext> options = new DbContextOptionsBuilder<DataDbContext>();
+            //options.UseSqlServer(DALConstants.ConnectionString);
+
+            context = new DataDbContext();
+            //context = _context;
+            dBSet = context.Set<T>();
         }
 
         public virtual T Add(T item)
@@ -31,14 +62,14 @@ namespace SightMap.DAL.Repositories
         public virtual T Update(T item)
         {
             T temp = null;
-            
+
             if (!(item.Id > 0))
                 return temp;
 
             var entityEntry = dBSet.Update(item);
             if (context.SaveChanges() > 0)
                 temp = entityEntry.Entity;
-            
+
             return temp;
         }
 
@@ -61,7 +92,18 @@ namespace SightMap.DAL.Repositories
             //return dBSet.Where(t => t.Id == 1).Skip(offset).Take(size).ToList();
             //return dBSet.AsEnumerable().Where(t => t.Id == 1).AsQueryable().Skip(offset).Take(size).ToList();
 
-            return filter(dBSet).Skip(offset).Take(size).ToArray();
+            return filter(dBSet)
+                .Skip(offset)
+                .Take(size)
+                .ToArray();
         }
+
+        //public virtual IEnumerable<T> GetList(IEnumerable<System.Linq.Expressions.Expression<Func<T, bool>>> filter, int offset = 0, int size = int.MaxValue)
+        //{
+        //    foreach (var f in filter)
+        //    {
+        //        _dBSet = _dBSet.Where(f);
+        //    }
+        //}
     }
 }

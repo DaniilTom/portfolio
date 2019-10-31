@@ -6,6 +6,7 @@ namespace SightMap.DAL.Repositories
 {
     public class SightTypeRepo : BaseRepository<SightType>
     {
-        public SightTypeRepo(DataDbContext _context) : base(_context) { }
+        //public SightTypeRepo(DataDbContext _context) : base(_context) { }
+        public SightTypeRepo() : base() { }
     }
 }

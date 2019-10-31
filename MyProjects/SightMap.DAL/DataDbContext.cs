@@ -5,7 +5,16 @@ namespace SightMap.DAL
 {
     public class DataDbContext : DbContext
     {
+        // Конструктор для DI
         public DataDbContext(DbContextOptions<DataDbContext> options) : base(options) { }
+
+        // Конструктор для самостоятельного создания контекста
+        public DataDbContext() : base() { }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer(DALConstants.ConnectionString);
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -23,10 +32,6 @@ namespace SightMap.DAL
                 entity.HasOne<Sight>()
                       .WithOne()
                       .HasForeignKey<Review>(r => r.ItemId);
-
-                //entity.HasOne<Review>(r => r.Parent)
-                //      .WithOne()
-                //      .HasForeignKey<Review>(r => r.ParentId);
             });
         }
     }

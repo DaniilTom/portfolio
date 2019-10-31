@@ -8,6 +8,7 @@ namespace SightMap.DAL.Repositories
 {
     public class ReviewRepo : BaseRepository<Review>
     {
-        public ReviewRepo(DataDbContext _context) : base(_context) { }
+        //public ReviewRepo(DataDbContext _context) : base(_context) { }
+        public ReviewRepo() : base() { }
     }
 }

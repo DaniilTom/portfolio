@@ -5,69 +5,83 @@ using System.Threading;
 namespace SightMap.BLL.CustomCache
 {
     public class CustomCache : ICustomCache
-
     {
-        private static MemoryCache _cache;
-        private static object lockObj;
-
-        public CustomCache()
-        {
-            _cache = new MemoryCache("CustomCache");
-        }
+        private static readonly MemoryCache _cache = MemoryCache.Default;
+        private static readonly ManualResetEvent mre = new ManualResetEvent(true);
+        private static object lockObj = new object();
 
         public T GetOrAdd<T>(Func<T> func, string key, bool IsSliding = false)
         {
-            Monitor.Enter(lockObj);
-
             T result = (T)_cache.Get(key);
 
             if (result != null)
             {
-                Monitor.Exit(lockObj);
                 return result;
             }
 
-            result = func();
+            mre.WaitOne();
+            mre.Reset();
 
-            if (result == null)
+            lock (lockObj)
             {
-                Monitor.Exit(lockObj);
-                return result;
+                result = (T)_cache.Get(key);
+
+                if (result != null)
+                {
+                    mre.Set();
+                    return result;
+                }
+
+                result = func();
+
+                if (result == null)
+                {
+                    mre.Set();
+                    return result;
+                }
+
+                CacheItemPolicy policy = new CacheItemPolicy();
+                if (IsSliding)
+                {
+                    policy.SlidingExpiration = TimeSpan.FromSeconds(CacheConstants.DefaultSlidingExpirationTime);
+                    //policy.UpdateCallback = arg => { UpdateCallback(arg, func); };
+                    policy.RemovedCallback = arg => { RemoveCallback(arg, func); };
+                }
+                else
+                    policy.AbsoluteExpiration = DateTime.Now.AddSeconds(CacheConstants.DefaultAbsoluteExpirationTime);
+
+
+                _cache.Set(key, result, policy);
+
+                mre.Set();
             }
-
-            CacheItemPolicy policy = new CacheItemPolicy();
-            if (IsSliding)
-            {
-                policy.SlidingExpiration = TimeSpan.FromSeconds(CacheConstants.DefaultSlidingExpirationTime);
-                policy.UpdateCallback = arg => { UpdateCallback(arg, func); };
-            }
-            else
-                policy.AbsoluteExpiration = DateTime.Now.AddSeconds(CacheConstants.DefaultAbsoluteExpirationTime);
-
-
-            _cache.Set(key, result, policy);
-
-            Monitor.Exit(lockObj);
 
             return result;
         }
 
-        public static void UpdateCallback<T>(CacheEntryUpdateArguments arg, Func<T> func)
+        public void UpdateCallback<T>(CacheEntryUpdateArguments arg, Func<T> func)
         {
-            Monitor.Enter(lockObj);
+            T result = func();
 
-            T result = (T)_cache.Get(arg.Key);
+            _cache.Remove(arg.Key);
 
-            if(result == null)
-            {
-                result = func();
+            CacheItemPolicy policy = new CacheItemPolicy();
+            policy.SlidingExpiration = TimeSpan.FromSeconds(CacheConstants.DefaultSlidingExpirationTime);
+            policy.UpdateCallback = arg => { UpdateCallback(arg, func); };
 
-                CacheItemPolicy policy = arg.UpdatedCacheItemPolicy;
+            //arg.
+            _cache.Set(arg.Key, result, policy);
+        }
 
-                _cache.Set(arg.Key, result, policy);
-            }
+        public void RemoveCallback<T>(CacheEntryRemovedArguments arg, Func<T> func)
+        {
+            T result = func();
 
-            Monitor.Exit(lockObj);
+            CacheItemPolicy policy = new CacheItemPolicy();
+            policy.SlidingExpiration = TimeSpan.FromSeconds(CacheConstants.DefaultSlidingExpirationTime);
+            policy.RemovedCallback = arg => { RemoveCallback(arg, func); };
+
+            _cache.Set(arg.CacheItem.Key, result, policy);
         }
     }
 }
