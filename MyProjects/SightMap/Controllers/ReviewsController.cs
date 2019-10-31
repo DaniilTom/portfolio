@@ -6,6 +6,6 @@ namespace SightMap.Controllers
 {
     public class ReviewsController : BaseController<ReviewDTO, ReviewFilterDTO>
     {
-        public ReviewsController(IBaseManager<ReviewDTO, ReviewFilterDTO> manager, IMemoryCache cache) : base(manager, cache) { }
+        public ReviewsController(IBaseManager<ReviewDTO, ReviewFilterDTO> manager) : base(manager) { }
     }
 }

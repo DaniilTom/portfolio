@@ -6,6 +6,6 @@ namespace SightMap.Controllers
 {
     public class SightTypesController : BaseController<SightTypeDTO, SightTypeFilterDTO>
     { 
-        public SightTypesController(IBaseManager<SightTypeDTO, SightTypeFilterDTO> manager, IMemoryCache cache) : base(manager, cache) { }
+        public SightTypesController(IBaseManager<SightTypeDTO, SightTypeFilterDTO> manager) : base(manager) { }
     }
 }

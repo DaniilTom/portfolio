@@ -15,13 +15,11 @@ namespace SightMap.Controllers
         where TFullDto : BaseDTO
         where TFilterDto : BaseFilterDTO, new()
     {
-        private IBaseManager<TFullDto, TFilterDto> _manager;
-        private IMemoryCache _cache;
+        protected IBaseManager<TFullDto, TFilterDto> _manager;
 
-        protected BaseController(IBaseManager<TFullDto, TFilterDto> manager, IMemoryCache cache)
+        protected BaseController(IBaseManager<TFullDto, TFilterDto> manager)
         {
             _manager = manager;
-            _cache = cache;
         }
 
         [HttpPost]
