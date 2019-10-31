@@ -32,51 +32,51 @@ namespace SightMap.BLL.Filters
         {
             if (Id != 0)
             {
-                set.Where(s => s.Id == Id);
+                set = set.Where(s => s.Id == Id);
                 return set;
             }
 
             if (!string.IsNullOrEmpty(Name))
             {
                 // проверка имени
-                set.Where(s => EF.Functions.Like(s.Name, "%" + Name + "%"));
+                set = set.Where(s => EF.Functions.Like(s.Name, "%" + Name + "%"));
             }
 
             if (SightTypeId != 0)
             {
                 // проверка SightTypeId
-                set.Where(s => s.SightTypeId == SightTypeId);
+                set = set.Where(s => s.SightTypeId == SightTypeId);
             }
 
             if (!(CreateUpDate is null))
             {
                 // проверка CreateDate по верхнему порогу
-                set.Where(s => s.CreateDate <= CreateUpDate);
+                set = set.Where(s => s.CreateDate <= CreateUpDate);
             }
 
             if (!(CreateDownDate is null))
             {
                 // проверка CreateDate по нижнему порогу
-                set.Where(s => s.CreateDate >= CreateDownDate);
+                set = set.Where(s => s.CreateDate >= CreateDownDate);
             }
 
             if (!(UpdateUpDate is null))
             {
                 // проверка UpdateDate по верхнему порогу
-                set.Where(s => s.UpdateDate <= UpdateUpDate);
+                set = set.Where(s => s.UpdateDate <= UpdateUpDate);
             }
 
             if (!(UpdateDownDate is null))
             {
                 // проверка UpdateDate по нижнему порогу
-                set.Where(s => s.UpdateDate >= UpdateDownDate);
+                set = set.Where(s => s.UpdateDate >= UpdateDownDate);
             }
 
             #region Монадическое выражение
             //set.ContainsInName(Name)
             //       .IsType(SightTypeId)
             //       .CreatedBeforeInclude(CreateUpDate)
-            //       .UpdatedAfter(UpdateDownDate); 
+            //       .UpdatedAfter(UpdateDownDate);
             #endregion
 
             return set;

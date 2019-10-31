@@ -20,14 +20,14 @@ namespace SightMap.BLL.Filters
         {
             if (Id != 0)
             {
-                set.Where(s => s.Id == Id);
+                set = set.Where(s => s.Id == Id);
                 return set;
             }
 
             if (!string.IsNullOrEmpty(Name))
             {
                 // проверка имени
-                set.Where(s => EF.Functions.Like(s.Name, "%" + Name + "%"));
+                set = set.Where(s => EF.Functions.Like(s.Name, "%" + Name + "%"));
             }
 
             return set;

@@ -21,20 +21,20 @@ namespace SightMap.BLL.Filters
         {
             if (Id != 0)
             {
-                set.Where(r => r.Id == Id);
+                set = set.Where(r => r.Id == Id);
                 return set;
             }
 
             if (ParentId != 0)
             {
                 // проверка имени
-                set.Where(r => r.ParentId == ParentId);
+                set = set.Where(r => r.ParentId == ParentId);
             }
 
             if (ItemId != 0)
             {
                 // проверка имени
-                set.Where(r => r.ItemId == ItemId);
+                set = set.Where(r => r.ItemId == ItemId);
             }
 
             return set;
