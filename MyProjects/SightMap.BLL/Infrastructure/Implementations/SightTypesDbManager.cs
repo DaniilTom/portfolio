@@ -13,7 +13,7 @@ namespace SightMap.BLL.Infrastructure.Implementations
         public SightTypesDbManager(ILogger<SightTypesDbManager> _logger,
                                    IRepository<SightType> _repo,
                                    IMapper _mapper,
-                                   ICustomCache<SightTypeDTO> _cache) : base(_logger, _repo, _mapper, _cache) { }
+                                   ICustomCache _cache) : base(_logger, _repo, _mapper, _cache) { }
 
         protected override IFilter<SightType> ConfigureFilter(SightTypeFilterDTO dto) => new SightTypeFilter(dto);
     }

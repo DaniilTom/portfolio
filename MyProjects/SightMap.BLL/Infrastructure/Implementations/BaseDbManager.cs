@@ -108,24 +108,6 @@ namespace SightMap.BLL.Infrastructure.Implementations
                 {
                     dtoCollection = getQuery();
                 }
-
-                //if (IsCacheUsed)
-                //{
-
-
-                //    //if (!_cache.TryGetCachedValue(filterDto.RequestPath, out dtoCollection))
-                //    //{
-                //    //    IEnumerable<TModel>  collection = _repo.GetList(filter.ApplyFilter, filter.Offset, filter.Size);
-                //    //    dtoCollection = collection.Select(s => _mapper.Map<TFullDto>(s)).ToArray();
-
-                //    //    _cache.SetValueToCache(filterDto.RequestPath, dtoCollection);
-                //    //}
-                //}
-                //else
-                //{
-                //    IEnumerable<TModel> collection = _repo.GetList(filter.ApplyFilter, filter.Offset, filter.Size);
-                //    dtoCollection = collection.Select(s => _mapper.Map<TFullDto>(s)).ToArray();
-                //}
             }
             catch (Exception e)
             {

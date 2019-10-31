@@ -18,7 +18,7 @@ namespace SightMap.BLL.Infrastructure.Implementations
         public SightsDbManager(ILogger<SightsDbManager> _logger,
                                IRepository<Sight> _repo,
                                IMapper _mapper,
-                               ICustomCache<SightDTO> _cache,
+                               ICustomCache _cache,
                                IBaseManager<SightTypeDTO, SightTypeFilterDTO> typeManager) : base(_logger, _repo, _mapper, _cache)
         {
             _typeManager = typeManager;
@@ -30,15 +30,10 @@ namespace SightMap.BLL.Infrastructure.Implementations
 
             if (IsCacheUsed)
             {
-                if (!_cache.TryGetCachedValue(filterDto.RequestPath, out result))
+                result = base.GetListObjects(filterDto);
+                foreach (var sight in result)
                 {
-                    result = base.GetListObjects(filterDto, false);
-                    foreach (var sight in result)
-                    {
-                        sight.Type = _typeManager.GetListObjects(new SightTypeFilterDTO { Id = sight.Type.Id }, false).FirstOrDefault();
-                    }
-
-                    _cache.SetValueToCache(filterDto.RequestPath, result);
+                    sight.Type = _typeManager.GetListObjects(new SightTypeFilterDTO { Id = sight.Type.Id }).FirstOrDefault();
                 }
             }
             else

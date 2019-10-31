@@ -15,7 +15,7 @@ namespace SightMap.BLL.Infrastructure.Implementations
         public ReviewsDbManager(ILogger<ReviewsDbManager> _logger,
                                 IRepository<Review> _repo,
                                 IMapper _mapper,
-                                ICustomCache<ReviewDTO> _cache) : base(_logger, _repo, _mapper, _cache) { }
+                                ICustomCache _cache) : base(_logger, _repo, _mapper, _cache) { }
 
         public override IEnumerable<ReviewDTO> GetListObjects(ReviewFilterDTO filterDto, bool IsCacheUsed = true)
         {
@@ -25,13 +25,8 @@ namespace SightMap.BLL.Infrastructure.Implementations
 
             if (IsCacheUsed)
             {
-                if (!_cache.TryGetCachedValue(filterDto.RequestPath, out tempResult))
-                {
-                    tempResult = base.GetListObjects(filterDto, false);
-                    Fill(result, tempResult.ToList());
-
-                    _cache.SetValueToCache(filterDto.RequestPath, result);
-                }
+                tempResult = base.GetListObjects(filterDto);
+                Fill(result, tempResult.ToList());
             }
             else
             {
