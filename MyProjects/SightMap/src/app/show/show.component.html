@@ -1,0 +1,24 @@
+<div class="col">
+    <table class="table table-stripped table-hover">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Short Description</th>
+                <th>TypeId</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let sight of dataservice.getSights()" (click)="SwitchDetail(sight)">
+                <td>{{sight.Id}}</td>
+                <td>{{sight.Name}}</td>
+                <td>{{sight.ShortDescription}}</td>
+                <td>{{sight.SightTypeId}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div>
+    <detail-comp *ngIf="renderDetail" [Sight]="selectedSight"></detail-comp>
+</div>

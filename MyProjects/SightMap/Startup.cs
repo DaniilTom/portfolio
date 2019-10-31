@@ -49,6 +49,11 @@ namespace SightMap
 
             app.UseStaticFiles();
 
+            //app.UseSpa(config =>
+            //{
+            //    config.UseProxyToSpaDevelopmentServer("http://localhost:4200");
+            //});
+
             app.UseMvc();
         }
     }
