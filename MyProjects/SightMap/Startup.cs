@@ -54,7 +54,18 @@ namespace SightMap
             //    config.UseProxyToSpaDevelopmentServer("http://localhost:4200");
             //});
 
-            app.UseMvc();
+            app.UseMvc(route =>
+            {
+              route.MapRoute(
+                  name: "Api",
+                  template: "api/{controller}"
+                );
+
+              route.MapRoute(
+                  name: "default",
+                  template: "{controller=Angular}/{action=Index}"
+                );
+            });
         }
     }
 }

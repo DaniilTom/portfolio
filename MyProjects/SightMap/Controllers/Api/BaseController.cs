@@ -1,23 +1,21 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Caching.Memory;
+using Microsoft.AspNetCore.Mvc;
 using SightMap.BLL.DTO;
 using SightMap.BLL.Infrastructure;
 using SightMap.BLL.Infrastructure.Interfaces;
 using SightMap.Models;
-using System;
 using System.Collections.Generic;
 
-namespace SightMap.Controllers
+namespace SightMap.Controllers.Api
 {
     [Route("api/[controller]")]
     [ApiController]
-    public abstract class BaseController<TFullDto, TFilterDto> : Controller
+    public abstract class BaseApiController<TFullDto, TFilterDto> : Controller
         where TFullDto : BaseDTO
         where TFilterDto : BaseFilterDTO, new()
     {
         protected IBaseManager<TFullDto, TFilterDto> _manager;
 
-        protected BaseController(IBaseManager<TFullDto, TFilterDto> manager)
+        protected BaseApiController(IBaseManager<TFullDto, TFilterDto> manager)
         {
             _manager = manager;
         }

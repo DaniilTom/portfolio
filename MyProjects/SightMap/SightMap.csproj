@@ -16,6 +16,12 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.0.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.0.0" />
     <PackageReference Include="NLog" Version="4.6.7" />
     <PackageReference Include="NLog.Web.AspNetCore" Version="4.9.0" />
   </ItemGroup>
@@ -28,14 +34,19 @@
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
-  <Target Name="Angular run" AfterTargets="Build">
+  <!--<Target Name="AngularBuild" AfterTargets="Build">
     <Message Text="Angular running..."></Message>
-    <Exec Command="npm build"/>
+    <Exec Command="ng build" />
   </Target>
 
-  <Target Name="Angular run" AfterTargets="Run">
+  <Target Name="AngularRun" AfterTargets="Run">
     <Message Text="Angular running..."></Message>
-    <Exec Command="npm start"/>
-  </Target>
+    <Exec Command="npm start" />
+  </Target>-->
+
+  <!--<Target Name="AngularBrowserOpen" AfterTargets="Run">
+    <Message Text="Chrome Angular running..."></Message>
+    <Exec Command="chrome localhost:4200" ToolExe="C:\Program Files (x86)\Google\Chrome\Application"/>
+  </Target>-->
 
 </Project>

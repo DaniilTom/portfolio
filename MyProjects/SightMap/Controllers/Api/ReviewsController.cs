@@ -1,10 +1,10 @@
-﻿using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Caching.Memory;
 using SightMap.BLL.DTO;
 using SightMap.BLL.Infrastructure.Interfaces;
 
-namespace SightMap.Controllers
+namespace SightMap.Controllers.Api
 {
-    public class ReviewsController : BaseController<ReviewDTO, ReviewFilterDTO>
+    public class ReviewsController : BaseApiController<ReviewDTO, ReviewFilterDTO>
     {
         public ReviewsController(IBaseManager<ReviewDTO, ReviewFilterDTO> manager) : base(manager) { }
     }
