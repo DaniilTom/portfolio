@@ -9,6 +9,4 @@ import { Sight } from '../model/sight.model';
     })
 export class CreateComponent { 
     constructor(public dataService: DataService) { }
-
-    sightToCreate: Sight = new Sight();
 }

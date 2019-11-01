@@ -34,7 +34,7 @@
                 <div class="col">
                     <select class="form-control" id="type.id" name="type.id">
                         <option selected>Choose type...</option>
-                        <option *ngFor="let type of dataService.getTypes()" [value]="type.Id" [text]="type.Name">
+                        <option *ngFor="let type of dataService.typeResult.value" [value]="type.id" [text]="type.name">
                         </option>
                     </select>
                 </div>

@@ -15,13 +15,13 @@ export class DataService {
     private apiReviews: string = "api/reviews";
 
 
-    public sightsData: ISight[] = [{ Id: 1, Name: "Sight #1", ShortDescription: "Short Desc #1", SightTypeId: 1 },
-    { Id: 2, Name: "Sight #2", ShortDescription: "Short Desc #2", SightTypeId: 2 },
-    { Id: 3, Name: "Sight #3", ShortDescription: "Short Desc #3", SightTypeId: 3 }];
+    //public sightsData: ISight[] = [{ Id: 1, Name: "Sight #1", ShortDescription: "Short Desc #1", SightTypeId: 1 },
+    //{ Id: 2, Name: "Sight #2", ShortDescription: "Short Desc #2", SightTypeId: 2 },
+    //{ Id: 3, Name: "Sight #3", ShortDescription: "Short Desc #3", SightTypeId: 3 }];
 
-    private typesData: IType[] = [{ Id: 1, Name: "Type #1" },
-    { Id: 2, Name: "Test #2" },
-    { Id: 3, Name: "Test #3" }];
+    //private typesData: IType[] = [{ Id: 1, Name: "Type #1" },
+    //{ Id: 2, Name: "Test #2" },
+    //{ Id: 3, Name: "Test #3" }];
 
     typeResult: ITypeResult;
 
@@ -47,30 +47,30 @@ export class DataService {
 }
 
 export interface ISight {
-    Id?: number;
-    Name?: string;
-    FullDescription?: string;
-    ShortDescription?: string;
-    AuthorId?: number;
-    CreateDate?: Date;
-    UpdateDate?: Date;
-    SightTypeId?: number;
-    Type?: IType;
+    id?: number;
+    name?: string;
+    fullDescription?: string;
+    shortDescription?: string;
+    authorId?: number;
+    createDate?: Date;
+    updateDate?: Date;
+    sightTypeId?: number;
+    type?: IType;
 }
 
 export interface IType {
-    Id?: number;
-    Name?: string;
+    id?: number;
+    name?: string;
 }
 
 export interface ISightResult {
-    IsSuccess?: boolean,
-    Value?: ISight[],
-    Message?: string
+    isSuccess?: boolean,
+    value?: ISight[],
+    message?: string
 }
 
 export interface ITypeResult {
-    IsSuccess?: boolean,
-    Value?: IType[],
-    Message?: string
+    isSuccess?: boolean,
+    value?: IType[],
+    message?: string
 }

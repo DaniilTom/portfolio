@@ -45,7 +45,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"col text-center\" style=\"background-color: bisque;\">\r\n    Компонент создания\r\n\r\n\r\n    <div class=\"container p-2\">\r\n        <div class=\"col-3 float-right m-0\" style=\"background-color: cadetblue;\">\r\n            <img class=\"img-thumbnail\" src=\"\" alt=\"some.jpg\" />\r\n        </div>\r\n        <form class=\"col\" method=\"post\" [action]=\"dataService.basePath + dataService.apiSights\" enctype=\"multipart/form-data\">\r\n\r\n            <div class=\"form-group row\">\r\n                <label class=\"col-1 col-form-label\" for=\"Name\">Name</label>\r\n                <div class=\"col\">\r\n                    <input class=\"form-control\" type=\"text\" id=\"Name\" name=\"Name\" placeholder=\"Enter name\" />\r\n                </div>\r\n            </div>\r\n\r\n            <div class=\"form-group row\">\r\n                <label class=\"col-1 col-form-label\" for=\"ShortDescription\">ShortDesc</label>\r\n                <div class=\"col\">\r\n                    <input class=\"form-control\" type=\"text\" id=\"ShortDescription\" name=\"ShortDescription\" value=\"\" placeholder=\"Short description...\" />\r\n                </div>\r\n            </div>\r\n\r\n            <div class=\"form-group row\">\r\n                <label class=\"col-1 col-form-label\" for=\"FullDescription\">FullDesc</label>\r\n                <div class=\"col\">\r\n                    <input class=\"form-control\" type=\"text\" id=\"FullDescription\" name=\"FullDescription\" value=\"\" placeholder=\"Full description...\" />\r\n                </div>\r\n            </div>\r\n\r\n            <div class=\"form-group row\">\r\n                <label class=\"col-1 col-form-label\" for=\"type.id\">Type</label>\r\n                <div class=\"col\">\r\n                    <select class=\"form-control\" id=\"type.id\" name=\"type.id\">\r\n                        <option selected>Choose type...</option>\r\n                        <option *ngFor=\"let type of dataService.getTypes()\" [value]=\"type.Id\" [text]=\"type.Name\">\r\n                        </option>\r\n                    </select>\r\n                </div>\r\n            </div>\r\n\r\n            <button class=\"btn btn-primary\" type=\"submit\">Отправить</button>\r\n        </form>\r\n    </div>\r\n</div>\r\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"col text-center\" style=\"background-color: bisque;\">\r\n    Компонент создания\r\n\r\n\r\n    <div class=\"container p-2\">\r\n        <div class=\"col-3 float-right m-0\" style=\"background-color: cadetblue;\">\r\n            <img class=\"img-thumbnail\" src=\"\" alt=\"some.jpg\" />\r\n        </div>\r\n        <form class=\"col\" method=\"post\" [action]=\"dataService.basePath + dataService.apiSights\" enctype=\"multipart/form-data\">\r\n\r\n            <div class=\"form-group row\">\r\n                <label class=\"col-1 col-form-label\" for=\"Name\">Name</label>\r\n                <div class=\"col\">\r\n                    <input class=\"form-control\" type=\"text\" id=\"Name\" name=\"Name\" placeholder=\"Enter name\" />\r\n                </div>\r\n            </div>\r\n\r\n            <div class=\"form-group row\">\r\n                <label class=\"col-1 col-form-label\" for=\"ShortDescription\">ShortDesc</label>\r\n                <div class=\"col\">\r\n                    <input class=\"form-control\" type=\"text\" id=\"ShortDescription\" name=\"ShortDescription\" value=\"\" placeholder=\"Short description...\" />\r\n                </div>\r\n            </div>\r\n\r\n            <div class=\"form-group row\">\r\n                <label class=\"col-1 col-form-label\" for=\"FullDescription\">FullDesc</label>\r\n                <div class=\"col\">\r\n                    <input class=\"form-control\" type=\"text\" id=\"FullDescription\" name=\"FullDescription\" value=\"\" placeholder=\"Full description...\" />\r\n                </div>\r\n            </div>\r\n\r\n            <div class=\"form-group row\">\r\n                <label class=\"col-1 col-form-label\" for=\"type.id\">Type</label>\r\n                <div class=\"col\">\r\n                    <select class=\"form-control\" id=\"type.id\" name=\"type.id\">\r\n                        <option selected>Choose type...</option>\r\n                        <option *ngFor=\"let type of dataService.typeResult.value\" [value]=\"type.id\" [text]=\"type.name\">\r\n                        </option>\r\n                    </select>\r\n                </div>\r\n            </div>\r\n\r\n            <button class=\"btn btn-primary\" type=\"submit\">Отправить</button>\r\n        </form>\r\n    </div>\r\n</div>\r\n");
 
 /***/ }),
 
@@ -453,15 +453,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var _data_data_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../data/data.service */ "./src/app/data/data.service.ts");
-/* harmony import */ var _model_sight_model__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../model/sight.model */ "./src/app/model/sight.model.ts");
-
 
 
 
 let CreateComponent = class CreateComponent {
     constructor(dataService) {
         this.dataService = dataService;
-        this.sightToCreate = new _model_sight_model__WEBPACK_IMPORTED_MODULE_3__["Sight"]();
     }
 };
 CreateComponent.ctorParameters = () => [
@@ -533,12 +530,6 @@ let DataService = class DataService {
         this.apiSights = "api/sights";
         this.apiSightTypes = "api/sighttypes";
         this.apiReviews = "api/reviews";
-        this.sightsData = [{ Id: 1, Name: "Sight #1", ShortDescription: "Short Desc #1", SightTypeId: 1 },
-            { Id: 2, Name: "Sight #2", ShortDescription: "Short Desc #2", SightTypeId: 2 },
-            { Id: 3, Name: "Sight #3", ShortDescription: "Short Desc #3", SightTypeId: 3 }];
-        this.typesData = [{ Id: 1, Name: "Type #1" },
-            { Id: 2, Name: "Test #2" },
-            { Id: 3, Name: "Test #3" }];
         this.SyncLoad();
     }
     SyncLoad() {
@@ -562,35 +553,6 @@ DataService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])()
 ], DataService);
 
-
-
-/***/ }),
-
-/***/ "./src/app/model/sight.model.ts":
-/*!**************************************!*\
-  !*** ./src/app/model/sight.model.ts ***!
-  \**************************************/
-/*! exports provided: Sight */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Sight", function() { return Sight; });
-/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-
-class Sight {
-    constructor(Id, Name, FullDescription, ShortDescription, AuthorId, CreateDate, UpdateDate, SightTypeId, Type) {
-        this.Id = Id;
-        this.Name = Name;
-        this.FullDescription = FullDescription;
-        this.ShortDescription = ShortDescription;
-        this.AuthorId = AuthorId;
-        this.CreateDate = CreateDate;
-        this.UpdateDate = UpdateDate;
-        this.SightTypeId = SightTypeId;
-        this.Type = Type;
-    }
-}
 
 
 /***/ }),
