@@ -45,7 +45,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"col text-center\" style=\"background-color: bisque;\">\r\n    Компонент созданияzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz\r\n\r\n\r\n    <div class=\"container p-2\">\r\n        <div class=\"col-3 float-right m-0\" style=\"background-color: cadetblue;\">\r\n            <img class=\"img-thumbnail\" src=\"\" alt=\"some.jpg\" />\r\n        </div>\r\n        <form class=\"col\">\r\n\r\n            <div class=\"form-group row\">\r\n                <label class=\"col-1 col-form-label\" for=\"Id\">Id</label>\r\n                <div class=\"col\">\r\n                    <input class=\"form-control\" type=\"text\" id=\"Id\" value=\"\" placeholder=\"Enter name\" readonly/>\r\n                </div>\r\n            </div>\r\n\r\n            <div class=\"form-group row\">\r\n                <label class=\"col-1 col-form-label\" for=\"Name\">Name</label>\r\n                <div class=\"col\">\r\n                    <input class=\"form-control\" type=\"text\" id=\"Name\" value=\"\" placeholder=\"Enter name\" />\r\n                </div>\r\n            </div>\r\n\r\n            <div class=\"form-group row\">\r\n                <label class=\"col-1 col-form-label\" for=\"ShortDesc\">ShortDesc</label>\r\n                <div class=\"col\">\r\n                    <input class=\"form-control\" type=\"text\" id=\"ShortDesc\" value=\"\"\r\n                        placeholder=\"Short description...\" />\r\n                </div>\r\n            </div>\r\n\r\n            <div class=\"form-group row\">\r\n                <label class=\"col-1 col-form-label\" for=\"FullDesc\">FullDesc</label>\r\n                <div class=\"col\">\r\n                    <input class=\"form-control\" type=\"text\" id=\"FullDesc\" value=\"\" placeholder=\"Full description...\" />\r\n                </div>\r\n            </div>\r\n\r\n            <div class=\"form-group row\">\r\n                <label class=\"col-1 col-form-label\" for=\"Date\">Date</label>\r\n                <div class=\"col\">\r\n                    <input class=\"form-control\" type=\"date\" id=\"Date\" />\r\n                </div>\r\n            </div>\r\n\r\n            <div class=\"form-group row\">\r\n                <label class=\"col-1 col-form-label\" for=\"Type\">Type</label>\r\n                <div class=\"col\">\r\n                    <select class=\"form-control\" id=\"Type\">\r\n                        <option selected>Choose type...</option>\r\n                        <option *ngFor=\"let type of dataService.getTypes()\" [value]=\"type.Id\" [text]=\"type.Name\">\r\n                        </option>\r\n                    </select>\r\n                </div>\r\n            </div>\r\n\r\n            <button class=\"btn btn-primary\" type=\"submit\">Отправить</button>\r\n        </form>\r\n    </div>\r\n</div>\r\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"col text-center\" style=\"background-color: bisque;\">\r\n    Компонент создания\r\n\r\n\r\n    <div class=\"container p-2\">\r\n        <div class=\"col-3 float-right m-0\" style=\"background-color: cadetblue;\">\r\n            <img class=\"img-thumbnail\" src=\"\" alt=\"some.jpg\" />\r\n        </div>\r\n        <form class=\"col\" method=\"post\" [action]=\"dataService.basePath + dataService.apiSights\" enctype=\"multipart/form-data\">\r\n\r\n            <div class=\"form-group row\">\r\n                <label class=\"col-1 col-form-label\" for=\"Name\">Name</label>\r\n                <div class=\"col\">\r\n                    <input class=\"form-control\" type=\"text\" id=\"Name\" name=\"Name\" placeholder=\"Enter name\" />\r\n                </div>\r\n            </div>\r\n\r\n            <div class=\"form-group row\">\r\n                <label class=\"col-1 col-form-label\" for=\"ShortDescription\">ShortDesc</label>\r\n                <div class=\"col\">\r\n                    <input class=\"form-control\" type=\"text\" id=\"ShortDescription\" name=\"ShortDescription\" value=\"\" placeholder=\"Short description...\" />\r\n                </div>\r\n            </div>\r\n\r\n            <div class=\"form-group row\">\r\n                <label class=\"col-1 col-form-label\" for=\"FullDescription\">FullDesc</label>\r\n                <div class=\"col\">\r\n                    <input class=\"form-control\" type=\"text\" id=\"FullDescription\" name=\"FullDescription\" value=\"\" placeholder=\"Full description...\" />\r\n                </div>\r\n            </div>\r\n\r\n            <div class=\"form-group row\">\r\n                <label class=\"col-1 col-form-label\" for=\"type.id\">Type</label>\r\n                <div class=\"col\">\r\n                    <select class=\"form-control\" id=\"type.id\" name=\"type.id\">\r\n                        <option selected>Choose type...</option>\r\n                        <option *ngFor=\"let type of dataService.getTypes()\" [value]=\"type.Id\" [text]=\"type.Name\">\r\n                        </option>\r\n                    </select>\r\n                </div>\r\n            </div>\r\n\r\n            <button class=\"btn btn-primary\" type=\"submit\">Отправить</button>\r\n        </form>\r\n    </div>\r\n</div>\r\n");
 
 /***/ }),
 
@@ -58,7 +58,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"col\" style=\"background-color: bisque;\">\r\n    <p class=\"text-center\">Компонент детального просмотра</p>\r\n\r\n    <div class=\"container p-2\" style=\"overflow: auto;\">\r\n        <div class=\"col-3 float-right m-0\" style=\"background-color: cadetblue;\">\r\n            <img class=\"img-thumbnail\" src=\"\" alt=\"some.jpg\" />\r\n        </div>\r\n        <div class=\"col\">\r\n\r\n            <div class=\"form-group row\">\r\n                <label class=\"col-1 col-form-label\" for=\"Id\">Id</label>\r\n                <div class=\"col\">\r\n                    <input class=\"form-control\" type=\"text\" id=\"Id\" [value]=\"sight.Id\" readonly />\r\n                </div>\r\n            </div>\r\n\r\n            <div class=\"form-group row\">\r\n                <label class=\"col-1 col-form-label\" for=\"Name\">Name</label>\r\n                <div class=\"col\">\r\n                    <input class=\"form-control\" type=\"text\" id=\"Name\" [value]=\"sight.Name\" readonly/>\r\n                </div>\r\n            </div>\r\n\r\n            <div class=\"form-group row\">\r\n                <label class=\"col-1 col-form-label\" for=\"ShortDesc\">ShortDesc</label>\r\n                <div class=\"col\">\r\n                    <input class=\"form-control\" type=\"text\" id=\"ShortDesc\" [value]=\"sight.ShortDescription\" readonly/>\r\n                </div>\r\n            </div>\r\n\r\n            <div class=\"form-group row\">\r\n                <label class=\"col-1 col-form-label\" for=\"FullDesc\">FullDesc</label>\r\n                <div class=\"col\">\r\n                    <input class=\"form-control\" type=\"text\" id=\"FullDesc\" [value]=\"sight.FullDescription\" readonly/>\r\n                </div>\r\n            </div>\r\n\r\n            <div class=\"form-group row\">\r\n                <label class=\"col-1 col-form-label\" for=\"CreateDate\">CreateDate</label>\r\n                <div class=\"col\">\r\n                    <input class=\"form-control\" type=\"date\" id=\"CreateDate\" [value]=\"sight.CreateDate\" readonly/>\r\n                </div>\r\n            </div>\r\n\r\n            <div class=\"form-group row\">\r\n                    <label class=\"col-1 col-form-label\" for=\"UpdateDate\">UpdateDate</label>\r\n                    <div class=\"col\">\r\n                        <input class=\"form-control\" type=\"date\" id=\"UpdateDate\" [value]=\"sight.UpdateDate\" readonly/>\r\n                    </div>\r\n                </div>\r\n\r\n            <div class=\"form-group row\">\r\n                <label class=\"col-1 col-form-label\" for=\"Type\">Type</label>\r\n                <div class=\"col\">\r\n                    <input class=\"form-control\" type=\"text\" id=\"Type\" [value]=\"sight.Type.Name\" readonly/>\r\n                </div>\r\n            </div>\r\n        </div>\r\n        <a class=\"btn btn-primary float-right\" style=\"color: white;\" href=\"#\">Изменить</a>\r\n    </div>\r\n</div>");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"col\" style=\"background-color: bisque;\">\r\n    <p class=\"text-center\">Компонент детального просмотра</p>\r\n\r\n    <div class=\"container p-2\" style=\"overflow: auto;\">\r\n        <div class=\"col-3 float-right m-0\" style=\"background-color: cadetblue;\">\r\n            <img class=\"img-thumbnail\" src=\"\" alt=\"some.jpg\" />\r\n        </div>\r\n        <div class=\"col\">\r\n\r\n            <div class=\"form-group row blocked\">\r\n                <label class=\"col-1 col-form-label\" for=\"Id\">Id</label>\r\n                <div class=\"col\">\r\n                    <input class=\"form-control\" type=\"text\" id=\"Id\" [value]=\"sight.id\" readonly/>\r\n                </div>\r\n            </div>\r\n\r\n            <div class=\"form-group row\">\r\n                <label class=\"col-1 col-form-label\" for=\"Name\">Name</label>\r\n                <div class=\"col\">\r\n                    <input class=\"form-control\" type=\"text\" id=\"Name\" [value]=\"sight.name\" [readonly]=\"isReadOnly\"/>\r\n                </div>\r\n            </div>\r\n\r\n            <div class=\"form-group row\">\r\n                <label class=\"col-1 col-form-label\" for=\"ShortDesc\">ShortDesc</label>\r\n                <div class=\"col\">\r\n                    <input class=\"form-control\" type=\"text\" id=\"ShortDesc\" [value]=\"sight.shortDescription\" [readonly]=\"isReadOnly\"/>\r\n                </div>\r\n            </div>\r\n\r\n            <div class=\"form-group row\">\r\n                <label class=\"col-1 col-form-label\" for=\"FullDesc\">FullDesc</label>\r\n                <div class=\"col\">\r\n                    <input class=\"form-control\" type=\"text\" id=\"FullDesc\" [value]=\"sight.fullDescription\" [readonly]=\"isReadOnly\"/>\r\n                </div>\r\n            </div>\r\n\r\n            <div class=\"form-group row blocked\">\r\n                <label class=\"col-1 col-form-label\" for=\"CreateDate\">CreateDate</label>\r\n                <div class=\"col\">\r\n                    <input class=\"form-control\" type=\"date\" id=\"CreateDate\" [value]=\"sight.createDate\" readonly/>\r\n                </div>\r\n            </div>\r\n\r\n            <div class=\"form-group row blocked\">\r\n                    <label class=\"col-1 col-form-label\" for=\"UpdateDate\">UpdateDate</label>\r\n                    <div class=\"col\">\r\n                        <input class=\"form-control\" type=\"date\" id=\"UpdateDate\" [value]=\"sight.updateDate\" readonly/>\r\n                    </div>\r\n                </div>\r\n\r\n            <div class=\"form-group row\">\r\n                <label class=\"col-1 col-form-label\" for=\"sight.type.id\">Type</label>\r\n                <div class=\"col\">\r\n                  <select class=\"form-control\" id=\"sight.type.id\" name=\"sight.type.id\" [disabled]=\"isReadOnly\">\r\n                    <option *ngFor=\"let type of typeResult.value\" [value]=\"type.id\" [text]=\"type.name\" [selected]=\"type.id == sight.type.id\">\r\n                    </option>\r\n                  </select>\r\n                </div>\r\n            </div>\r\n        </div>\r\n        <button class=\"btn btn-primary float-right m-1\" (click)=\"switchEditBlock()\">Изменить</button>\r\n        <button class=\"btn btn-primary float-right m-1\" (click)=\"applyChanges()\" [hidden]=\"isReadOnly\">Применить</button>\r\n    </div>\r\n</div>\r\n");
 
 /***/ }),
 
@@ -71,7 +71,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"col\">\r\n    <table class=\"table table-stripped table-hover\">\r\n        <thead>\r\n            <tr>\r\n                <th>Id</th>\r\n                <th>Name</th>\r\n                <th>Short Description</th>\r\n                <th>TypeId</th>\r\n            </tr>\r\n        </thead>\r\n        <tbody>\r\n            <tr *ngFor=\"let sight of dataservice.getSights()\" (click)=\"SwitchDetail(sight)\">\r\n                <td>{{sight.Id}}</td>\r\n                <td>{{sight.Name}}</td>\r\n                <td>{{sight.ShortDescription}}</td>\r\n                <td>{{sight.SightTypeId}}</td>\r\n            </tr>\r\n        </tbody>\r\n    </table>\r\n</div>\r\n\r\n<div>\r\n    <detail-comp *ngIf=\"renderDetail\" [Sight]=\"selectedSight\"></detail-comp>\r\n</div>");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"col\">\r\n    <table class=\"table table-stripped table-hover\">\r\n        <thead>\r\n            <tr>\r\n                <th>Id</th>\r\n                <th>Name</th>\r\n                <th>Short Description</th>\r\n                <th>Type</th>\r\n            </tr>\r\n        </thead>\r\n        <tbody>\r\n            <tr *ngFor=\"let sight of resultSights.value\" (click)=\"SwitchDetail(sight)\">\r\n                <td>{{sight.id}}</td>\r\n                <td>{{sight.name}}</td>\r\n                <td>{{sight.shortDescription}}</td>\r\n                <td>{{sight.type.name}}</td>\r\n            </tr>\r\n        </tbody>\r\n    </table>\r\n</div>\r\n\r\n<div>\r\n    <detail-comp *ngIf=\"renderDetail\" [Sight]=\"selectedSight\"></detail-comp>\r\n</div>\r\n");
 
 /***/ }),
 
@@ -401,11 +401,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm2015/platform-browser.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm2015/forms.js");
-/* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./app-routing.module */ "./src/app/app-routing.module.ts");
-/* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
-/* harmony import */ var _create_create_module__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./create/create.module */ "./src/app/create/create.module.ts");
-/* harmony import */ var _show_show_module__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./show/show.module */ "./src/app/show/show.module.ts");
-/* harmony import */ var _data_data_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./data/data.service */ "./src/app/data/data.service.ts");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm2015/http.js");
+/* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./app-routing.module */ "./src/app/app-routing.module.ts");
+/* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
+/* harmony import */ var _create_create_module__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./create/create.module */ "./src/app/create/create.module.ts");
+/* harmony import */ var _show_show_module__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./show/show.module */ "./src/app/show/show.module.ts");
+/* harmony import */ var _data_data_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./data/data.service */ "./src/app/data/data.service.ts");
+
 
 
 
@@ -420,16 +422,17 @@ let AppModule = class AppModule {
 AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["NgModule"])({
         declarations: [
-            _app_component__WEBPACK_IMPORTED_MODULE_5__["AppComponent"]
+            _app_component__WEBPACK_IMPORTED_MODULE_6__["AppComponent"]
         ],
         imports: [
             _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"],
-            _app_routing_module__WEBPACK_IMPORTED_MODULE_4__["AppRoutingModule"],
+            _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpClientModule"],
+            _app_routing_module__WEBPACK_IMPORTED_MODULE_5__["AppRoutingModule"],
             _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormsModule"],
-            _create_create_module__WEBPACK_IMPORTED_MODULE_6__["CreateModule"], _show_show_module__WEBPACK_IMPORTED_MODULE_7__["ShowModule"]
+            _create_create_module__WEBPACK_IMPORTED_MODULE_7__["CreateModule"], _show_show_module__WEBPACK_IMPORTED_MODULE_8__["ShowModule"]
         ],
-        providers: [_data_data_service__WEBPACK_IMPORTED_MODULE_8__["DataService"]],
-        bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_5__["AppComponent"]]
+        providers: [_data_data_service__WEBPACK_IMPORTED_MODULE_9__["DataService"]],
+        bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_6__["AppComponent"]]
     })
 ], AppModule);
 
@@ -450,12 +453,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var _data_data_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../data/data.service */ "./src/app/data/data.service.ts");
+/* harmony import */ var _model_sight_model__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../model/sight.model */ "./src/app/model/sight.model.ts");
+
 
 
 
 let CreateComponent = class CreateComponent {
     constructor(dataService) {
         this.dataService = dataService;
+        this.sightToCreate = new _model_sight_model__WEBPACK_IMPORTED_MODULE_3__["Sight"]();
     }
 };
 CreateComponent.ctorParameters = () => [
@@ -516,28 +522,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DataService", function() { return DataService; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm2015/http.js");
+
 
 
 let DataService = class DataService {
-    constructor() {
+    constructor(client) {
+        this.client = client;
+        this.basePath = "http://localhost:52208/";
+        this.apiSights = "api/sights";
+        this.apiSightTypes = "api/sighttypes";
+        this.apiReviews = "api/reviews";
         this.sightsData = [{ Id: 1, Name: "Sight #1", ShortDescription: "Short Desc #1", SightTypeId: 1 },
             { Id: 2, Name: "Sight #2", ShortDescription: "Short Desc #2", SightTypeId: 2 },
             { Id: 3, Name: "Sight #3", ShortDescription: "Short Desc #3", SightTypeId: 3 }];
         this.typesData = [{ Id: 1, Name: "Type #1" },
             { Id: 2, Name: "Test #2" },
             { Id: 3, Name: "Test #3" }];
+        this.SyncLoad();
     }
-    getSights() {
-        return this.sightsData;
+    SyncLoad() {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
+            this.typeResult = yield this.getTypesFromServer().toPromise();
+        });
     }
-    getTypes() {
-        return this.typesData;
+    getSightsFromServer() {
+        return this.client.get(this.basePath + this.apiSights);
+    }
+    getTypesFromServer() {
+        return this.client.get(this.basePath + this.apiSightTypes);
+    }
+    changeSight(_sight) {
     }
 };
+DataService.ctorParameters = () => [
+    { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"] }
+];
 DataService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])()
 ], DataService);
 
+
+
+/***/ }),
+
+/***/ "./src/app/model/sight.model.ts":
+/*!**************************************!*\
+  !*** ./src/app/model/sight.model.ts ***!
+  \**************************************/
+/*! exports provided: Sight */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Sight", function() { return Sight; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+
+class Sight {
+    constructor(Id, Name, FullDescription, ShortDescription, AuthorId, CreateDate, UpdateDate, SightTypeId, Type) {
+        this.Id = Id;
+        this.Name = Name;
+        this.FullDescription = FullDescription;
+        this.ShortDescription = ShortDescription;
+        this.AuthorId = AuthorId;
+        this.CreateDate = CreateDate;
+        this.UpdateDate = UpdateDate;
+        this.SightTypeId = SightTypeId;
+        this.Type = Type;
+    }
+}
 
 
 /***/ }),
@@ -561,17 +614,24 @@ __webpack_require__.r(__webpack_exports__);
 let DetailComponent = class DetailComponent {
     constructor(dataService) {
         this.dataService = dataService;
+        this.isReadOnly = true;
         this.renderDetail = false;
+        this.load();
+    }
+    ngOnInit() { }
+    load() {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
+            this.typeResult = yield this.dataService.getTypesFromServer().toPromise();
+        });
     }
     set Sight(_sight) {
         this.sight = _sight;
-        var types = this.dataService.getTypes();
-        for (var i = 0; i < types.length; i++) {
-            if (types[i].Id == this.sight.Id) {
-                this.sight.Type = types[i];
-                break;
-            }
-        }
+    }
+    switchEditBlock() {
+        this.isReadOnly = !this.isReadOnly;
+    }
+    applyChanges(_sight) {
+        this.dataService.changeSight(this.sight);
     }
 };
 DetailComponent.ctorParameters = () => [
@@ -653,6 +713,16 @@ let ShowComponent = class ShowComponent {
         else {
             this.renderDetail = !this.renderDetail;
         }
+    }
+    ngOnInit() {
+        this.getSights();
+        this.getTypes();
+    }
+    getSights() {
+        this.dataservice.getSightsFromServer().subscribe((data) => this.resultSights = data);
+    }
+    getTypes() {
+        this.dataservice.getTypesFromServer().subscribe((data) => this.resultTypes = data);
     }
 };
 ShowComponent.ctorParameters = () => [

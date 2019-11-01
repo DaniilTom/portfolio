@@ -5,15 +5,15 @@
                 <th>Id</th>
                 <th>Name</th>
                 <th>Short Description</th>
-                <th>TypeId</th>
+                <th>Type</th>
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let sight of dataservice.getSights()" (click)="SwitchDetail(sight)">
-                <td>{{sight.Id}}</td>
-                <td>{{sight.Name}}</td>
-                <td>{{sight.ShortDescription}}</td>
-                <td>{{sight.SightTypeId}}</td>
+            <tr *ngFor="let sight of resultSights.value" (click)="SwitchDetail(sight)">
+                <td>{{sight.id}}</td>
+                <td>{{sight.name}}</td>
+                <td>{{sight.shortDescription}}</td>
+                <td>{{sight.type.name}}</td>
             </tr>
         </tbody>
     </table>

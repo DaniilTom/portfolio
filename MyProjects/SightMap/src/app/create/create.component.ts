@@ -1,5 +1,6 @@
 import { Component } from "@angular/core";
-import { DataService } from '../data/data.service';
+import { DataService, ISight } from '../data/data.service';
+import { Sight } from '../model/sight.model';
 
 @Component(
     {
@@ -7,5 +8,7 @@ import { DataService } from '../data/data.service';
         templateUrl: './create.component.html'
     })
 export class CreateComponent { 
-    constructor(public dataService: DataService) {}
+    constructor(public dataService: DataService) { }
+
+    sightToCreate: Sight = new Sight();
 }

@@ -1,30 +1,39 @@
-import { Component, Input } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
 import { Sight } from "../../model/sight.model";
-import { DataService } from '../../data/data.service';
+import { DataService, ISight, IType, ITypeResult } from '../../data/data.service';
 
 @Component({
     selector: 'detail-comp',
     templateUrl: './detail.component.html'
 })
-export class DetailComponent {
+export class DetailComponent implements OnInit {
 
+    isReadOnly = true;
     renderDetail = false;
-    sight : Sight;
+    sight: ISight;
+    typeResult: ITypeResult;
 
-    constructor(private dataService: DataService){}
+    ngOnInit(): void { }
+
+    constructor(private dataService: DataService)
+    {
+        this.load();
+    }
+
+    private async load() {
+        this.typeResult = await this.dataService.getTypesFromServer().toPromise();
+    }
 
     @Input() set Sight(_sight)
     {
         this.sight = _sight;
+    }
 
-        var types = this.dataService.getTypes();
-        for(var i = 0; i < types.length; i++ )
-        {
-            if(types[i].Id == this.sight.Id)
-            {
-                this.sight.Type = types[i];
-                break;
-            }
-        }
+    switchEditBlock() {
+        this.isReadOnly = !this.isReadOnly;
+    }
+
+    applyChanges(_sight: ISight) {
+        this.dataService.changeSight(this.sight);
     }
 }

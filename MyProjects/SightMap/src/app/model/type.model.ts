@@ -1,4 +1,5 @@
 export class Type {
-    Id: number;
-    Name: string;
+    constructor(
+        public Id?: number,
+        public Name?: string) { }
 }

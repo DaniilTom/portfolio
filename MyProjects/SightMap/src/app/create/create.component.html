@@ -6,48 +6,33 @@
         <div class="col-3 float-right m-0" style="background-color: cadetblue;">
             <img class="img-thumbnail" src="" alt="some.jpg" />
         </div>
-        <form class="col">
-
-            <div class="form-group row">
-                <label class="col-1 col-form-label" for="Id">Id</label>
-                <div class="col">
-                    <input class="form-control" type="text" id="Id" value="" placeholder="Enter name" readonly/>
-                </div>
-            </div>
+        <form class="col" method="post" [action]="dataService.basePath + dataService.apiSights" enctype="multipart/form-data">
 
             <div class="form-group row">
                 <label class="col-1 col-form-label" for="Name">Name</label>
                 <div class="col">
-                    <input class="form-control" type="text" id="Name" value="" placeholder="Enter name" />
+                    <input class="form-control" type="text" id="Name" name="Name" placeholder="Enter name" />
                 </div>
             </div>
 
             <div class="form-group row">
-                <label class="col-1 col-form-label" for="ShortDesc">ShortDesc</label>
+                <label class="col-1 col-form-label" for="ShortDescription">ShortDesc</label>
                 <div class="col">
-                    <input class="form-control" type="text" id="ShortDesc" value=""
-                        placeholder="Short description..." />
+                    <input class="form-control" type="text" id="ShortDescription" name="ShortDescription" value="" placeholder="Short description..." />
                 </div>
             </div>
 
             <div class="form-group row">
-                <label class="col-1 col-form-label" for="FullDesc">FullDesc</label>
+                <label class="col-1 col-form-label" for="FullDescription">FullDesc</label>
                 <div class="col">
-                    <input class="form-control" type="text" id="FullDesc" value="" placeholder="Full description..." />
+                    <input class="form-control" type="text" id="FullDescription" name="FullDescription" value="" placeholder="Full description..." />
                 </div>
             </div>
 
             <div class="form-group row">
-                <label class="col-1 col-form-label" for="Date">Date</label>
+                <label class="col-1 col-form-label" for="type.id">Type</label>
                 <div class="col">
-                    <input class="form-control" type="date" id="Date" />
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <label class="col-1 col-form-label" for="Type">Type</label>
-                <div class="col">
-                    <select class="form-control" id="Type">
+                    <select class="form-control" id="type.id" name="type.id">
                         <option selected>Choose type...</option>
                         <option *ngFor="let type of dataService.getTypes()" [value]="type.Id" [text]="type.Name">
                         </option>
