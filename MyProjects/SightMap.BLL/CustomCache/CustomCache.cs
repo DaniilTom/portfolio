@@ -59,7 +59,7 @@ namespace SightMap.BLL.CustomCache
             return result;
         }
 
-        public void UpdateCallback<T>(CacheEntryUpdateArguments arg, Func<T> func)
+        public void UpdateCallback<T>(CacheEntryUpdateArguments arg, Func<T> func, int count = 0)
         {
             T result = func();
 
@@ -67,19 +67,23 @@ namespace SightMap.BLL.CustomCache
 
             CacheItemPolicy policy = new CacheItemPolicy();
             policy.SlidingExpiration = TimeSpan.FromSeconds(CacheConstants.DefaultSlidingExpirationTime);
-            policy.UpdateCallback = arg => { UpdateCallback(arg, func); };
+            
+            
+            policy.UpdateCallback = arg => { UpdateCallback(arg, func, count); };
 
             //arg.
             _cache.Set(arg.Key, result, policy);
         }
 
-        public void RemoveCallback<T>(CacheEntryRemovedArguments arg, Func<T> func)
+        public void RemoveCallback<T>(CacheEntryRemovedArguments arg, Func<T> func, int count = 0)
         {
             T result = func();
 
             CacheItemPolicy policy = new CacheItemPolicy();
             policy.SlidingExpiration = TimeSpan.FromSeconds(CacheConstants.DefaultSlidingExpirationTime);
-            policy.RemovedCallback = arg => { RemoveCallback(arg, func); };
+
+            if (count++ < 3)
+                policy.RemovedCallback = arg => { RemoveCallback(arg, func, count); };
 
             _cache.Set(arg.CacheItem.Key, result, policy);
         }
