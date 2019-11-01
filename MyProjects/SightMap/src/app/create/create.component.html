@@ -1,8 +1,7 @@
 <div class="col text-center" style="background-color: bisque;">
-    Компонент создания
+    <p>Компонент создания</p>
 
-
-    <div class="container p-2">
+    <div class="container p-2 border">
         <div class="col-3 float-right m-0" style="background-color: cadetblue;">
             <img class="img-thumbnail" src="" alt="some.jpg" />
         </div>
@@ -39,8 +38,33 @@
                     </select>
                 </div>
             </div>
+            <button class="btn btn-primary" type="submit">Отправить</button>
+        </form>
+    </div>
+
+    <div class="container p-2 border">
+        <p>Создать тип</p>
+        <form id="myForm" class="col" method="post" [action]="dataService.basePath + dataService.apiSightTypes" >
+
+            <div class="form-group row">
+                <label class="col-1 col-form-label" for="Name">Name</label>
+                <div class="col">
+                    <input class="form-control" type="text" id="Name" name="Name" placeholder="Enter name" />
+                </div>
+            </div>
 
             <button class="btn btn-primary" type="submit">Отправить</button>
         </form>
     </div>
 </div>
+
+<script>
+  $('#myForm')
+    .ajaxForm({
+        url : '/api/sighttypes',
+        dataType : 'json',
+        success : function (response) {
+            alert("The server says: " + response);
+        }
+    });
+</script>
