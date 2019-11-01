@@ -21,7 +21,7 @@ namespace SightMap.Controllers.Api
         }
 
         [HttpPost]
-        public ResultState<TFullDto> Post([FromBody] TFullDto dto)
+        public ResultState<TFullDto> Post([FromForm] TFullDto dto)
         {
             var resultObject = _manager.Add(dto);
             var resultState = new ResultState<TFullDto>(resultObject);
@@ -55,7 +55,7 @@ namespace SightMap.Controllers.Api
         }
 
         [HttpGet]
-        public ResultState<IEnumerable<TFullDto>> Get([FromQuery] TFilterDto filter)
+        public virtual ResultState<IEnumerable<TFullDto>> Get([FromQuery] TFilterDto filter)
         {
             var resultObject = _manager.GetListObjects(filter);
             var resultState = new ResultState<IEnumerable<TFullDto>>(resultObject);

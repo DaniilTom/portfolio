@@ -32,7 +32,7 @@ namespace SightMap.BLL.Infrastructure.Implementations
             _cache = cache;
         }
 
-        public TFullDto Add(TFullDto dto)
+        public virtual TFullDto Add(TFullDto dto)
         {
             TModel temp = null;
             TFullDto fullDto;
@@ -51,7 +51,7 @@ namespace SightMap.BLL.Infrastructure.Implementations
             return fullDto;
         }
 
-        public TFullDto Edit(TFullDto dto)
+        public virtual TFullDto Edit(TFullDto dto)
         {
             TModel temp;
             TFullDto fullDto;

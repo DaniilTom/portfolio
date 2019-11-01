@@ -12,7 +12,7 @@ namespace SightMap.BLL.DTO
 
     internal class SightTypeDTOMetadata
     {
-        [FromQuery(Name = "sighttypeid")]
+        [FromQuery(Name = "SightTypeId")]
         public int Id { get; set; }
     }
 }

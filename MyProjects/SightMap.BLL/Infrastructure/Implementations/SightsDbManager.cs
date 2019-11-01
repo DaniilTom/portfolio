@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using Microsoft.Extensions.Logging;
@@ -22,6 +23,18 @@ namespace SightMap.BLL.Infrastructure.Implementations
                                IBaseManager<SightTypeDTO, SightTypeFilterDTO> typeManager) : base(_logger, _repo, _mapper, _cache)
         {
             _typeManager = typeManager;
+        }
+
+        public override SightDTO Add(SightDTO dto)
+        {
+            dto.CreateDate = DateTime.Now;
+            return base.Add(dto);
+        }
+
+        public override SightDTO Edit(SightDTO dto)
+        {
+            dto.UpdateDate = DateTime.Now;
+            return base.Edit(dto);
         }
 
         public override IEnumerable<SightDTO> GetListObjects(SightFilterDTO filterDto, bool IsCacheUsed = true)

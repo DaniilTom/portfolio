@@ -37,9 +37,9 @@
   <!--<Target Name="AngularBuild" AfterTargets="Build">
     <Message Text="Angular running..."></Message>
     <Exec Command="ng build" />
-  </Target>
+  </Target>-->
 
-  <Target Name="AngularRun" AfterTargets="Run">
+  <!--<Target Name="AngularRun" AfterTargets="Run">
     <Message Text="Angular running..."></Message>
     <Exec Command="npm start" />
   </Target>-->
