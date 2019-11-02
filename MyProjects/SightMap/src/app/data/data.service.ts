@@ -1,9 +1,8 @@
-import { Sight } from '../model/sight.model';
-import { Type } from '../model/type.model';
+import { Sight, Type } from '../model/base.model';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { SightResult } from '../model/sightresult.model';
+import { SightResult, TypeResult } from '../model/results.model';
 
 @Injectable()
 export class DataService {
@@ -23,7 +22,7 @@ export class DataService {
     //{ Id: 2, Name: "Test #2" },
     //{ Id: 3, Name: "Test #3" }];
 
-    typeResult: ITypeResult;
+    typeResult: TypeResult = new TypeResult();
 
     constructor(private client: HttpClient) {
         this.SyncLoad();
@@ -33,44 +32,15 @@ export class DataService {
         this.typeResult = await this.getTypesFromServer().toPromise();
     }
 
-    getSightsFromServer(): Observable<ISightResult> {
-        return this.client.get<ISightResult>(this.basePath + this.apiSights);
+    getSightsFromServer(): Observable<SightResult> {
+        return this.client.get<SightResult>(this.basePath + this.apiSights);
     }
 
-    getTypesFromServer(): Observable<ITypeResult> {
-        return this.client.get<ITypeResult>(this.basePath + this.apiSightTypes);
+    getTypesFromServer(): Observable<TypeResult> {
+        return this.client.get<TypeResult>(this.basePath + this.apiSightTypes);
     }
 
-    changeSight(_sight: ISight) {
+    changeSight(_sight: Sight) {
 
     }
-}
-
-export interface ISight {
-    id?: number;
-    name?: string;
-    fullDescription?: string;
-    shortDescription?: string;
-    authorId?: number;
-    createDate?: Date;
-    updateDate?: Date;
-    sightTypeId?: number;
-    type?: IType;
-}
-
-export interface IType {
-    id?: number;
-    name?: string;
-}
-
-export interface ISightResult {
-    isSuccess?: boolean,
-    value?: ISight[],
-    message?: string
-}
-
-export interface ITypeResult {
-    isSuccess?: boolean,
-    value?: IType[],
-    message?: string
 }

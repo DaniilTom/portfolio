@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
-import { DataService, ISight } from '../data/data.service';
-import { Sight } from '../model/sight.model';
+import { DataService } from '../data/data.service';
+import { Sight } from '../model/base.model';
 
 @Component(
     {

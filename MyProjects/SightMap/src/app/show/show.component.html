@@ -9,7 +9,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let sight of resultSights.value" (click)="SwitchDetail(sight)">
+            <tr *ngFor="let sight of sightResult.value" (click)="SwitchDetail(sight)">
                 <td>{{sight.id}}</td>
                 <td>{{sight.name}}</td>
                 <td>{{sight.shortDescription}}</td>

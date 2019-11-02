@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from "@angular/core";
-import { Sight } from "../../model/sight.model";
-import { DataService, ISight, IType, ITypeResult } from '../../data/data.service';
+import { Sight } from "../../model/base.model";
+import { DataService } from '../../data/data.service';
+import { TypeResult } from '../../model/results.model';
 
 @Component({
     selector: 'detail-comp',
@@ -10,8 +11,8 @@ export class DetailComponent implements OnInit {
 
     isReadOnly = true;
     renderDetail = false;
-    sight: ISight;
-    typeResult: ITypeResult;
+    sight: Sight;
+    typeResult: TypeResult = new TypeResult();
 
     ngOnInit(): void { }
 
@@ -24,7 +25,7 @@ export class DetailComponent implements OnInit {
         this.typeResult = await this.dataService.getTypesFromServer().toPromise();
     }
 
-    @Input() set Sight(_sight)
+    @Input() set Sight(_sight: Sight)
     {
         this.sight = _sight;
     }
@@ -33,7 +34,7 @@ export class DetailComponent implements OnInit {
         this.isReadOnly = !this.isReadOnly;
     }
 
-    applyChanges(_sight: ISight) {
+    applyChanges(_sight: Sight) {
         this.dataService.changeSight(this.sight);
     }
 }

@@ -1,7 +1,7 @@
-import { Component, OnInit } from "@angular/core";
-import { DataService, ISight, ISightResult, ITypeResult } from "../data/data.service";
-import { Sight } from "../model/sight.model";
-import { SightResult } from '../model/sightresult.model';
+import { Component, OnInit } from '@angular/core';
+import { DataService } from "../data/data.service";
+import { Sight } from "../model/base.model";
+import { SightResult, TypeResult } from '../model/results.model';
 
 @Component({
     selector: 'show-comp',
@@ -12,10 +12,10 @@ export class ShowComponent implements OnInit {
 
     renderDetail = false;
 
-    selectedSight: ISight = null;
+    selectedSight: Sight = null;
 
-    resultSights: ISightResult;
-    resultTypes: ITypeResult;
+    sightResult: SightResult = new SightResult();
+    //typeResult: TypeResult = new TypeResult();
 
     SwitchDetail(_sight) {
         if (_sight != this.selectedSight) {
@@ -27,16 +27,16 @@ export class ShowComponent implements OnInit {
         }
     }
 
-    ngOnInit() {
-        this.getSights();
-        this.getTypes();
+    async ngOnInit() {
+        this.sightResult = await this.dataservice.getSightsFromServer().toPromise();
+        //this.typeResult = await this.dataservice.getTypesFromServer().toPromise();
     }
 
     getSights() {
-        this.dataservice.getSightsFromServer().subscribe((data: ISightResult) => this.resultSights = data);
+        this.dataservice.getSightsFromServer().subscribe((data: SightResult) => this.sightResult = data);
     }
 
-    getTypes() {
-        this.dataservice.getTypesFromServer().subscribe((data: ITypeResult) => this.resultTypes = data);
-    }
+    //getTypes() {
+    //    this.dataservice.getTypesFromServer().subscribe((data: TypeResult) => this.typeResult = data);
+    //}
 }
