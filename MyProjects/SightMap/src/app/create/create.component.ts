@@ -13,8 +13,21 @@ export class CreateComponent {
 
     constructor(public dataService: DataService) { this.newSight.type = new Type(); }
 
+    prepareImgPrevie($event) {
+        var input = $event.target;
+        var reader = new FileReader();
+
+        reader.onloadend = function (e) {
+            var imgObj = document.images.namedItem('preview');
+            imgObj.src = reader.result.toString();
+            imgObj.removeAttribute('hidden');
+        }
+
+        reader.readAsDataURL(input.files[0]);
+    }
+
     addNewSight(sight: Sight) {
         //alert(sight.name);
-        this.dataService.addSight(sight);
+        this.dataService.addSight();
     }
 }

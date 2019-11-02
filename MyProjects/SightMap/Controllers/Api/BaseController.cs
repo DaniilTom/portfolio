@@ -1,9 +1,12 @@
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Hosting;
 using SightMap.BLL.DTO;
 using SightMap.BLL.Infrastructure;
 using SightMap.BLL.Infrastructure.Interfaces;
 using SightMap.Models;
 using System.Collections.Generic;
+using System.IO;
 
 namespace SightMap.Controllers.Api
 {
@@ -14,17 +17,29 @@ namespace SightMap.Controllers.Api
         where TFilterDto : BaseFilterDTO, new()
     {
         protected IBaseManager<TFullDto, TFilterDto> _manager;
+        protected IHostEnvironment _host;
 
-        protected BaseApiController(IBaseManager<TFullDto, TFilterDto> manager)
+        protected BaseApiController(IBaseManager<TFullDto, TFilterDto> manager, IHostEnvironment host)
         {
             _manager = manager;
+            _host = host;
         }
 
         [HttpPost]
-        public ResultState<TFullDto> Post([FromForm] TFullDto dto)
+        public ResultState<TFullDto> Post([FromForm] TFullDto dto, IFormFile image)
         {
             var resultObject = _manager.Add(dto);
             var resultState = new ResultState<TFullDto>(resultObject);
+
+            // TODO: проверить генерацию пути
+            if(resultState.IsSuccess)
+            {
+                string path = _host.ContentRootPath + "/img/" + image.FileName;
+                using (var fileStream = new FileStream(path, FileMode.CreateNew))
+                {
+                    image.CopyTo(fileStream);
+                }
+            }
 
             return resultState;
         }

@@ -2,9 +2,9 @@
     <p>Компонент создания</p>
 
     <div class="container p-2 border">
-        <div class="col-3 float-right m-0" style="background-color: cadetblue;">
+        <!--<div class="col-3 float-right m-0" style="background-color: cadetblue;">
             <img class="img-thumbnail" src="" alt="some.jpg" />
-        </div>
+        </div>-->
         <form id="sightForm" class="col" method="post" [action]="dataService.basePath + dataService.apiSights" enctype="multipart/form-data"
               (ngSubmit)="addNewSight(newSight)">
 
@@ -13,6 +13,11 @@
                 <div class="col">
                     <input class="form-control" type="text" id="name" name="name" placeholder="Enter name"
                            [(ngModel)]="newSight.name" />
+                </div>
+                <div class="col-3">
+                  <img id="preview" class="img-thumbnail" height="100" src="" hidden/>
+                  <input type="file" name="image" accept=".png .jpg .jpeg" value="" (change)="prepareImgPrevie($event)"/>
+                  <label class="form-label">Фото</label>
                 </div>
             </div>
 

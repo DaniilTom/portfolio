@@ -37,7 +37,7 @@ export class DataService {
         return this.client.get<TypeResult>(this.basePath + this.apiSightTypes);
     }
 
-    addSight(_sight: Sight) {
+    addSight() {
         //var httpOptions = {
         //    headers: new HttpHeaders({
         //        'Content-Type': 'multipart/form-data'
