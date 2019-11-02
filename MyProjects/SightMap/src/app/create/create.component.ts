@@ -13,7 +13,7 @@ export class CreateComponent {
 
     constructor(public dataService: DataService) { this.newSight.type = new Type(); }
 
-    prepareImgPrevie($event) {
+    prepareImgPreview($event) {
         var input = $event.target;
         var reader = new FileReader();
 

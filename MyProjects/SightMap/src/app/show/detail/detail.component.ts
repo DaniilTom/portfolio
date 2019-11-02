@@ -7,34 +7,42 @@ import { TypeResult } from '../../model/results.model';
     selector: 'detail-comp',
     templateUrl: './detail.component.html'
 })
-export class DetailComponent implements OnInit {
+export class DetailComponent {
 
     isReadOnly = true;
     renderDetail = false;
     sight: Sight;
-    typeResult: TypeResult = new TypeResult();
 
-    ngOnInit(): void { }
+    constructor(private dataService: DataService) { }
 
-    constructor(private dataService: DataService)
-    {
-        this.load();
-    }
-
-    private async load() {
-        this.typeResult = await this.dataService.getTypesFromServer().toPromise();
-    }
-
-    @Input() set Sight(_sight: Sight)
-    {
+    @Input() set Sight(_sight: Sight) {
         this.sight = _sight;
     }
+
+    prepareImgPreview($event) {
+        var input = $event.target;
+        var reader = new FileReader();
+
+        reader.onloadend = function (e) {
+            var imgObj = document.images.namedItem('preview');
+            imgObj.src = reader.result.toString();
+            //imgObj.removeAttribute('hidden');
+        }
+
+        reader.readAsDataURL(input.files[0]);
+    }
+
+
 
     switchEditBlock() {
         this.isReadOnly = !this.isReadOnly;
     }
 
-    applyChanges(_sight: Sight) {
-        this.dataService.addSight();
+    updateSight() {
+        this.dataService.updateSight();
+    }
+
+    deleteSight(id: number) {
+        this.dataService.deleteSight(id);
     }
 }

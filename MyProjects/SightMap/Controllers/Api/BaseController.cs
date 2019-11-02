@@ -34,11 +34,7 @@ namespace SightMap.Controllers.Api
             // TODO: проверить генерацию пути
             if(resultState.IsSuccess)
             {
-                string path = _host.ContentRootPath + "/img/" + image.FileName;
-                using (var fileStream = new FileStream(path, FileMode.CreateNew))
-                {
-                    image.CopyTo(fileStream);
-                }
+                LoadImage(image);
             }
 
             return resultState;
@@ -76,6 +72,15 @@ namespace SightMap.Controllers.Api
             var resultState = new ResultState<IEnumerable<TFullDto>>(resultObject);
 
             return resultState;
+        }
+
+        protected void LoadImage(IFormFile image)
+        {
+            string path = _host.ContentRootPath + "/img/" + image.FileName;
+            using (var fileStream = new FileStream(path, FileMode.CreateNew))
+            {
+                image.CopyTo(fileStream);
+            }
         }
     }
 }

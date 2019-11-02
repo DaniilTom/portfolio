@@ -7,6 +7,7 @@ export class Sight {
         public authorId?: number,
         public createDate?: Date,
         public updateDate?: Date,
+        public photoPath?: string,
         public sightTypeId?: number,
         public type?: Type) { }
 }

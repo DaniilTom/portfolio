@@ -9,14 +9,13 @@ export class DataService {
 
     private basePath: string = "http://localhost:52208/";
 
-    private apiSights: string = "api/sights";
-    private apiSightTypes: string = "api/sighttypes";
-    private apiReviews: string = "api/reviews";
+    private apiSights: string = this.basePath + "api/sights/";
+    private apiSightTypes: string = this.basePath + "api/sighttypes/";
+    private apiReviews: string = this.basePath + "api/reviews/";
 
     private typeResult: TypeResult = new TypeResult();
 
     getTypes(): Type[] {
-        //alert("get Types");
         return this.typeResult.value;
     }
 
@@ -30,22 +29,26 @@ export class DataService {
     }
 
     getSightsFromServer(): Observable<SightResult> {
-        return this.client.get<SightResult>(this.basePath + this.apiSights);
+        return this.client.get<SightResult>(this.apiSights);
     }
 
     getTypesFromServer(): Observable<TypeResult> {
-        return this.client.get<TypeResult>(this.basePath + this.apiSightTypes);
+        return this.client.get<TypeResult>(this.apiSightTypes);
     }
 
     addSight() {
-        //var httpOptions = {
-        //    headers: new HttpHeaders({
-        //        'Content-Type': 'multipart/form-data'
-        //    })
-        //};
         var form = document.forms.namedItem('sightForm');
         var formData = new FormData(form);
-        //formData..append('object', JSON.stringify(_sight));
-        this.client.post(this.basePath + this.apiSights, formData).subscribe((data: SightResult) => alert(data.isSuccess));
+        this.client.post(this.apiSights, formData).subscribe((data: SightResult) => alert(data.isSuccess));
+    }
+
+    updateSight() {
+        var form = document.forms.namedItem('updateForm');
+        var formData = new FormData(form);
+        this.client.put(this.apiSights, formData).subscribe((data: SightResult) => alert(data.isSuccess));
+    }
+
+    deleteSight(id: number) {
+        this.client.delete(this.apiSights + "?id=" + id).subscribe((data: SightResult) => alert(data.isSuccess));
     }
 }
