@@ -35,6 +35,6 @@ export class DetailComponent implements OnInit {
     }
 
     applyChanges(_sight: Sight) {
-        this.dataService.changeSight(this.sight);
+        this.dataService.addSight(this.sight);
     }
 }

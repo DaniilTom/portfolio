@@ -12,17 +12,17 @@ import { ShowModule } from './show/show.module';
 import { DataService } from './data/data.service';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
-  imports: [
-      BrowserModule,
-      HttpClientModule,
-      AppRoutingModule,
-      FormsModule,
-      CreateModule, ShowModule
-  ],
-  providers: [DataService],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent
+    ],
+    imports: [
+        BrowserModule,
+        FormsModule,
+        HttpClientModule,
+        AppRoutingModule,
+        CreateModule, ShowModule
+    ],
+    providers: [DataService],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }

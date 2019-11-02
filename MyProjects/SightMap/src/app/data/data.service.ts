@@ -1,6 +1,6 @@
 import { Sight, Type } from '../model/base.model';
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { SightResult, TypeResult } from '../model/results.model';
 
@@ -13,16 +13,13 @@ export class DataService {
     private apiSightTypes: string = "api/sighttypes";
     private apiReviews: string = "api/reviews";
 
+    private typeResult: TypeResult = new TypeResult();
 
-    //public sightsData: ISight[] = [{ Id: 1, Name: "Sight #1", ShortDescription: "Short Desc #1", SightTypeId: 1 },
-    //{ Id: 2, Name: "Sight #2", ShortDescription: "Short Desc #2", SightTypeId: 2 },
-    //{ Id: 3, Name: "Sight #3", ShortDescription: "Short Desc #3", SightTypeId: 3 }];
+    getTypes(): Type[] {
+        //alert("get Types");
+        return this.typeResult.value;
+    }
 
-    //private typesData: IType[] = [{ Id: 1, Name: "Type #1" },
-    //{ Id: 2, Name: "Test #2" },
-    //{ Id: 3, Name: "Test #3" }];
-
-    typeResult: TypeResult = new TypeResult();
 
     constructor(private client: HttpClient) {
         this.SyncLoad();
@@ -40,7 +37,15 @@ export class DataService {
         return this.client.get<TypeResult>(this.basePath + this.apiSightTypes);
     }
 
-    changeSight(_sight: Sight) {
-
+    addSight(_sight: Sight) {
+        //var httpOptions = {
+        //    headers: new HttpHeaders({
+        //        'Content-Type': 'multipart/form-data'
+        //    })
+        //};
+        var form = document.forms.namedItem('sightForm');
+        var formData = new FormData(form);
+        //formData..append('object', JSON.stringify(_sight));
+        this.client.post(this.basePath + this.apiSights, formData).subscribe((data: SightResult) => alert(data.isSuccess));
     }
 }
