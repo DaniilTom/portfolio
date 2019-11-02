@@ -15,7 +15,7 @@ namespace SightMap.BLL
         public static IServiceCollection AddBLLFunctional(this IServiceCollection services, IConfiguration config)
         {
 
-            services.AddDbContext<DataDbContext>(options => options.UseSqlServer(config["ConnectionString"]), ServiceLifetime.Singleton);
+            //services.AddDbContext<DataDbContext>(options => options.UseSqlServer(config["ConnectionString"]), ServiceLifetime.Singleton);
 
             services.AddScoped<IRepository<Sight>, SightRepo>();
             services.AddScoped<IRepository<SightType>, SightTypeRepo>();
