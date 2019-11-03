@@ -34,6 +34,10 @@ namespace SightMap.DAL
                       .WithOne()
                       .HasForeignKey<Review>(r => r.ItemId)
                       .OnDelete(DeleteBehavior.Cascade);
+
+                //entity.HasMany<Review>()
+                //      .WithOne()
+                //      .HasForeignKey(r => r.ParentId);
             });
         }
     }
