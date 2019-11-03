@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DataService } from "../data/data.service";
 import { Sight } from "../model/base.model";
 import { SightResult, TypeResult } from '../model/results.model';
+import { SightFilter } from '../model/filters.model';
 
 @Component({
     selector: 'show-comp',
@@ -11,11 +12,8 @@ export class ShowComponent implements OnInit {
     constructor(public dataservice: DataService) { }
 
     renderDetail = false;
-
     selectedSight: Sight = null;
-
     sightResult: SightResult = new SightResult();
-    //typeResult: TypeResult = new TypeResult();
 
     SwitchDetail(_sight) {
         if (_sight != this.selectedSight) {
@@ -29,14 +27,13 @@ export class ShowComponent implements OnInit {
 
     async ngOnInit() {
         this.sightResult = await this.dataservice.getSightsFromServer().toPromise();
-        //this.typeResult = await this.dataservice.getTypesFromServer().toPromise();
     }
 
-    getSights() {
-        this.dataservice.getSightsFromServer().subscribe((data: SightResult) => this.sightResult = data);
+    getSights(filter?: SightFilter) {
+        this.dataservice.getSightsFromServer(filter).subscribe((data: SightResult) => this.sightResult = data);
     }
 
-    //getTypes() {
-    //    this.dataservice.getTypesFromServer().subscribe((data: TypeResult) => this.typeResult = data);
-    //}
+    updateSights(filter: SightFilter) {
+        this.getSights(filter);
+    }
 }

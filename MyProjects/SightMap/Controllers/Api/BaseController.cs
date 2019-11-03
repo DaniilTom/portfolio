@@ -25,23 +25,17 @@ namespace SightMap.Controllers.Api
             _host = host;
         }
 
-        [HttpPost]
-        public ResultState<TFullDto> Post([FromForm] TFullDto dto, IFormFile image)
+        [HttpPost(Order = int.MaxValue)]
+        public virtual ResultState<TFullDto> Post([FromForm] TFullDto dto)
         {
             var resultObject = _manager.Add(dto);
             var resultState = new ResultState<TFullDto>(resultObject);
 
-            // TODO: проверить генерацию пути
-            if(resultState.IsSuccess)
-            {
-                LoadImage(image);
-            }
-
             return resultState;
         }
 
-        [HttpPut]
-        public ResultState<TFullDto> Put(TFullDto dto)
+        [HttpPost("{id}", Order = int.MaxValue)]
+        public virtual ResultState<TFullDto> PostEdit([FromForm]TFullDto dto)
         {
             var resultObject = _manager.Edit(dto);
             var resultState = new ResultState<TFullDto>(resultObject);
@@ -72,15 +66,6 @@ namespace SightMap.Controllers.Api
             var resultState = new ResultState<IEnumerable<TFullDto>>(resultObject);
 
             return resultState;
-        }
-
-        protected void LoadImage(IFormFile image)
-        {
-            string path = _host.ContentRootPath + "/img/" + image.FileName;
-            using (var fileStream = new FileStream(path, FileMode.CreateNew))
-            {
-                image.CopyTo(fileStream);
-            }
         }
     }
 }

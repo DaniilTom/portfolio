@@ -39,15 +39,20 @@ namespace SightMap
             services.AddMemoryCache();
 
             services.AddCors();
-      
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger)
         {
             if (env.IsDevelopment())
-						{
+            {
                 app.UseDeveloperExceptionPage();
+                //app.UseCors(builder => builder.AllowAnyOrigin());
+                //app.UseSpa(config =>
+                //{
+                //    config.UseProxyToSpaDevelopmentServer("http://localhost:4200");
+                //});
             }
 
             app.UseCors(builder => builder.AllowAnyOrigin());
@@ -61,15 +66,15 @@ namespace SightMap
 
             app.UseMvc(route =>
             {
-              route.MapRoute(
-                  name: "Api",
-                  template: "api/{controller}"
-                );
+                route.MapRoute(
+                    name: "Api",
+                    template: "api/{controller}"
+                  );
 
-              route.MapRoute(
-                  name: "default",
-                  template: "{controller=Angular}/{action=Index}"
-                );
+                route.MapRoute(
+                    name: "default",
+                    template: "{controller=Angular}/{action=Index}"
+                  );
             });
         }
     }

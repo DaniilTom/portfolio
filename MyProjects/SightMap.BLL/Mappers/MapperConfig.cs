@@ -12,8 +12,8 @@ namespace SightMap.BLL.Mappers
             {
                 cnfg.CreateMap<Sight, SightDTO>()
                     .ForPath(d => d.Type.Id, opt => opt.MapFrom(s => s.SightTypeId))
-                    .ReverseMap();
-                    //.ForMember(s => s.Type, memConf => memConf.Ignore());
+                    .ReverseMap()
+                    .ForPath(s => s.Type, memConf => memConf.Ignore());
 
                 cnfg.CreateMap<SightType, SightTypeDTO>()
                     .ReverseMap();

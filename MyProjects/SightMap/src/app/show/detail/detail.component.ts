@@ -1,7 +1,8 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { Sight } from "../../model/base.model";
 import { DataService } from '../../data/data.service';
-import { TypeResult } from '../../model/results.model';
+import { TypeResult, SightResult } from '../../model/results.model';
+import { NgForm } from '@angular/forms';
 
 @Component({
     selector: 'detail-comp',
@@ -26,7 +27,6 @@ export class DetailComponent {
         reader.onloadend = function (e) {
             var imgObj = document.images.namedItem('preview');
             imgObj.src = reader.result.toString();
-            //imgObj.removeAttribute('hidden');
         }
 
         reader.readAsDataURL(input.files[0]);
@@ -38,11 +38,16 @@ export class DetailComponent {
         this.isReadOnly = !this.isReadOnly;
     }
 
-    updateSight() {
-        this.dataService.updateSight();
+    updateSight(form: NgForm, id: number) {
+        if (form.valid) {
+            this.switchEditBlock();
+            this.dataService.updateSight(id).subscribe((data: SightResult) => alert(data.isSuccess));
+        }
+        else
+            alert("Ошибки в форме.");
     }
 
     deleteSight(id: number) {
-        this.dataService.deleteSight(id);
+        this.dataService.deleteSight(id).subscribe((data: SightResult) => alert(data.isSuccess));
     }
 }

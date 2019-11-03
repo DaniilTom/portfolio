@@ -1,0 +1,35 @@
+<div class="col text-center" style="background-color: darkgrey">
+    <p>Фильтр</p>
+    <div class="container">
+        <form method="get" [action]="dataService.apiSight">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>По имени:</th>
+                        <th>Тип:</th>
+                        <th>Дата создания:</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td rowspan="2"><input type="text" name="name" [(ngModel)]="filter.name"/></td>
+                        <td rowspan="2">
+                            <select class="form-control" id="type.id" name="type.id" [(ngModel)]="filter.sightTypeId" >
+                                <option value="0" selected >Choose type...</option>
+                                <option *ngFor="let type of dataService.getTypes()" [value]="type.id" [text]="type.name">
+                                </option>
+                            </select>
+                        </td>
+                        <td><span>C:</span><input type="date" name="createUpDate" [(ngModel)]="filter.createUpDate"/></td>
+                        <td><button class="btn btn-primary" type="reset">Сбросить</button></td>
+                    </tr>
+                    <tr>
+                        <td><span>По:</span><input type="date" name="createDownDate" [(ngModel)]="filter.createDownDate" /></td>
+                        <td><button class="btn btn-primary" type="button" (click)="applyFilter()">Поиск</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
+</div>

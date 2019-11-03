@@ -9,6 +9,8 @@ namespace SightMap.DAL.Repositories
 {
     public abstract class BaseRepository<T> : IRepository<T> where T : BaseEntity, new()
     {
+        private object lockObj;
+
         private DbSet<T> _dBSet;
         private DbSet<T> dBSet
         {
@@ -46,6 +48,7 @@ namespace SightMap.DAL.Repositories
             context = new DataDbContext();
             //context = _context;
             dBSet = context.Set<T>();
+            lockObj = new object();
         }
 
         public virtual T Add(T item)
@@ -92,18 +95,13 @@ namespace SightMap.DAL.Repositories
             //return dBSet.Where(t => t.Id == 1).Skip(offset).Take(size).ToList();
             //return dBSet.AsEnumerable().Where(t => t.Id == 1).AsQueryable().Skip(offset).Take(size).ToList();
 
-            return filter(dBSet)
-                .Skip(offset)
-                .Take(size)
-                .ToArray();
+            lock (lockObj)
+            {
+                return filter(dBSet)
+                    .Skip(offset)
+                    .Take(size)
+                    .ToArray();
+            }
         }
-
-        //public virtual IEnumerable<T> GetList(IEnumerable<System.Linq.Expressions.Expression<Func<T, bool>>> filter, int offset = 0, int size = int.MaxValue)
-        //{
-        //    foreach (var f in filter)
-        //    {
-        //        _dBSet = _dBSet.Where(f);
-        //    }
-        //}
     }
 }

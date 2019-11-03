@@ -12,13 +12,11 @@ namespace SightMap.BLL.DTO
         public DateTime? CreateDownDate { get; }
         public DateTime? UpdateUpDate { get; }
         public DateTime? UpdateDownDate { get; }
-        public bool FilterByCreateDate { get; set; }
-        public bool FilterByUpdateDate { get; set; }
 
         public override string ToString()
         {
             return base.ToString() + Name + SightTypeId + CreateUpDate + CreateDownDate + 
-                UpdateUpDate + UpdateDownDate + FilterByCreateDate + FilterByUpdateDate;
+                UpdateUpDate + UpdateDownDate;
         }
     }
 }

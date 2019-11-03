@@ -2,9 +2,18 @@
     <p class="text-center">Компонент детального просмотра</p>
 
     <div class="container p-2" style="overflow: auto;">
+        <style>
+            input.ng-dirty.ng-invalid {
+                border: 2px solid #ff0000
+            }
 
-        <form id="updateForm" class="col" method="post" [action]="dataService.apiSights" enctype="multipart/form-data"
-              (ngSubmit)="updateSight()">
+            input.ng-dirty.ng-valid {
+                border: 2px solid #6bc502
+            }
+        </style>
+        <form id="updateForm" class="col" method="post" [action]="dataService.apiSight + sight.id" enctype="multipart/form-data"
+              (ngSubmit)="updateSight(form1, sight.id)" novalidate #form1="ngForm">
+
             <div class="form-group row blocked">
                 <label class="col-1 col-form-label" for="id">Id</label>
                 <div class="col">
@@ -12,50 +21,58 @@
                 </div>
                 <div class="col-3">
                     <img id="preview" class="img-thumbnail" height="200" [src]="sight.photoPath" alt="photo.jpg" />
-                    <input type="file" name="image" accept=".png .jpg .jpeg" value="" (change)="prepareImgPreview($event)" />
-                    <label class="form-label">Фото</label>
+                    <input type="file" name="image" accept=".png .jpg .jpeg" title="" (change)="prepareImgPreview($event)" [readonly]="isReadOnly" />
                 </div>
             </div>
 
             <div class="form-group row">
                 <label class="col-1 col-form-label" for="name">Name</label>
                 <div class="col">
-                    <input class="form-control" type="text" id="name" name="name" [value]="sight.name" [readonly]="isReadOnly" />
+                    <input class="form-control" type="text" id="name" name="name" [readonly]="isReadOnly"
+                           [value]="sight.name"
+                           required
+                           pattern="^[А-Яа-яA-Za-z ]{2,}"/>
                 </div>
             </div>
 
             <div class="form-group row">
                 <label class="col-1 col-form-label" for="shortDesc">ShortDesc</label>
                 <div class="col">
-                    <input class="form-control" type="text" id="shortDesc" name="shortDescription" [value]="sight.shortDescription" [readonly]="isReadOnly" />
+                    <input class="form-control" type="text" id="shortDesc" name="shortDescription" [readonly]="isReadOnly"
+                           [value]="sight.shortDescription"
+                           required
+                           pattern="^[А-Яа-яA-Za-z ]{5,}"/>
                 </div>
             </div>
 
             <div class="form-group row">
                 <label class="col-1 col-form-label" for="fullDesc">FullDesc</label>
                 <div class="col">
-                    <input class="form-control" type="text" id="fullDesc" name="fullDescription" [value]="sight.fullDescription" [readonly]="isReadOnly" />
+                    <input class="form-control" type="text" id="fullDesc" name="fullDescription" [readonly]="isReadOnly"
+                           [value]="sight.fullDescription"
+                           required
+                           pattern="^[А-Яа-яA-Za-z ]{5,}"/>
                 </div>
             </div>
 
             <div class="form-group row blocked">
                 <label class="col-1 col-form-label" for="createDate">CreateDate</label>
                 <div class="col">
-                    <input class="form-control" type="date" id="createDate" name="createDate" [value]="sight.createDate" readonly />
+                    <input class="form-control" type="text" id="createDate" name="createDate" [value]="sight.createDate" readonly />
                 </div>
             </div>
 
             <div class="form-group row blocked">
                 <label class="col-1 col-form-label" for="updateDate">UpdateDate</label>
                 <div class="col">
-                    <input class="form-control" type="date" id="updateDate" name="updateDate" [value]="sight.updateDate" readonly />
+                    <input class="form-control" type="text" id="updateDate" name="updateDate" [value]="sight.updateDate" readonly />
                 </div>
             </div>
 
             <div class="form-group row">
                 <label class="col-1 col-form-label" for="type.id">Type</label>
                 <div class="col">
-                    <select class="form-control" id="type.id" name="type.id" [disabled]="isReadOnly">
+                    <select class="form-control" id="type.id" name="type.id" [disabled]="isReadOnly" required pattern="^[1-9]+[0-9]{0,}">
                         <option *ngFor="let type of dataService.getTypes()" [value]="type.id" [text]="type.name" [selected]="type.id == sight.type.id">
                         </option>
                     </select>

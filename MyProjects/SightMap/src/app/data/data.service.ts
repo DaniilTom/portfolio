@@ -1,8 +1,9 @@
 import { Sight, Type } from '../model/base.model';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { SightResult, TypeResult } from '../model/results.model';
+import { SightFilter } from '../model/filters.model';
 
 @Injectable()
 export class DataService {
@@ -28,27 +29,51 @@ export class DataService {
         this.typeResult = await this.getTypesFromServer().toPromise();
     }
 
-    getSightsFromServer(): Observable<SightResult> {
-        return this.client.get<SightResult>(this.apiSights);
+    getSightsFromServer(filter?: SightFilter): Observable<SightResult> {
+        if (filter == undefined)
+            filter = new SightFilter();
+        var params = this.GetQueryString(filter);
+        //Query
+        return this.client.get<SightResult>(this.apiSights + params);
     }
 
     getTypesFromServer(): Observable<TypeResult> {
         return this.client.get<TypeResult>(this.apiSightTypes);
     }
 
-    addSight() {
+    addSight(): Observable<SightResult> {
         var form = document.forms.namedItem('sightForm');
         var formData = new FormData(form);
-        this.client.post(this.apiSights, formData).subscribe((data: SightResult) => alert(data.isSuccess));
+        return this.client.post<SightResult>(this.apiSights, formData);
     }
 
-    updateSight() {
+    updateSight(id: number): Observable<SightResult> {
         var form = document.forms.namedItem('updateForm');
         var formData = new FormData(form);
-        this.client.put(this.apiSights, formData).subscribe((data: SightResult) => alert(data.isSuccess));
+        return this.client.post<SightResult>(this.apiSights + `${id}`, formData);
     }
 
-    deleteSight(id: number) {
-        this.client.delete(this.apiSights + "?id=" + id).subscribe((data: SightResult) => alert(data.isSuccess));
+    deleteSight(id: number): Observable<SightResult> {
+        return this.client.delete<SightResult>(this.apiSights + `?id=${id}`);
+    }
+
+    addType() {
+        var form = document.forms.namedItem('createType');
+        var formData = new FormData(form);
+        return this.client.post<TypeResult>(this.apiSightTypes, formData);
+    }
+
+    GetQueryString(obj: any): string {
+        var keys = Object.keys(obj);
+        var query = keys.map(function (key) {
+
+            var temp = obj[key];
+            if ((temp != undefined) && (temp != null) && (temp != 0))
+                return encodeURIComponent(key) + '=' + encodeURIComponent(obj[key]);
+            else
+                return "";
+
+        }).filter( str => str != "").join('&');
+        return '?' + query;
     }
 }
