@@ -14,66 +14,52 @@ export class DataService {
     private apiSightTypes: string = this.basePath + "api/sighttypes/";
     private apiReviews: string = this.basePath + "api/reviews/";
 
-    private typeResult: TypeResult = new TypeResult();
+    private typeResult: TypeResult<Type[]> = new TypeResult();
 
     getTypes(): Type[] {
         return this.typeResult.value;
     }
 
 
-    constructor(private client: HttpClient) {
-        this.SyncLoad();
+    constructor(private client: HttpClient) { }
+
+    getItems<T>(path: string, filter?: any): Observable<T> {
+        var params = "";
+
+        if ((filter != undefined) && (filter != null))
+            params = this.getQueryString(filter);
+
+        return this.client.get<T>(path + params);
     }
 
-    private async SyncLoad() {
-        this.typeResult = await this.getTypesFromServer().toPromise();
+    addItem<T>(path: string, form: FormData): Observable<T> {
+        return this.client.post<T>(path, form);
     }
 
-    getSightsFromServer(filter?: SightFilter): Observable<SightResult> {
-        if (filter == undefined)
-            filter = new SightFilter();
-        var params = this.GetQueryString(filter);
-        //Query
-        return this.client.get<SightResult>(this.apiSights + params);
+    editItem<T>(path: string, id: number, form: FormData): Observable<T> {
+        return this.client.post<T>(path + id, form);
     }
 
-    getTypesFromServer(): Observable<TypeResult> {
-        return this.client.get<TypeResult>(this.apiSightTypes);
+    deleteItem<T>(path: string, id: number): Observable<T> {
+        return this.client.delete<T>(path + `?id=${id}`);
     }
 
-    addSight(): Observable<SightResult> {
-        var form = document.forms.namedItem('sightForm');
-        var formData = new FormData(form);
-        return this.client.post<SightResult>(this.apiSights, formData);
+    deleteSight(id: number): Observable<SightResult<Sight>> {
+        return this.client.delete<SightResult<Sight>>(this.apiSights + `?id=${id}`);
     }
 
-    updateSight(id: number): Observable<SightResult> {
-        var form = document.forms.namedItem('updateForm');
-        var formData = new FormData(form);
-        return this.client.post<SightResult>(this.apiSights + `${id}`, formData);
-    }
-
-    deleteSight(id: number): Observable<SightResult> {
-        return this.client.delete<SightResult>(this.apiSights + `?id=${id}`);
-    }
-
-    addType() {
-        var form = document.forms.namedItem('createType');
-        var formData = new FormData(form);
-        return this.client.post<TypeResult>(this.apiSightTypes, formData);
-    }
-
-    GetQueryString(obj: any): string {
+    private getQueryString(obj: any): string {
         var keys = Object.keys(obj);
         var query = keys.map(function (key) {
 
             var temp = obj[key];
             if ((temp != undefined) && (temp != null) && (temp != 0))
                 return encodeURIComponent(key) + '=' + encodeURIComponent(obj[key]);
+                //return key + '=' + obj[key];
             else
                 return "";
 
-        }).filter( str => str != "").join('&');
+        }).filter(str => str != "").join('&');
         return '?' + query;
     }
 }

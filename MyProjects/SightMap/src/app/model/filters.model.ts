@@ -1,6 +1,6 @@
 export class SightFilter {
     constructor(
-        public offset: number = 0,
+        public offset: number = 1,
         public size: number = 10,
         public id: number = 0,
         public name: string = "",
@@ -10,4 +10,9 @@ export class SightFilter {
         public updateUpDate: Date = null,
         public updateDownDate: Date = null,
         public sightTypeId: number = 0) { }
+}
+
+export class TypeFilter {
+    public id: number = 0;
+    public name: string = "";
 }

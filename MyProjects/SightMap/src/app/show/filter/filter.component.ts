@@ -1,6 +1,7 @@
 import { Component, Output, EventEmitter } from '@angular/core';
 import { SightFilter } from '../../model/filters.model';
-import { DataService } from '../../data/data.service';
+import { TypeService } from '../../data/types-data.service';
+import { Type } from '../../model/base.model'
 
 @Component({
     selector: 'filter-comp',
@@ -9,8 +10,11 @@ import { DataService } from '../../data/data.service';
 export class FilterComponent {
 
     filter: SightFilter = new SightFilter();
+    types: Type[];
 
-    constructor(public dataService: DataService) { }
+    constructor(public typeService: TypeService) {
+        typeService.getTypes().then((data: Type[]) => this.types = data);
+    }
 
     @Output() onApplyFilter = new EventEmitter<SightFilter>();
 

@@ -5,6 +5,7 @@ using SightMap.BLL.DTO;
 using SightMap.BLL.Infrastructure.Interfaces;
 using SightMap.Models;
 using System.IO;
+using System;
 
 namespace SightMap.Controllers.Api
 {
@@ -15,8 +16,12 @@ namespace SightMap.Controllers.Api
         [HttpPost(Order = 1)]
         public ResultState<SightDTO> Post([FromForm] SightDTO dto, IFormFile image)
         {
+            string fileName  = "";
             if(image != null)
-                dto.PhotoPath = "\\img\\" + image.FileName;
+            {
+                fileName = Guid.NewGuid().ToString() + image.FileName.Substring(image.FileName.LastIndexOf('.'));
+                dto.PhotoPath = "\\img\\" + fileName;
+            }
             else
                 dto.PhotoPath = "\\img\\empty.jpg";
 
@@ -24,7 +29,7 @@ namespace SightMap.Controllers.Api
 
             if (resultState.IsSuccess && (image != null))
             {
-                LoadImage(image);
+                LoadImage(image, fileName);
             }
 
             return resultState;
@@ -33,16 +38,16 @@ namespace SightMap.Controllers.Api
         [HttpPost("{id}", Order = 1)]
         public ResultState<SightDTO> PostEdit([FromForm] SightDTO dto, IFormFile image)
         {
-            if (image != null)
-                dto.PhotoPath = "\\img\\" + image.FileName;
-            else
+            string fileName = "";
+            if (image == null)
                 dto.PhotoPath = "\\img\\empty.jpg";
 
             var resultState = base.PostEdit(dto);
 
             if (resultState.IsSuccess && (image != null))
             {
-                LoadImage(image);
+                fileName = resultState.Value.PhotoPath.Substring(resultState.Value.PhotoPath.LastIndexOf('\\'));
+                LoadImage(image, fileName);
             }
 
             return resultState;
@@ -50,12 +55,42 @@ namespace SightMap.Controllers.Api
 
 
 
-        protected async void LoadImage(IFormFile image)
+        protected async void LoadImage(IFormFile image, string fileName)
         {
-            string path = _host.ContentRootPath + "\\wwwroot\\img\\" + image.FileName;
-            using (var fileStream = new FileStream(path, FileMode.OpenOrCreate))
+            string path = _host.ContentRootPath + "\\wwwroot\\img\\" + fileName;
+            using (var fileStream = new FileStream(path, FileMode.Create))
             {
                 await image.CopyToAsync(fileStream);
+            }
+        }
+
+        [Route("/geta")]
+        public A GetA()
+        {
+            A a = new B();
+            return a;
+        }
+
+        public class A
+        {
+            public int num { get; set; }
+            public string str { get; set; }
+            public A()
+            {
+                num = 99;
+                str = "abc";
+            }
+        }
+
+        public class B : A
+        {
+            public int numnum { get; set; }
+            public string strstr { get; set; }
+
+            public B()
+            {
+                numnum = 9999999;
+                strstr = "dfghgdsf";
             }
         }
     }

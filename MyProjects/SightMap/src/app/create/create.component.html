@@ -11,8 +11,8 @@
         }
     </style>
     <div class="container p-2 border">
-        <form id="sightForm" class="col" method="post" [action]="dataService.apiSights" enctype="multipart/form-data"
-              (ngSubmit)="addNewSight(form)" novalidate #form="ngForm">
+        <form id="createSight" class="col" method="post" [action]="dataService.apiSights" enctype="multipart/form-data"
+              (ngSubmit)="addSight(form)" novalidate #form="ngForm">
 
             <div class="form-group row">
                 <label class="col-1 col-form-label" for="name">Name</label>
@@ -53,7 +53,7 @@
                 <div class="col">
                     <select class="form-control" id="type.id" name="type.id" [(ngModel)]="newSight.type.id" required pattern="^[1-9]+[0-9]{0,}">
                         <option value="undefined" selected>Choose type...</option>
-                        <option *ngFor="let type of dataService.getTypes()" [value]="type.id" [text]="type.name">
+                        <option *ngFor="let type of types" [value]="type.id" [text]="type.name">
                         </option>
                     </select>
                 </div>
@@ -65,7 +65,7 @@
     <div class="container p-2 border">
         <p>Создать тип</p>
         <form id="createType" class="col" method="post" [action]="dataService.apiSightTypes"
-              (ngSubmit)="addNewType(formType)" novalidate #formType="ngForm">
+              (ngSubmit)="addType(formType)" novalidate #formType="ngForm">
 
             <div class="form-group row">
                 <label class="col-1 col-form-label" for="name">Name</label>

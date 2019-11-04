@@ -4,7 +4,7 @@
     {
         public BaseFilterDTO()
         {
-            Offset = 0;
+            Offset = 1;
             Size = int.MaxValue;
         }
         public int Id { get; set; }

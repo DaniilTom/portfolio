@@ -1,0 +1,8 @@
+
+<ul>
+    <li *ngForm="let review in reviews">
+        <div>Автор: {{review.authorId}}</div>
+        <div>Пишет: {{review.message}}</div>
+        <review-comp *ngIf="review.children.lenght > 0" (reviews)="review.children" ></review-comp>
+    </li>
+</ul>

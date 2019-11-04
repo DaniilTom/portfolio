@@ -1,14 +1,19 @@
-import { Sight } from './base.model'
-import { Type } from './base.model';
+import { Sight, Review, Type } from './base.model'
 
-export class SightResult {
+export class SightResult<T> {
     public isSuccess?: boolean;
-    public value?: Sight[];
+    public value?: T;
     public message?: string;
 }
 
-export class TypeResult {
+export class TypeResult<T> {
     public isSuccess?: boolean;
-    public value?: Type[];
+    public value?: T;
+    public message?: string;
+}
+
+export class ReviewResult {
+    public isSuccess?: boolean;
+    public value?: Review[];
     public message?: string;
 }

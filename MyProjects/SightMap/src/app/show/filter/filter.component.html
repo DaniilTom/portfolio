@@ -1,31 +1,50 @@
 <div class="col text-center" style="background-color: darkgrey">
     <p>Фильтр</p>
     <div class="container">
-        <form method="get" [action]="dataService.apiSight">
+        <form class="form" method="get" [action]="dataService.apiSight">
             <table class="table">
                 <thead>
                     <tr>
-                        <th>По имени:</th>
-                        <th>Тип:</th>
+                        <th>Имя/Тип</th>
                         <th>Дата создания:</th>
+                        <th>Дата обновления:</th>
+                        <th>Страницы:</th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td rowspan="2"><input type="text" name="name" [(ngModel)]="filter.name"/></td>
-                        <td rowspan="2">
-                            <select class="form-control" id="type.id" name="type.id" [(ngModel)]="filter.sightTypeId" >
-                                <option value="0" selected >Choose type...</option>
-                                <option *ngFor="let type of dataService.getTypes()" [value]="type.id" [text]="type.name">
-                                </option>
+                        <td>
+                            <span>Имя:</span>
+                            <input class="form-control" type="text" name="name" [(ngModel)]="filter.name" />
+                        </td>
+                        <td><span>C:</span><input class="form-control" type="date" name="createUpDate" [(ngModel)]="filter.createUpDate" /></td>
+                        <td><span>C:</span><input class="form-control" type="date" name="updateUpDate" [(ngModel)]="filter.updateUpDate" /></td>
+                        <td>
+                            <span>Кол-во на странице:</span>
+                            <select class="form-control" id="size" name="size" [(ngModel)]="filter.size">
+                                <option value="5" text="5">5</option>
+                                <option value="10" text="10">10</option>
+                                <option value="15" text="15">15</option>
                             </select>
                         </td>
-                        <td><span>C:</span><input type="date" name="createUpDate" [(ngModel)]="filter.createUpDate"/></td>
                         <td><button class="btn btn-primary" type="reset">Сбросить</button></td>
                     </tr>
                     <tr>
-                        <td><span>По:</span><input type="date" name="createDownDate" [(ngModel)]="filter.createDownDate" /></td>
+                        <td>
+                            <span>Тип:</span>
+                            <select class="form-control" id="type.id" name="type.id" [(ngModel)]="filter.sightTypeId">
+                                <option value="0" selected>Choose type...</option>
+                                <option *ngFor="let type of types" [value]="type.id" [text]="type.name">
+                                </option>
+                            </select>
+                        </td>
+                        <td><span>По:</span><input class="form-control" type="date" name="createDownDate" [(ngModel)]="filter.createDownDate" /></td>
+                        <td><span>По:</span><input class="form-control" type="date" name="updateDownDate" [(ngModel)]="filter.updateDownDate" /></td>
+                        <td>
+                            <span>Страница:</span>
+                            <input class="form-control" type="number" id="offset" name="offset" [(ngModel)]="filter.offset" />
+                        </td>
                         <td><button class="btn btn-primary" type="button" (click)="applyFilter()">Поиск</button></td>
                     </tr>
                 </tbody>

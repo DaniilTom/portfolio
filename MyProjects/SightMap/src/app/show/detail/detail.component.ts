@@ -1,8 +1,10 @@
 import { Component, Input, OnInit } from "@angular/core";
-import { Sight } from "../../model/base.model";
+import { Sight, Review, Type } from "../../model/base.model";
 import { DataService } from '../../data/data.service';
-import { TypeResult, SightResult } from '../../model/results.model';
+import { SightResult } from '../../model/results.model';
 import { NgForm } from '@angular/forms';
+import { SightService } from '../../data/sights-data.service';
+import { TypeService } from '../../data/types-data.service';
 
 @Component({
     selector: 'detail-comp',
@@ -13,12 +15,17 @@ export class DetailComponent {
     isReadOnly = true;
     renderDetail = false;
     sight: Sight;
+    reviews: Review[] = [];
 
-    constructor(private dataService: DataService) { }
+    constructor(private sightService: SightService, private typeService: TypeService) {
+        typeService.getTypes().then((data: Type[]) => this.types = data);
+    }
 
     @Input() set Sight(_sight: Sight) {
         this.sight = _sight;
     }
+
+    types: Type[];
 
     prepareImgPreview($event) {
         var input = $event.target;
@@ -32,22 +39,27 @@ export class DetailComponent {
         reader.readAsDataURL(input.files[0]);
     }
 
-
-
     switchEditBlock() {
         this.isReadOnly = !this.isReadOnly;
     }
 
-    updateSight(form: NgForm, id: number) {
-        if (form.valid) {
-            this.switchEditBlock();
-            this.dataService.updateSight(id).subscribe((data: SightResult) => alert(data.isSuccess));
+    editSight(ngform: NgForm, id: number) {
+        if (ngform.valid) {
+            var form = document.forms.namedItem('editForm');
+            var formData = new FormData(form);
+            this.sightService.editSight(id, formData).then((data: Sight) => {
+                if (data != null)
+                    alert(`Успешно (id: ${data.id})`);
+            });
         }
         else
-            alert("Ошибки в форме.");
+            alert("Ошибки в форме.")
     }
 
     deleteSight(id: number) {
-        this.dataService.deleteSight(id).subscribe((data: SightResult) => alert(data.isSuccess));
+        this.sightService.deleteSight(id).then((data: boolean) => {
+            if (data)
+                alert(`Удалено: ${data})`);
+        });
     }
 }

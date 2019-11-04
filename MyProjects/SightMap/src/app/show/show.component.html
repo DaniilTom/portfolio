@@ -1,5 +1,5 @@
 <div class="col">
-    <filter-comp (onApplyFilter)="updateSights($event)"></filter-comp>
+    <filter-comp (onApplyFilter)="getSights($event)"></filter-comp>
     <table class="table table-stripped table-hover">
         <thead>
             <tr>
@@ -10,7 +10,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let sight of sightResult.value" (click)="SwitchDetail(sight)">
+            <tr *ngFor="let sight of sightArray" (click)="SwitchDetail(sight)">
                 <td>{{sight.id}}</td>
                 <td>{{sight.name}}</td>
                 <td>{{sight.shortDescription}}</td>

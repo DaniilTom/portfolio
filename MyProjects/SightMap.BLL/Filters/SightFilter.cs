@@ -12,7 +12,6 @@ namespace SightMap.BLL.Filters
     {
         public string Name { get; }
         public int SightTypeId { get; }
-
         public DateTime? CreateUpDate { get; }
         public DateTime? CreateDownDate { get; }
         public DateTime? UpdateUpDate { get; }

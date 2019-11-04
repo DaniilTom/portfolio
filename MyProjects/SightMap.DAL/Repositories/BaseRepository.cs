@@ -98,7 +98,7 @@ namespace SightMap.DAL.Repositories
             lock (lockObj)
             {
                 return filter(dBSet)
-                    .Skip(offset)
+                    .Skip((offset - 1) * size)
                     .Take(size)
                     .ToArray();
             }

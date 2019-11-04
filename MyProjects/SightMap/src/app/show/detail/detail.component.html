@@ -11,8 +11,8 @@
                 border: 2px solid #6bc502
             }
         </style>
-        <form id="updateForm" class="col" method="post" [action]="dataService.apiSight + sight.id" enctype="multipart/form-data"
-              (ngSubmit)="updateSight(form1, sight.id)" novalidate #form1="ngForm">
+        <form id="editForm" class="col" method="post" enctype="multipart/form-data"
+              (ngSubmit)="editSight(form1, sight.id)" novalidate #form1="ngForm">
 
             <div class="form-group row blocked">
                 <label class="col-1 col-form-label" for="id">Id</label>
@@ -31,7 +31,7 @@
                     <input class="form-control" type="text" id="name" name="name" [readonly]="isReadOnly"
                            [value]="sight.name"
                            required
-                           pattern="^[А-Яа-яA-Za-z ]{2,}"/>
+                           pattern="^[А-Яа-яA-Za-z ]{2,}" />
                 </div>
             </div>
 
@@ -41,7 +41,7 @@
                     <input class="form-control" type="text" id="shortDesc" name="shortDescription" [readonly]="isReadOnly"
                            [value]="sight.shortDescription"
                            required
-                           pattern="^[А-Яа-яA-Za-z ]{5,}"/>
+                           pattern="^[А-Яа-яA-Za-z ]{5,}" />
                 </div>
             </div>
 
@@ -51,7 +51,7 @@
                     <input class="form-control" type="text" id="fullDesc" name="fullDescription" [readonly]="isReadOnly"
                            [value]="sight.fullDescription"
                            required
-                           pattern="^[А-Яа-яA-Za-z ]{5,}"/>
+                           pattern="^[А-Яа-яA-Za-z ]{5,}" />
                 </div>
             </div>
 
@@ -73,7 +73,7 @@
                 <label class="col-1 col-form-label" for="type.id">Type</label>
                 <div class="col">
                     <select class="form-control" id="type.id" name="type.id" [disabled]="isReadOnly" required pattern="^[1-9]+[0-9]{0,}">
-                        <option *ngFor="let type of dataService.getTypes()" [value]="type.id" [text]="type.name" [selected]="type.id == sight.type.id">
+                        <option *ngFor="let type of types" [value]="type.id" [text]="type.name" [selected]="type.id == sight.type.id">
                         </option>
                     </select>
                 </div>
@@ -82,5 +82,10 @@
             <button class="btn btn-primary float-right m-1" type="submit" [hidden]="isReadOnly">Применить</button>
             <button class="btn btn-primary float-right m-1" type="button" (click)="deleteSight(sight.id)" [hidden]="isReadOnly">Удалить</button>
         </form>
+    </div>
+    <div class="col m-t-3" style="background-color: lavender">
+        <p>Комментарии:</p>
+        <!--<review-comp *ngIf="reviews.lenght > 0; else noReview" (reviews)="reviews"></review-comp>
+        <ng-template #noReview>Ничего нет</ng-template>-->
     </div>
 </div>

@@ -49,7 +49,10 @@ namespace SightMap.Controllers.Api
             var success = _manager.Delete(id);
             ResultState<TFullDto> resultState = new ResultState<TFullDto>(null);
             if (success)
+            {
                 resultState.IsSuccess = true;
+                resultState.Message = "";
+            }
             else
             {
                 resultState.IsSuccess = false;
@@ -60,7 +63,7 @@ namespace SightMap.Controllers.Api
         }
 
         [HttpGet]
-        public virtual ResultState<IEnumerable<TFullDto>> Get([FromQuery] TFilterDto filter)
+        public virtual ResultState<IEnumerable<TFullDto>> Get([FromQuery]TFilterDto filter)
         {
             var resultObject = _manager.GetListObjects(filter);
             var resultState = new ResultState<IEnumerable<TFullDto>>(resultObject);

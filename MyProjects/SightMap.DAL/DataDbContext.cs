@@ -21,8 +21,8 @@ namespace SightMap.DAL
             modelBuilder.Entity<Sight>(entity =>
             {
                 entity.HasOne<SightType>(s => s.Type)
-                      .WithOne()
-                      .HasForeignKey<Sight>(s => s.SightTypeId)
+                      .WithMany()
+                      .HasForeignKey(s => s.SightTypeId)
                       .OnDelete(DeleteBehavior.Cascade);
 
                 entity.Property(nameof(Sight.SightTypeId)).HasColumnName("Type");
@@ -31,8 +31,8 @@ namespace SightMap.DAL
             modelBuilder.Entity<Review>(entity =>
             {
                 entity.HasOne<Sight>()
-                      .WithOne()
-                      .HasForeignKey<Review>(r => r.ItemId)
+                      .WithMany()
+                      .HasForeignKey(r => r.ItemId)
                       .OnDelete(DeleteBehavior.Cascade);
 
                 //entity.HasMany<Review>()

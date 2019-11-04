@@ -10,6 +10,8 @@ import { CreateModule } from './create/create.module';
 import { ShowModule } from './show/show.module';
 
 import { DataService } from './data/data.service';
+import { SightService } from './data/sights-data.service';
+import { TypeService } from './data/types-data.service';
 
 @NgModule({
     declarations: [
@@ -22,7 +24,7 @@ import { DataService } from './data/data.service';
         AppRoutingModule,
         CreateModule, ShowModule
     ],
-    providers: [DataService],
+    providers: [DataService, SightService, TypeService],
     bootstrap: [AppComponent]
 })
 export class AppModule { }
