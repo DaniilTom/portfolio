@@ -4,6 +4,8 @@ import { Sight } from "../model/base.model";
 import { SightResult, TypeResult } from '../model/results.model';
 import { SightFilter } from '../model/filters.model';
 import { SightService } from '../data/sights-data.service';
+import 'gasparesganga-jquery-loading-overlay';
+import * as $ from 'jquery';
 
 @Component({
     selector: 'show-comp',
@@ -31,6 +33,7 @@ export class ShowComponent implements OnInit {
     }
 
     getSights(filter?: SightFilter) {
-        this.sightService.getSights(filter).then((value: Sight[]) => this.sightArray = value);
+        $('#container').LoadingOverlay("show");
+        this.sightService.getSights(filter).then((value: Sight[]) => { this.sightArray = value; $('#container').LoadingOverlay("hide"); });
     }
 }

@@ -9,7 +9,7 @@
                 <th>Type</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody id="container">
             <tr *ngFor="let sight of sightArray" (click)="SwitchDetail(sight)">
                 <td>{{sight.id}}</td>
                 <td>{{sight.name}}</td>

@@ -10,7 +10,9 @@ import { TypeService } from '../../data/types-data.service';
     selector: 'detail-comp',
     templateUrl: './detail.component.html'
 })
-export class DetailComponent {
+export class DetailComponent implements OnInit {
+
+    ngOnInit(): void { }
 
     isReadOnly = true;
     renderDetail = false;
@@ -44,6 +46,7 @@ export class DetailComponent {
     }
 
     editSight(ngform: NgForm, id: number) {
+        this.isReadOnly = true;
         if (ngform.valid) {
             var form = document.forms.namedItem('editForm');
             var formData = new FormData(form);
@@ -61,5 +64,6 @@ export class DetailComponent {
             if (data)
                 alert(`Удалено: ${data})`);
         });
+        this.ngOnInit();
     }
 }
