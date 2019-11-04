@@ -5,10 +5,10 @@ export class SightFilter {
         public id: number = 0,
         public name: string = "",
         public authorId: number = 0,
-        public createUpDate: Date = null,
-        public createDownDate: Date = null,
-        public updateUpDate: Date = null,
-        public updateDownDate: Date = null,
+        public createBeforeDate: Date = null,
+        public createAfterDate: Date = null,
+        public updateBeforeDate: Date = null,
+        public updateAfterDate: Date = null,
         public sightTypeId: number = 0) { }
 }
 

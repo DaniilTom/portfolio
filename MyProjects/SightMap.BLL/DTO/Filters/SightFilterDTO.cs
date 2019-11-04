@@ -8,15 +8,15 @@ namespace SightMap.BLL.DTO
     {
         public string Name { get; set; }
         public int SightTypeId { get; set; }
-        public DateTime? CreateUpDate { get; }
-        public DateTime? CreateDownDate { get; }
-        public DateTime? UpdateUpDate { get; }
-        public DateTime? UpdateDownDate { get; }
+        public DateTime? CreateBeforeDate { get; set; }
+        public DateTime? CreateAfterDate { get; set; }
+        public DateTime? UpdateBeforeDate { get; set; }
+        public DateTime? UpdateAfterDate { get; set; }
 
         public override string ToString()
         {
-            return base.ToString() + Name + SightTypeId + CreateUpDate + CreateDownDate + 
-                UpdateUpDate + UpdateDownDate;
+            return base.ToString() + Name + SightTypeId + CreateBeforeDate + CreateAfterDate + 
+                UpdateBeforeDate + UpdateAfterDate;
         }
     }
 }

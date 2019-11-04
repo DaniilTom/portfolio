@@ -18,8 +18,8 @@
                             <span>Имя:</span>
                             <input class="form-control" type="text" name="name" [(ngModel)]="filter.name" />
                         </td>
-                        <td><span>C:</span><input class="form-control" type="date" name="createUpDate" [(ngModel)]="filter.createUpDate" /></td>
-                        <td><span>C:</span><input class="form-control" type="date" name="updateUpDate" [(ngModel)]="filter.updateUpDate" /></td>
+                        <td><span>C:</span><input class="form-control" type="date" name="createAfterDate" [(ngModel)]="filter.createAfterDate" /></td>
+                        <td><span>C:</span><input class="form-control" type="date" name="updateAfterDate" [(ngModel)]="filter.updateAfterDate" /></td>
                         <td>
                             <span>Кол-во на странице:</span>
                             <select class="form-control" id="size" name="size" [(ngModel)]="filter.size">
@@ -39,8 +39,8 @@
                                 </option>
                             </select>
                         </td>
-                        <td><span>По:</span><input class="form-control" type="date" name="createDownDate" [(ngModel)]="filter.createDownDate" /></td>
-                        <td><span>По:</span><input class="form-control" type="date" name="updateDownDate" [(ngModel)]="filter.updateDownDate" /></td>
+                        <td><span>До:</span><input class="form-control" type="date" name="createBeforeDate" [(ngModel)]="filter.createBeforeDate" /></td>
+                        <td><span>До:</span><input class="form-control" type="date" name="updateBeforeDate" [(ngModel)]="filter.updateBeforeDate" /></td>
                         <td>
                             <span>Страница:</span>
                             <input class="form-control" type="number" id="offset" name="offset" [(ngModel)]="filter.offset" />

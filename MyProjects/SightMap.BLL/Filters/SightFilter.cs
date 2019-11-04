@@ -12,19 +12,19 @@ namespace SightMap.BLL.Filters
     {
         public string Name { get; }
         public int SightTypeId { get; }
-        public DateTime? CreateUpDate { get; }
-        public DateTime? CreateDownDate { get; }
-        public DateTime? UpdateUpDate { get; }
-        public DateTime? UpdateDownDate { get; }
+        public DateTime? CreateBeforeDate { get; }
+        public DateTime? CreateAfterDate { get; }
+        public DateTime? UpdateBeforeDate { get; }
+        public DateTime? UpdateAfterDate { get; }
 
         public SightFilter(SightFilterDTO filterDto) : base(filterDto)
         {
             Name = filterDto.Name;
             SightTypeId = filterDto.SightTypeId;
-            CreateUpDate = filterDto.CreateUpDate;
-            CreateDownDate = filterDto.CreateDownDate;
-            UpdateUpDate = filterDto.UpdateUpDate;
-            UpdateDownDate = filterDto.UpdateDownDate;
+            CreateBeforeDate = filterDto.CreateBeforeDate;
+            CreateAfterDate = filterDto.CreateAfterDate;
+            UpdateBeforeDate = filterDto.UpdateBeforeDate;
+            UpdateAfterDate = filterDto.UpdateAfterDate;
         }
 
         public override IQueryable<Sight> ApplyFilter(IQueryable<Sight> set)
@@ -47,28 +47,28 @@ namespace SightMap.BLL.Filters
                 set = set.Where(s => s.SightTypeId == SightTypeId);
             }
 
-            if (!(CreateUpDate is null))
+            if (!(CreateBeforeDate is null))
             {
                 // проверка CreateDate по верхнему порогу
-                set = set.Where(s => s.CreateDate <= CreateUpDate);
+                set = set.Where(s => s.CreateDate <= CreateBeforeDate);
             }
 
-            if (!(CreateDownDate is null))
+            if (!(CreateAfterDate is null))
             {
                 // проверка CreateDate по нижнему порогу
-                set = set.Where(s => s.CreateDate >= CreateDownDate);
+                set = set.Where(s => s.CreateDate >= CreateAfterDate);
             }
 
-            if (!(UpdateUpDate is null))
+            if (!(UpdateBeforeDate is null))
             {
                 // проверка UpdateDate по верхнему порогу
-                set = set.Where(s => s.UpdateDate <= UpdateUpDate);
+                set = set.Where(s => s.UpdateDate <= UpdateBeforeDate);
             }
 
-            if (!(UpdateDownDate is null))
+            if (!(UpdateAfterDate is null))
             {
                 // проверка UpdateDate по нижнему порогу
-                set = set.Where(s => s.UpdateDate >= UpdateDownDate);
+                set = set.Where(s => s.UpdateDate >= UpdateAfterDate);
             }
 
             #region Монадическое выражение
