@@ -11,7 +11,7 @@
         </form>
         <button class="btn btn-primary m-x-1" (click)="show = !show">Написать</button>
         <button class="btn btn-primary m-x-1" type="submit" [attr.form]="'formN'+review.parentId">Отправить</button>
-        <button class="btn btn-primary m-x-1" (click)="deleteReview(review.id, review.parentId)">Удалить</button>
+        <button class="btn btn-primary m-x-1" (click)="deleteReview(review)">Удалить</button>
         <review-comp *ngIf="review.children.length > 0" [Reviews]="review.children"></review-comp>
     </li>
 </ul>

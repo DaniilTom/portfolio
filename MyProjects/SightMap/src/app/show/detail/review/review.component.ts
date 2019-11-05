@@ -29,15 +29,17 @@ export class ReviewComponent {
         //    alert("Сообщение не может быть пустым.");
     }
 
-    deleteReview(id: number, formId: number) {
-        var form = document.forms.namedItem("formN" + formId);
-        var formData = new FormData(form);
+    deleteReview(review: Review) {
+        //alert(`Id отзыва: ${id}; Id формы: ${formId}`);
+        //var form = document.forms.namedItem("formN" + formId);
+        var formData = new FormData();
         formData.set("message", "Комментарий был удален.");
-        this.reviewsService.editReview(id, formData).then(data => {
-
-            let old = this.reviews.find(r => r.id == data.parentId)
-                            .children.find(r => r.id == data.id);
-            old = data;
+        formData.set("id", review.id.toString());
+        formData.set("parentId", review.parentId.toString());
+        formData.set("itemId", review.itemId.toString());
+        formData.set("authorId", review.authorId.toString());
+        this.reviewsService.editReview(review.id, formData).then(data => {
+            review = data;
         });
     }
 }
