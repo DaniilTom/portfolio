@@ -11,7 +11,7 @@
         }
     </style>
     <div class="container p-2 border">
-        <form id="createSight" class="col" method="post" [action]="dataService.apiSights" enctype="multipart/form-data"
+        <form id="createSight" class="col" method="post" enctype="multipart/form-data"
               (ngSubmit)="addSight(form)" novalidate #form="ngForm">
 
             <div class="form-group row">
@@ -41,10 +41,10 @@
             <div class="form-group row">
                 <label class="col-1 col-form-label" for="fullDescription">FullDesc</label>
                 <div class="col">
-                    <input class="form-control" type="text" id="fullDescription" name="fullDescription" placeholder="Full description..."
+                    <textarea class="form-control" type="text" id="fullDescription" name="fullDescription" placeholder="Full description..."
                            [(ngModel)]="newSight.fullDescription"
                            required
-                           pattern="^[А-Яа-яA-Za-z ]{5,}" />
+                           pattern="^[А-Яа-яA-Za-z ]{5,}"></textarea>
                 </div>
             </div>
 
@@ -64,7 +64,7 @@
 
     <div class="container p-2 border">
         <p>Создать тип</p>
-        <form id="createType" class="col" method="post" [action]="dataService.apiSightTypes"
+        <form id="createType" class="col" method="post"
               (ngSubmit)="addType(formType)" novalidate #formType="ngForm">
 
             <div class="form-group row">

@@ -48,10 +48,10 @@
             <div class="form-group row">
                 <label class="col-1 col-form-label" for="fullDesc">FullDesc</label>
                 <div class="col">
-                    <input class="form-control" type="text" id="fullDesc" name="fullDescription" [readonly]="isReadOnly"
+                    <textarea class="form-control" type="text" id="fullDesc" name="fullDescription" [readonly]="isReadOnly"
                            [value]="sight.fullDescription"
                            required
-                           pattern="^[А-Яа-яA-Za-z ]{5,}" />
+                           pattern="^[А-Яа-яA-Za-z ]{5,}"></textarea>
                 </div>
             </div>
 
