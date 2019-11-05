@@ -16,3 +16,11 @@ export class TypeFilter {
     public id: number = 0;
     public name: string = "";
 }
+
+export class ReviewFilter {
+    constructor(
+        public id: number = 0,
+        public parentId: number = 0,
+        public itemId: number = 0
+    ) { }
+}

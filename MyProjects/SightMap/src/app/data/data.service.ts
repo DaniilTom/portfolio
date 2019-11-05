@@ -44,10 +44,6 @@ export class DataService {
         return this.client.delete<T>(path + `?id=${id}`);
     }
 
-    deleteSight(id: number): Observable<SightResult<Sight>> {
-        return this.client.delete<SightResult<Sight>>(this.apiSights + `?id=${id}`);
-    }
-
     private getQueryString(obj: any): string {
         var keys = Object.keys(obj);
         var query = keys.map(function (key) {

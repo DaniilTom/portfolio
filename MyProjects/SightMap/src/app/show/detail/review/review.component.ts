@@ -1,5 +1,5 @@
 import { Component, Input } from "@angular/core";
-import { DataService } from '../../../data/data.service';
+import { ReviewService } from '../../../data/reviews-data.service';
 import { NgForm } from '@angular/forms';
 import { Review } from '../../../model/base.model';
 
@@ -13,9 +13,9 @@ export class ReviewComponent {
     renderDetail = false;
     reviews: Review[];
 
-    constructor(private dataService: DataService) { }
+    constructor(private reviewsService: ReviewService) { }
 
-    @Input() set Review(reviews: Review[]) {
+    @Input() set Reviews(reviews: Review[]) {
         this.reviews = reviews;
     }
 }

@@ -85,7 +85,7 @@
     </div>
     <div class="col m-t-3" style="background-color: lavender">
         <p>Комментарии:</p>
-        <!--<review-comp *ngIf="reviews.lenght > 0; else noReview" (reviews)="reviews"></review-comp>
-        <ng-template #noReview>Ничего нет</ng-template>-->
+        <review-comp *ngIf="reviews.length > 0; else noReview" [Reviews]="reviews"></review-comp>
+        <ng-template #noReview>Ничего нет</ng-template>
     </div>
 </div>

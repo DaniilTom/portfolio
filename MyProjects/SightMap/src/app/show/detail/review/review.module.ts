@@ -9,4 +9,4 @@ import { FormsModule } from '@angular/forms';
     declarations: [ReviewComponent],
     exports: [ReviewComponent]
 })
-export class ReviewlModule { }
+export class ReviewModule { }

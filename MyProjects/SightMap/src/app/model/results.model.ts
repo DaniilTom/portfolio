@@ -17,3 +17,9 @@ export class ReviewResult {
     public value?: Review[];
     public message?: string;
 }
+
+export class ResultState <T> {
+    public isSuccess?: boolean;
+    public value?: T;
+    public message?: string;
+}

@@ -5,6 +5,8 @@ import { SightResult } from '../../model/results.model';
 import { NgForm } from '@angular/forms';
 import { SightService } from '../../data/sights-data.service';
 import { TypeService } from '../../data/types-data.service';
+import { ReviewService } from '../../data/reviews-data.service';
+import { ReviewFilter } from '../../model/filters.model';
 
 @Component({
     selector: 'detail-comp',
@@ -18,16 +20,16 @@ export class DetailComponent implements OnInit {
     renderDetail = false;
     sight: Sight;
     reviews: Review[] = [];
+    types: Type[] = [];
 
-    constructor(private sightService: SightService, private typeService: TypeService) {
+    constructor(private sightService: SightService, private typeService: TypeService, private reviewService: ReviewService) {
         typeService.getTypes().then((data: Type[]) => this.types = data);
     }
 
     @Input() set Sight(_sight: Sight) {
         this.sight = _sight;
+        this.reviewService.getReviews(new ReviewFilter(0, 0, this.sight.id)).then((data: Review[]) => this.reviews = data);
     }
-
-    types: Type[];
 
     prepareImgPreview($event) {
         var input = $event.target;

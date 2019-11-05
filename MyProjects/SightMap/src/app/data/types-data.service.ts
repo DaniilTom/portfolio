@@ -50,7 +50,7 @@ export class TypeService {
         return this.editResult.value;
     }
 
-    async deleteSight(id: number): Promise<boolean> {
+    async deleteType(id: number): Promise<boolean> {
         this.deleteResult = await this.dataService.deleteItem<TypeResult<boolean>>(this.apiSightTypes, id).toPromise();
         if (!this.deleteResult.isSuccess)
             alert(this.deleteResult.message);
