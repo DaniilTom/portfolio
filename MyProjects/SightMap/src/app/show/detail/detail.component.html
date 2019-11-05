@@ -85,6 +85,13 @@
     </div>
     <div class="col m-t-3" style="background-color: lavender">
         <p>Комментарии:</p>
+        <form *ngIf="show" id="newReview" method="post" ngNativeValidate
+              (ngSubmit)="addReview()">
+            <input type="hidden" name="itemId" id="itemId" [value]="sight.id" />
+            <input type="text" name="message" placeholder="Введите сообщение..." required />
+        </form>
+        <button class="btn btn-primary m-x-1" (click)="show = !show">Написать</button>
+        <button class="btn btn-primary m-x-1" type="submit" form="newReview">Отправить</button>
         <review-comp *ngIf="reviews.length > 0; else noReview" [Reviews]="reviews"></review-comp>
         <ng-template #noReview>Ничего нет</ng-template>
     </div>

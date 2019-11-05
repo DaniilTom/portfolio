@@ -20,15 +20,16 @@ export class DetailComponent implements OnInit {
     renderDetail = false;
     sight: Sight;
     reviews: Review[] = [];
+    review: Review;
     types: Type[] = [];
 
-    constructor(private sightService: SightService, private typeService: TypeService, private reviewService: ReviewService) {
+    constructor(private sightService: SightService, private typeService: TypeService, private reviewsService: ReviewService) {
         typeService.getTypes().then((data: Type[]) => this.types = data);
     }
 
     @Input() set Sight(_sight: Sight) {
         this.sight = _sight;
-        this.reviewService.getReviews(new ReviewFilter(0, 0, this.sight.id)).then((data: Review[]) => this.reviews = data);
+        this.reviewsService.getReviews(new ReviewFilter(0, 0, this.sight.id)).then((data: Review[]) => this.reviews = data);
     }
 
     prepareImgPreview($event) {
@@ -45,6 +46,12 @@ export class DetailComponent implements OnInit {
 
     switchEditBlock() {
         this.isReadOnly = !this.isReadOnly;
+    }
+
+    addReview() {
+        var form = document.forms.namedItem("newReview");
+        var formData = new FormData(form);
+        this.reviewsService.addReview(formData).then(data => this.reviews.push(data));
     }
 
     editSight(ngform: NgForm, id: number) {
