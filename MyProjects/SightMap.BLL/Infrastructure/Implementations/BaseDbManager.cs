@@ -74,7 +74,7 @@ namespace SightMap.BLL.Infrastructure.Implementations
             return fullDto;
         }
 
-        public bool Delete(int id)
+        public virtual bool Delete(int id)
         {
             bool result = false;
             try

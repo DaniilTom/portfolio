@@ -18,6 +18,7 @@ export class Type {
 }
 
 export class Review {
+    public id?: number;
     public parentId?: number;
     public itemId?: number;
     public message?: string;
