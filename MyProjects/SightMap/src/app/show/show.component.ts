@@ -6,13 +6,14 @@ import { SightFilter } from '../model/filters.model';
 import { SightService } from '../data/sights-data.service';
 import 'gasparesganga-jquery-loading-overlay';
 import * as $ from 'jquery';
+import { ContainerService } from '../data/container.service';
 
 @Component({
     selector: 'show-comp',
     templateUrl: './show.component.html'
 })
 export class ShowComponent implements OnInit {
-    constructor(public sightService: SightService) { }
+    constructor(public sightService: SightService, private container: ContainerService) { }
 
     renderDetail = false;
     selectedSight: Sight = null;
@@ -26,6 +27,10 @@ export class ShowComponent implements OnInit {
         else {
             this.renderDetail = !this.renderDetail;
         }
+    }
+
+    pushData(sight: Sight) {
+        this.container.set("sight", sight);
     }
 
     async ngOnInit() {

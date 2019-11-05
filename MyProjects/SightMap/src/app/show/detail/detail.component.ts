@@ -7,6 +7,7 @@ import { SightService } from '../../data/sights-data.service';
 import { TypeService } from '../../data/types-data.service';
 import { ReviewService } from '../../data/reviews-data.service';
 import { ReviewFilter } from '../../model/filters.model';
+import { ContainerService } from '../../data/container.service';
 
 @Component({
     selector: 'detail-comp',
@@ -23,8 +24,15 @@ export class DetailComponent implements OnInit {
     review: Review;
     types: Type[] = [];
 
-    constructor(private sightService: SightService, private typeService: TypeService, private reviewsService: ReviewService) {
+    constructor(
+        private sightService: SightService,
+        private typeService: TypeService,
+        private reviewsService: ReviewService,
+        private container: ContainerService) {
+
         typeService.getTypes().then((data: Type[]) => this.types = data);
+        this.sight = container.get("sight");
+        this.reviewsService.getReviews(new ReviewFilter(0, 0, this.sight.id)).then((data: Review[]) => this.reviews = data);
     }
 
     @Input() set Sight(_sight: Sight) {

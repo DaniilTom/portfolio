@@ -10,7 +10,8 @@
             </tr>
         </thead>
         <tbody id="container">
-            <tr *ngFor="let sight of sightArray" (click)="SwitchDetail(sight)">
+            <tr *ngFor="let sight of sightArray" (click)="pushData(sight)"
+                [routerLink]="['/show', sight.id]">
                 <td>{{sight.id}}</td>
                 <td>{{sight.name}}</td>
                 <td>{{sight.shortDescription}}</td>
@@ -21,5 +22,5 @@
 </div>
 
 <div>
-    <detail-comp *ngIf="renderDetail" [Sight]="selectedSight"></detail-comp>
+    <!--<detail-comp *ngIf="renderDetail" [Sight]="selectedSight"></detail-comp>-->
 </div>
