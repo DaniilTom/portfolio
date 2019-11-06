@@ -1,8 +1,6 @@
 import { Component } from "@angular/core";
-import { DataService } from '../data/data.service';
 import { Sight, Type } from '../model/base.model';
 import { NgForm } from '@angular/forms';
-import { SightResult, TypeResult } from '../model/results.model';
 import { TypeService } from '../data/types-data.service';
 import { SightService } from '../data/sights-data.service';
 

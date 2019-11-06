@@ -15,6 +15,8 @@ import { TypeService } from './data/types-data.service';
 import { ReviewService } from './data/reviews-data.service';
 import { ContainerService } from './data/container.service';
 
+import { YaCoreModule }  from 'angular2-yandex-maps';
+
 @NgModule({
     declarations: [
         AppComponent
@@ -24,7 +26,7 @@ import { ContainerService } from './data/container.service';
         FormsModule,
         HttpClientModule,
         AppRoutingModule,
-        CreateModule, ShowModule
+        CreateModule, ShowModule, YaCoreModule.forRoot()
     ],
     providers: [DataService, SightService, TypeService, ReviewService, ContainerService],
     bootstrap: [AppComponent]
