@@ -28,7 +28,7 @@ export class YMapComponent implements OnInit {
         }).catch(error => console.log('Failed to load Yandex Maps', error));
     }
 
-    setCoordinates(lg, lt) {
+    private setCoordinates(lg, lt) {
         this.lg = lg;
         this.lt = lt;
     }
