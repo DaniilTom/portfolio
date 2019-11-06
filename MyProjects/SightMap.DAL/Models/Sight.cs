@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity.Spatial;
 
 namespace SightMap.DAL.Models
 {
@@ -29,5 +30,7 @@ namespace SightMap.DAL.Models
         public DateTime? CreateDate { get; set; }
 
         public DateTime? UpdateDate { get; set; }
+
+        public DbGeography Coordinates { get; set; }
     }
 }

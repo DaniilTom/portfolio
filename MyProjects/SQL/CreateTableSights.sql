@@ -22,3 +22,6 @@ ALTER TABLE Sights ALTER COLUMN AuthorId INT NOT NULL;
 USE Test;
 ALTER TABLE Sights ADD CreateDate SMALLDATETIME;
 ALTER TABLE Sights ADD UpdateDate SMALLDATETIME;
+
+/* 11.06.2019 */
+ALTER TABLE [Test].dbo.[Sights] ADD Coordinates geography;
