@@ -3,6 +3,7 @@ import { Sight, Type } from '../model/base.model';
 import { NgForm } from '@angular/forms';
 import { TypeService } from '../data/types-data.service';
 import { SightService } from '../data/sights-data.service';
+import { Coordinates } from '../YMap/ymap.component';
 
 @Component(
     {
@@ -60,5 +61,10 @@ export class CreateComponent {
         }
         else
             alert("Ошибки в форме.")
+    }
+
+    setCoordinates(coord: Coordinates){
+        this.newSight.latitude = coord.latitude;
+        this.newSight.longitude = coord.longitude;
     }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Output, EventEmitter } from "@angular/core";
 import ymaps from 'ymaps';
 
 @Component({
@@ -10,8 +10,11 @@ export class YMapComponent implements OnInit {
     maps: any;
     myMap;
 
-    lg: string;
-    lt: string;
+    myPlacemark: any;
+
+    coordunates: Coordinates = new Coordinates(0, 0);
+
+    @Output() coordinateChanged = new EventEmitter<Coordinates>();
 
     ngOnInit() {
         var bindFunc = this.setCoordinates.bind(this);
@@ -28,8 +31,21 @@ export class YMapComponent implements OnInit {
         }).catch(error => console.log('Failed to load Yandex Maps', error));
     }
 
-    private setCoordinates(lg, lt) {
-        this.lg = lg;
-        this.lt = lt;
+    private setCoordinates(lt, lg) {
+        this.coordunates.latitude = lt;
+        this.coordunates.longitude = lg;
+        this.coordinateChanged.emit(new Coordinates(lt, lg));
+
+        this.myMap.geoObjects.remove(this.myPlacemark);
+        this.myPlacemark = new this.maps.Placemark([lt, lg]);
+        this.myMap.geoObjects.add(this.myPlacemark);
+        
     }
+}
+
+export class Coordinates {
+    constructor(
+        public latitude: number,
+        public longitude: number
+    ) { }
 }

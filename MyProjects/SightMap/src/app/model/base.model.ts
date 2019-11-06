@@ -9,6 +9,8 @@ export class Sight {
     public photoPath?: string;
     public sightTypeId?: number;
     public type?: Type;
+    public longitude?: number;
+    public latitude?: number;
 }
 
 export class Type {

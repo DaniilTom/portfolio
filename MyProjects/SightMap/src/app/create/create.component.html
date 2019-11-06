@@ -11,51 +11,62 @@
         }
     </style>
     <div class="container p-2 border">
-        <form id="createSight" class="col" method="post" enctype="multipart/form-data"
-              (ngSubmit)="addSight(form)" novalidate #form="ngForm">
+        <form id="createSight" class="col" method="post" enctype="multipart/form-data" (ngSubmit)="addSight(form)"
+            novalidate #form="ngForm">
 
             <div class="form-group row">
                 <label class="col-1 col-form-label" for="name">Name</label>
                 <div class="col">
                     <input class="form-control" type="text" id="name" name="name" placeholder="Enter name"
-                           [(ngModel)]="newSight.name"
-                           required
-                           pattern="^[А-Яа-яA-Za-z ]{2,}" />
+                        [(ngModel)]="newSight.name" required pattern="^[А-Яа-яA-Za-z ]{2,}" />
                 </div>
                 <div class="col-3">
                     <img id="preview" class="img-thumbnail" height="200" src="\img\empty.jpg" />
-                    <input type="file" name="image" accept=".png .jpg .jpeg" value="" (change)="prepareImgPreview($event)" />
+                    <input type="file" name="image" accept=".png .jpg .jpeg" value=""
+                        (change)="prepareImgPreview($event)" />
                 </div>
             </div>
 
             <div class="form-group row">
                 <label class="col-1 col-form-label" for="shortDescription">ShortDesc</label>
                 <div class="col">
-                    <input class="form-control" type="text" id="shortDescription" name="shortDescription" placeholder="Short description..."
-                           [(ngModel)]="newSight.shortDescription"
-                           required
-                           pattern="^[А-Яа-яA-Za-z ]{5,}" />
+                    <input class="form-control" type="text" id="shortDescription" name="shortDescription"
+                        placeholder="Short description..." [(ngModel)]="newSight.shortDescription" required
+                        pattern="^[А-Яа-яA-Za-z ]{5,}" />
                 </div>
             </div>
 
             <div class="form-group row">
                 <label class="col-1 col-form-label" for="fullDescription">FullDesc</label>
                 <div class="col">
-                    <textarea class="form-control" type="text" id="fullDescription" name="fullDescription" placeholder="Full description..."
-                           [(ngModel)]="newSight.fullDescription"
-                           required
-                           pattern="^[А-Яа-яA-Za-z ]{5,}"></textarea>
+                    <textarea class="form-control" type="text" id="fullDescription" name="fullDescription"
+                        placeholder="Full description..." [(ngModel)]="newSight.fullDescription" required
+                        pattern="^[А-Яа-яA-Za-z ]{5,}"></textarea>
                 </div>
             </div>
 
             <div class="form-group row">
                 <label class="col-1 col-form-label" for="type.id">Type</label>
                 <div class="col">
-                    <select class="form-control" id="type.id" name="type.id" [(ngModel)]="newSight.type.id" required pattern="^[1-9]+[0-9]{0,}">
+                    <select class="form-control" id="type.id" name="type.id" [(ngModel)]="newSight.type.id" required
+                        pattern="^[1-9]+[0-9]{0,}">
                         <option value="undefined" selected>Choose type...</option>
                         <option *ngFor="let type of types" [value]="type.id" [text]="type.name">
                         </option>
                     </select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-1 col-form-label" for="latitude">Широта</label>
+                <div class="col">
+                    <input class="form-control" type="number" step="any" id="latitude" name="latitude"
+                        placeholder="Широта..." [(ngModel)]="newSight.latitude" required readonly />
+                </div>
+                <label class="col-1 col-form-label" for="longitude">Долгота</label>
+                <div class="col">
+                    <input class="form-control" type="number" step="any" id="longitude" name="longitude"
+                        placeholder="Долгота..." [(ngModel)]="newSight.longitude" required readonly />
                 </div>
             </div>
             <button class="btn btn-primary" type="submit">Отправить</button>
@@ -64,16 +75,13 @@
 
     <div class="container p-2 border">
         <p>Создать тип</p>
-        <form id="createType" class="col" method="post"
-              (ngSubmit)="addType(formType)" novalidate #formType="ngForm">
+        <form id="createType" class="col" method="post" (ngSubmit)="addType(formType)" novalidate #formType="ngForm">
 
             <div class="form-group row">
                 <label class="col-1 col-form-label" for="name">Name</label>
                 <div class="col">
                     <input class="form-control" type="text" id="name" name="name" placeholder="Enter name"
-                           [(ngModel)]="newType.name"
-                           required
-                           pattern="^[А-Яа-яA-Za-z ]{2,}" />
+                        [(ngModel)]="newType.name" required pattern="^[А-Яа-яA-Za-z ]{2,}" />
                 </div>
             </div>
 
@@ -81,4 +89,4 @@
         </form>
     </div>
 </div>
-<yan-map></yan-map>
+<yan-map (coordinateChanged)="setCoordinates($event)"></yan-map>
