@@ -1,8 +1,8 @@
-﻿using SightMap.BLL.Infrastructure;
+using SightMap.BLL.Infrastructure;
 
 namespace SightMap.Models
 {
-    public class ResultState<T> where T : class
+    public class ResultState<T>
     {
         public ResultState() { }
         public ResultState(T resultObject) : this(resultObject, null)

@@ -103,5 +103,10 @@ namespace SightMap.DAL.Repositories
                     .ToArray();
             }
         }
+
+        public int? GetCount(Func<IQueryable<T>, IQueryable<T>> filter)
+        {
+            return filter(dBSet).Count();
+        }
     }
 }

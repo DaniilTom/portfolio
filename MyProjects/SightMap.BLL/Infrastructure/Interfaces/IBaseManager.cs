@@ -28,5 +28,12 @@ namespace SightMap.BLL.Infrastructure.Interfaces
         /// <param name="filter"></param>
         /// <returns></returns>
         IEnumerable<TFullDto> GetListObjects(TFilterDto filterDto, bool IsCacheUsed = true);
+
+        /// <summary>
+        /// Метод получения дополнительной информации.
+        /// </summary>
+        /// <param name="filterDto"></param>
+        /// <returns></returns>
+        int? GetCount(TFilterDto filterDto);
     }
 }

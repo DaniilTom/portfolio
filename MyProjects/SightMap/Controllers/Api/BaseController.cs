@@ -5,6 +5,7 @@ using SightMap.BLL.DTO;
 using SightMap.BLL.Infrastructure;
 using SightMap.BLL.Infrastructure.Interfaces;
 using SightMap.Models;
+using System;
 using System.Collections.Generic;
 using System.IO;
 
@@ -67,6 +68,15 @@ namespace SightMap.Controllers.Api
         {
             var resultObject = _manager.GetListObjects(filter);
             var resultState = new ResultState<IEnumerable<TFullDto>>(resultObject);
+
+            return resultState;
+        }
+
+        [HttpGet("count")]
+        public virtual ResultState<int?> GetCount([FromQuery]TFilterDto filter)
+        {
+            var resultObject = _manager.GetCount(filter);
+            var resultState = new ResultState<int?>(resultObject);
 
             return resultState;
         }

@@ -117,6 +117,24 @@ namespace SightMap.BLL.Infrastructure.Implementations
 
             return dtoCollection;
         }
+        public virtual int? GetCount(TFilterDto filterDto)
+        {
+            IFilter<TModel> filter = ConfigureFilter(filterDto);
+
+            int? result;
+
+            try
+            {
+                result = _repo.GetCount(filter.ApplyFilter);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, e.Message);
+                result = null;
+            }
+
+            return result;
+        }
 
         protected abstract IFilter<TModel> ConfigureFilter(TFilterDto dto);
     }
