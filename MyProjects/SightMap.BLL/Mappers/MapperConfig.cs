@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using NetTopologySuite.Geometries;
 using SightMap.BLL.DTO;
 using SightMap.DAL.Models;
 
@@ -12,10 +13,13 @@ namespace SightMap.BLL.Mappers
             {
                 cnfg.CreateMap<Sight, SightDTO>()
                     .ForPath(d => d.Type.Id, opt => opt.MapFrom(s => s.SightTypeId))
-                    .ForPath(d => d.Longitude, opt => opt.MapFrom(s => s.Coordinates.Longitude))
-                    .ForPath(d => d.Latitude, opt => opt.MapFrom(s => s.Coordinates.Latitude))
+                    .ForPath(d => d.Longitude, opt => opt.MapFrom(s => s.Coordinates.Coordinate.X))
+                    .ForPath(d => d.Latitude, opt => opt.MapFrom(s => s.Coordinates.Coordinate.Y))
                     .ReverseMap()
-                    .ForPath(s => s.Type, memConf => memConf.Ignore());
+                    .ForPath(s => s.Type, opt => opt.Ignore())
+                    .ForPath(s => s.Coordinates.Coordinate.X, opt => opt.Ignore())
+                    .ForPath(s => s.Coordinates.Coordinate.Y, opt => opt.Ignore())
+                    .ForPath(s => s.Coordinates, o => o.MapFrom( s => new Point(s.Longitude, s.Latitude) { SRID = 4326 }));
 
                 cnfg.CreateMap<SightType, SightTypeDTO>()
                     .ReverseMap();

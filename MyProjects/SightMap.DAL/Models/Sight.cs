@@ -1,7 +1,9 @@
-﻿using System;
+﻿using NetTopologySuite.Geometries;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.Spatial;
+using System.Spatial;
 
 namespace SightMap.DAL.Models
 {
@@ -30,7 +32,8 @@ namespace SightMap.DAL.Models
         public DateTime? CreateDate { get; set; }
 
         public DateTime? UpdateDate { get; set; }
-
-        public DbGeography Coordinates { get; set; }
+        //[Column(TypeName = "geography")]
+        [Column(TypeName = "geography (point)")]
+        public Point Coordinates { get; set; }
     }
 }

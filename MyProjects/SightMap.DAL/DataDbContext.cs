@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SightMap.DAL.Models;
+using Microsoft.EntityFrameworkCore.SqlServer;
 
 namespace SightMap.DAL
 {
@@ -13,7 +14,8 @@ namespace SightMap.DAL
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(DALConstants.ConnectionString);
+            optionsBuilder.UseSqlServer(DALConstants.ConnectionString,
+                options => options.UseNetTopologySuite());
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -26,6 +28,8 @@ namespace SightMap.DAL
                       .OnDelete(DeleteBehavior.Cascade);
 
                 entity.Property(nameof(Sight.SightTypeId)).HasColumnName("Type");
+
+                entity.Property(s => s.Coordinates).HasColumnName("Coordinates");//.HasColumnType("geography (point)");
             });
 
             modelBuilder.Entity<Review>(entity =>
