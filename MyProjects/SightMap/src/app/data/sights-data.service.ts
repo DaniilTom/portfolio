@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { SightResult } from '../model/results.model';
+import { ResultState } from '../model/results.model';
 import { SightFilter } from '../model/filters.model';
 import { DataService } from './data.service';
 import { Sight } from '../model/base.model';
@@ -11,10 +11,10 @@ export class SightService {
 
     private apiSights: string = this.basePath + "api/sights/";
 
-    getResult: SightResult<Sight[]> = new SightResult();
-    addResult: SightResult<Sight> = new SightResult();
-    editResult: SightResult<Sight> = new SightResult();
-    deleteResult: SightResult<boolean> = new SightResult();
+    getResult: ResultState<Sight[]> = new ResultState();
+    addResult: ResultState<Sight> = new ResultState();
+    editResult: ResultState<Sight> = new ResultState();
+    deleteResult: ResultState<boolean> = new ResultState();
 
     sights: Sight[] = [];
 
@@ -26,7 +26,7 @@ export class SightService {
             filter = new SightFilter();
         }
 
-        this.getResult = await this.dataService.getItems<SightResult<Sight[]>>(this.apiSights, filter).toPromise();
+        this.getResult = await this.dataService.getItems<ResultState<Sight[]>>(this.apiSights, filter).toPromise();
         if (!this.getResult.isSuccess)
             alert(this.getResult.message);
 
@@ -35,7 +35,7 @@ export class SightService {
 
     async addSight(form: FormData): Promise<Sight> {
 
-        this.addResult = await this.dataService.addItem<SightResult<Sight>>(this.apiSights, form).toPromise();
+        this.addResult = await this.dataService.addItem<ResultState<Sight>>(this.apiSights, form).toPromise();
         if (!this.addResult.isSuccess)
             alert(this.addResult.message);
 
@@ -43,7 +43,7 @@ export class SightService {
     }
 
     async editSight(id: number, form: FormData): Promise<Sight> {
-        this.editResult = await this.dataService.editItem<SightResult<Sight>>(this.apiSights, id, form).toPromise();
+        this.editResult = await this.dataService.editItem<ResultState<Sight>>(this.apiSights, id, form).toPromise();
         if (!this.editResult.isSuccess)
             alert(this.editResult.message);
 
@@ -51,10 +51,23 @@ export class SightService {
     }
 
     async deleteSight(id: number): Promise<boolean> {
-        this.deleteResult = await this.dataService.deleteItem<SightResult<boolean>>(this.apiSights, id).toPromise();
+        this.deleteResult = await this.dataService.deleteItem<ResultState<boolean>>(this.apiSights, id).toPromise();
         if (!this.deleteResult.isSuccess)
             alert(this.deleteResult.message);
 
         return this.deleteResult.value;
+    }
+
+    async getSightsCount(filter?: SightFilter): Promise<number>{
+
+        if (filter == undefined || filter == null) {
+            filter = new SightFilter();
+        }
+
+        var getResult = await this.dataService.getCount<ResultState<number>>(this.apiSights, filter).toPromise();
+        if (!getResult.isSuccess)
+            alert(getResult.message);
+
+        return getResult.value;
     }
 }

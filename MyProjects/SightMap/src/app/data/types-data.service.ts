@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { TypeResult } from '../model/results.model';
+import { ResultState } from '../model/results.model';
 import { TypeFilter } from '../model/filters.model';
 import { DataService } from './data.service';
 import { Type } from '../model/base.model';
@@ -11,10 +11,10 @@ export class TypeService {
 
     private apiSightTypes: string = this.basePath + "api/sighttypes/";
 
-    getResult: TypeResult<Type[]> = new TypeResult();
-    addResult: TypeResult<Type> = new TypeResult();
-    editResult: TypeResult<Type> = new TypeResult();
-    deleteResult: TypeResult<boolean> = new TypeResult();
+    getResult: ResultState<Type[]> = new ResultState();
+    addResult: ResultState<Type> = new ResultState();
+    editResult: ResultState<Type> = new ResultState();
+    deleteResult: ResultState<boolean> = new ResultState();
 
     types: Type[] = [];
 
@@ -26,7 +26,7 @@ export class TypeService {
             filter = new TypeFilter();
         }
 
-        this.getResult = await this.dataService.getItems<TypeResult<Type[]>>(this.apiSightTypes, filter).toPromise();
+        this.getResult = await this.dataService.getItems<ResultState<Type[]>>(this.apiSightTypes, filter).toPromise();
         if (!this.getResult.isSuccess)
             alert(this.getResult.message);
 
@@ -35,7 +35,7 @@ export class TypeService {
 
     async addType(form: FormData): Promise<Type> {
 
-        this.addResult = await this.dataService.addItem<TypeResult<Type>>(this.apiSightTypes, form).toPromise();
+        this.addResult = await this.dataService.addItem<ResultState<Type>>(this.apiSightTypes, form).toPromise();
         if (!this.addResult.isSuccess)
             alert(this.addResult.message);
 
@@ -43,7 +43,7 @@ export class TypeService {
     }
 
     async editType(id: number, form: FormData): Promise<Type> {
-        this.editResult = await this.dataService.editItem<TypeResult<Type>>(this.apiSightTypes, id, form).toPromise();
+        this.editResult = await this.dataService.editItem<ResultState<Type>>(this.apiSightTypes, id, form).toPromise();
         if (!this.editResult.isSuccess)
             alert(this.editResult.message);
 
@@ -51,10 +51,23 @@ export class TypeService {
     }
 
     async deleteType(id: number): Promise<boolean> {
-        this.deleteResult = await this.dataService.deleteItem<TypeResult<boolean>>(this.apiSightTypes, id).toPromise();
+        this.deleteResult = await this.dataService.deleteItem<ResultState<boolean>>(this.apiSightTypes, id).toPromise();
         if (!this.deleteResult.isSuccess)
             alert(this.deleteResult.message);
 
         return this.deleteResult.value;
+    }
+
+    async getTypesCount(filter?: TypeFilter): Promise<number>{
+
+        if (filter == undefined || filter == null) {
+            filter = new TypeFilter();
+        }
+
+        var getResult = await this.dataService.getCount<ResultState<number>>(this.apiSightTypes, filter).toPromise();
+        if (!getResult.isSuccess)
+            alert(getResult.message);
+
+        return getResult.value;
     }
 }
