@@ -1,24 +1,17 @@
 <div class="container p-2">
     <div class="row justify-content-md-center">
         <div class="m-a-10 col-2">
-            <!--(click)="SwitchCreate()"-->
             <button class="btn btn-primary" routerLink="/create">Создать</button>
         </div>
         <div class="m-a-10 col-2">
-            <!--(click)="SwitchCreate()"-->
             <button class="btn btn-primary" routerLink="/">На главную</button>
         </div>
         <div class="m-a-10 col-2">
-            <!--(click)="SwitchShow()"-->
             <button class="btn btn-primary" routerLink="/show">Просмотр</button>
         </div>
     </div>
 </div>
 
 <div class="container">
-    <div calss="row">
-        <create-comp *ngIf="renderCreate"></create-comp>
-        <show-comp *ngIf="renderShow"></show-comp>
-    </div>
     <router-outlet></router-outlet>
 </div>

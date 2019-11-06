@@ -15,19 +15,8 @@ import { ContainerService } from '../data/container.service';
 export class ShowComponent implements OnInit {
     constructor(public sightService: SightService, private container: ContainerService) { }
 
-    renderDetail = false;
     selectedSight: Sight = null;
     sightArray: Sight[] = [];
-
-    SwitchDetail(_sight) {
-        if (_sight != this.selectedSight) {
-            this.renderDetail = true;
-            this.selectedSight = _sight;
-        }
-        else {
-            this.renderDetail = !this.renderDetail;
-        }
-    }
 
     pushData(sight: Sight) {
         this.container.set("sight", sight);

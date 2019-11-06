@@ -18,7 +18,6 @@ export class DetailComponent implements OnInit {
     ngOnInit(): void { }
 
     isReadOnly = true;
-    renderDetail = false;
     sight: Sight;
     reviews: Review[] = [];
     review: Review;
