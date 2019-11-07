@@ -3,6 +3,7 @@ import ymaps from 'ymaps';
 import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
 import { EditCreateBehavior } from './EditCreateBehavior';
+import { ShowCollectionBehavior } from './ShowCollectionBehavior';
 
 // import * as ymaps from 'yandex-maps';
 //import { IBehavior, Map } from 'yandex-maps';
@@ -27,7 +28,7 @@ export class YMapComponent implements OnInit {
     currentMode: string;
 
     @Output() coordinateChanged = new EventEmitter<Coordinates>();
-    @Input() switchEditMode:Subject<boolean>;
+    @Input() switchEditMode: Subject<boolean>;
 
     constructor(public activeRoute: ActivatedRoute) {
         this.currentMode = activeRoute.snapshot.url[0].path;
@@ -43,27 +44,31 @@ export class YMapComponent implements OnInit {
             zoom: 7
         });
 
-        if(this.currentMode != 'showmap')
-        {
+        if (this.currentMode != 'showmap') {
             var bindCtr = EditCreateBehavior.bind(null, this);
-            this.maps.behavior.storage.add('createEditBehavior', bindCtr);
+            this.maps.behavior.storage.add(BehaviorType.createEditBehavior, bindCtr);
             //Включаем поведение
             if (!this.isReadOnly)
-            this.myMap.behaviors.enable('createEditBehavior');
-            this.switchEditMode.subscribe((value: boolean) => this.switchEditing(value));    
+                this.myMap.behaviors.enable(BehaviorType.createEditBehavior);
+            this.switchEditMode.subscribe((value: boolean) => this.switchEditing(value));
+        }
+        else {
+            var bindCtr = ShowCollectionBehavior.bind(null, this);
+            this.maps.behavior.storage.add(BehaviorType.showCollectionBehavior, bindCtr);
+            this.myMap.behaviors.enable(BehaviorType.showCollectionBehavior);
         }
     }
-    
+
 
     switchEditing(value: boolean) {
         this.isReadOnly = value;
         if (!this.isReadOnly)
-            this.myMap.behaviors.enable('createEditBehavior');
+            this.myMap.behaviors.enable(BehaviorType.createEditBehavior);
         else
-            this.myMap.behaviors.disable('createEditBehavior');
+            this.myMap.behaviors.disable(BehaviorType.createEditBehavior);
     }
 
-        // вызывается в поведении EditCreateBehavior
+    // вызывается в поведении EditCreateBehavior
     private setCoordinates(lt, lg) {
         this.coordinates.latitude = lt;
         this.coordinates.longitude = lg;
@@ -80,4 +85,9 @@ export class Coordinates {
         public latitude: number,
         public longitude: number
     ) { }
+}
+
+enum BehaviorType {
+    createEditBehavior = 'createEditBehavior',
+    showCollectionBehavior = 'showCollectionBehavior'
 }

@@ -1,12 +1,14 @@
-export function EditCreateBehavior(yMapComp) {
+import { YMapComponent } from './ymap.component';
+
+export function ShowCollectionBehavior(yMapComp: YMapComponent) {
     // Определим свойства класса
     this.yMapComp = yMapComp;
     this.options = new window.ymaps.option.Manager(); // Менеджер опций
     this.events = new window.ymaps.event.Manager(); // Менеджер событий
 }
 // Определим методы.
-EditCreateBehavior.prototype = {
-    constructor: EditCreateBehavior,
+ShowCollectionBehavior.prototype = {
+    constructor: ShowCollectionBehavior,
     // Когда поведение будет включено, добавится событие щелчка на карту
     enable: function () {
         /*
@@ -15,9 +17,11 @@ EditCreateBehavior.prototype = {
         this._parent.getMap().events.add - добавляем слушатель события на карту.
         */
         this._parent.getMap().events.add('click', this._onClick, this);
+        this._parent.getMap().events.add('boundschange', this._boundsOnChange, this);
     },
     disable: function () {
         this._parent.getMap().events.remove('click', this._onClick, this);
+        this._parent.getMap().events.remove('boundschange', this._boundsOnChange, this);
     },
     // Устанавливает родителя для исходного поведения.
     setParent: function (parent) { this._parent = parent; },
@@ -28,5 +32,8 @@ EditCreateBehavior.prototype = {
         //alert(this.coord.latitude);
         var coords = e.get('coords');
         this.yMapComp.setCoordinates(coords[0], coords[1]);
+    },
+    _boundsOnChange: function(e) {
+        console.dir(e.get('newBounds'));
     }
 }
