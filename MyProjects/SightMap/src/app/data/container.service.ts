@@ -6,15 +6,20 @@ export class ContainerService {
     objArray: Pair[] = [];
 
     set(key: string, value: any) {
-        if(this.objArray.includes(this.get(key)))
+        if(this.get(key) != null)
         {
             this.remove(key);
         }
         this.objArray.push(new Pair(key, value));
     }
 
-    get(key: string) {
-        return this.objArray.find(pair => pair.key == key).value;
+    get(key: string): any {
+        try{
+            return this.objArray.find(pair => pair.key == key).value;
+        }
+        catch{
+            return null;
+        }
     }
 
     remove(key: string){
