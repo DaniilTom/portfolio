@@ -2,6 +2,7 @@ import { Component, OnInit, Output, EventEmitter, Input } from "@angular/core";
 import ymaps from 'ymaps';
 import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
+import { EditCreateBehavior } from './EditCreateBehavior';
 
 // import * as ymaps from 'yandex-maps';
 //import { IBehavior, Map } from 'yandex-maps';
@@ -23,12 +24,14 @@ export class YMapComponent implements OnInit {
 
     coordinates: Coordinates = new Coordinates(0, 0);
 
+    currentMode: string;
+
     @Output() coordinateChanged = new EventEmitter<Coordinates>();
     @Input() switchEditMode:Subject<boolean>;
 
     constructor(public activeRoute: ActivatedRoute) {
-        var currentMode = activeRoute.snapshot.url[0].path;
-        if (currentMode != "create")
+        this.currentMode = activeRoute.snapshot.url[0].path;
+        if (this.currentMode != "create")
             this.isReadOnly = true;
     }
 
@@ -40,14 +43,15 @@ export class YMapComponent implements OnInit {
             zoom: 7
         });
 
-        var bindCtr = EditCreateBehavior.bind(null, this);
-
-        this.maps.behavior.storage.add('createEditBehavior', bindCtr);
-        //Включаем поведение
-        if (!this.isReadOnly)
+        if(this.currentMode != 'showmap')
+        {
+            var bindCtr = EditCreateBehavior.bind(null, this);
+            this.maps.behavior.storage.add('createEditBehavior', bindCtr);
+            //Включаем поведение
+            if (!this.isReadOnly)
             this.myMap.behaviors.enable('createEditBehavior');
-
-        this.switchEditMode.subscribe((value: boolean) => this.switchEditing(value));    
+            this.switchEditMode.subscribe((value: boolean) => this.switchEditing(value));    
+        }
     }
     
 
@@ -59,6 +63,7 @@ export class YMapComponent implements OnInit {
             this.myMap.behaviors.disable('createEditBehavior');
     }
 
+        // вызывается в поведении EditCreateBehavior
     private setCoordinates(lt, lg) {
         this.coordinates.latitude = lt;
         this.coordinates.longitude = lg;
@@ -75,40 +80,4 @@ export class Coordinates {
         public latitude: number,
         public longitude: number
     ) { }
-}
-
-
-
-function EditCreateBehavior(yMapComp) {
-    // Определим свойства класса
-    this.yMapComp = yMapComp;
-    this.options = new window.ymaps.option.Manager(); // Менеджер опций
-    this.events = new window.ymaps.event.Manager(); // Менеджер событий
-}
-
-// Определим методы.
-EditCreateBehavior.prototype = {
-    constructor: EditCreateBehavior,
-    // Когда поведение будет включено, добавится событие щелчка на карту
-    enable: function () {
-        /*
-        this._parent - родителем для поведения является менеджер поведений;
-        this._parent.getMap() - получаем ссылку на карту;
-        this._parent.getMap().events.add - добавляем слушатель события на карту.
-        */
-        this._parent.getMap().events.add('click', this._onClick, this);
-    },
-    disable: function () {
-        this._parent.getMap().events.remove('click', this._onClick, this);
-    },
-    // Устанавливает родителя для исходного поведения.
-    setParent: function (parent) { this._parent = parent; },
-    // Получает родителя
-    getParent: function () { return this._parent; },
-    // При щелчке на карте происходит ее центрирование по месту клика.
-    _onClick: function (e) {
-        //alert(this.coord.latitude);
-        var coords = e.get('coords');
-        this.yMapComp.setCoordinates(coords[0], coords[1]);
-    }
 }

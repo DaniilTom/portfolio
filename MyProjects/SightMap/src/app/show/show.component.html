@@ -1,5 +1,11 @@
 <div class="col">
-    <filter-comp (onApplyFilter)="getSights($event)"></filter-comp>
+    <filter-comp (onApplyFilter)="getSights($event)" *ngIf="!useMap"></filter-comp>
+
+    <div class="row">
+        <div class="col">
+            <mapfilter-comp *ngIf="useMap"></mapfilter-comp>
+        </div>
+    </div>
     <table class="table table-stripped table-hover">
         <thead>
             <tr>

@@ -5,16 +5,25 @@ import { SightService } from '../data/sights-data.service';
 import 'gasparesganga-jquery-loading-overlay';
 import * as $ from 'jquery';
 import { ContainerService } from '../data/container.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'show-comp',
     templateUrl: './show.component.html'
 })
 export class ShowComponent implements OnInit {
-    constructor(public sightService: SightService, private container: ContainerService) { }
+
 
     selectedSight: Sight = null;
     sightArray: Sight[] = [];
+
+    useMap: boolean = false;
+
+    constructor(public sightService: SightService, private container: ContainerService, public activeRoute: ActivatedRoute) {
+        var currentMode = activeRoute.snapshot.url[0].path;
+        if (currentMode == "showmap")
+            this.useMap = true;
+    }
 
     pushData(sight: Sight) {
         this.container.set("sight", sight);
