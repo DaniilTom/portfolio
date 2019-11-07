@@ -1,9 +1,8 @@
-import { Sight, Type } from '../model/base.model';
+import { Type } from '../model/base.model';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { TypeResult } from '../model/results.model';
-import { SightFilter } from '../model/filters.model';
+import { ResultState } from '../model/results.model';
 
 @Injectable()
 export class DataService {
@@ -14,10 +13,10 @@ export class DataService {
     private apiSightTypes: string = this.basePath + "api/sighttypes/";
     private apiReviews: string = this.basePath + "api/reviews/";
 
-    private typeResult: TypeResult<Type[]> = new TypeResult();
+    private ResultState: ResultState<Type[]> = new ResultState();
 
     getTypes(): Type[] {
-        return this.typeResult.value;
+        return this.ResultState.value;
     }
 
 

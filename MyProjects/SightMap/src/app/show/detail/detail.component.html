@@ -58,16 +58,34 @@
             <div class="form-group row blocked">
                 <label class="col-1 col-form-label" for="createDate">CreateDate</label>
                 <div class="col">
-                    <input class="form-control" type="text" id="createDate" name="createDate" [value]="sight.createDate" readonly />
+                    <input class="form-control" type="datetime-local" id="createDate" name="createDate" [value]="sight.createDate" readonly />
                 </div>
             </div>
 
             <div class="form-group row blocked">
                 <label class="col-1 col-form-label" for="updateDate">UpdateDate</label>
                 <div class="col">
-                    <input class="form-control" type="text" id="updateDate" name="updateDate" [value]="sight.updateDate" readonly />
+                    <input class="form-control" type="datetime-local" id="updateDate" name="updateDate" [value]="sight.updateDate" readonly />
                 </div>
             </div>
+
+            <div class="form-group row">
+                    <div class="col">
+                        <label class="col-form-label" for="latitude">Широта</label>
+                        <div>
+                            <input class="form-control" type="number" step="any" id="latitude" name="latitude"
+                                placeholder="Широта..." [(ngModel)]="sight.latitude" required readonly />
+                        </div>
+                        <label class="col-form-label" for="longitude">Долгота</label>
+                        <div>
+                            <input class="form-control" type="number" step="any" id="longitude" name="longitude"
+                                placeholder="Долгота..." [(ngModel)]="sight.longitude" required readonly />
+                        </div>
+                    </div>
+                    <div class="col">
+                        <yan-map (coordinateChanged)="setCoordinates($event)" [switchEditMode]="switchEditMode"></yan-map>
+                    </div>
+                </div>
 
             <div class="form-group row">
                 <label class="col-1 col-form-label" for="type.id">Type</label>

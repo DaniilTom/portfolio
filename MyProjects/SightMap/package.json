@@ -26,8 +26,9 @@
     "popper.js": "^1.16.0",
     "rxjs": "~6.4.0",
     "rxjs-compat": "^6.5.3",
+    "zone.js": "~0.9.1",
     "ymaps": "^0.2.1",
-    "zone.js": "~0.9.1"
+    "@types/yandex-maps": "^2.1.8"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.803.16",

@@ -4,9 +4,10 @@ import { BrowserModule } from "@angular/platform-browser";
 import { DetailComponent } from "./detail.component";
 import { FormsModule } from '@angular/forms';
 import { ReviewModule } from './review/review.module';
+import { YMapModule } from 'src/app/YMap/ymap.module';
 
 @NgModule({
-    imports: [BrowserModule, FormsModule, ReviewModule],
+    imports: [BrowserModule, FormsModule, ReviewModule, YMapModule],
     declarations: [DetailComponent],
     exports: [DetailComponent]
 })

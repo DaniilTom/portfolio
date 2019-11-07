@@ -1,13 +1,12 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { Sight, Review, Type } from "../../model/base.model";
-import { DataService } from '../../data/data.service';
-import { SightResult } from '../../model/results.model';
 import { NgForm } from '@angular/forms';
 import { SightService } from '../../data/sights-data.service';
 import { TypeService } from '../../data/types-data.service';
 import { ReviewService } from '../../data/reviews-data.service';
 import { ReviewFilter } from '../../model/filters.model';
 import { ContainerService } from '../../data/container.service';
+import { Subject } from 'rxjs';
 
 @Component({
     selector: 'detail-comp',
@@ -22,6 +21,8 @@ export class DetailComponent implements OnInit {
     reviews: Review[] = [];
     review: Review;
     types: Type[] = [];
+
+    switchEditMode:Subject<boolean> = new Subject();
 
     constructor(
         private sightService: SightService,
@@ -53,6 +54,7 @@ export class DetailComponent implements OnInit {
 
     switchEditBlock() {
         this.isReadOnly = !this.isReadOnly;
+        this.switchEditMode.next(this.isReadOnly);
     }
 
     addReview() {
@@ -81,5 +83,10 @@ export class DetailComponent implements OnInit {
                 alert(`Удалено: ${data})`);
         });
         this.ngOnInit();
+    }
+
+    setCoordinates(coord: Coordinates){
+        this.sight.latitude = coord.latitude;
+        this.sight.longitude = coord.longitude;
     }
 }

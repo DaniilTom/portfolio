@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DataService } from "../data/data.service";
 import { Sight } from "../model/base.model";
-import { SightResult, TypeResult } from '../model/results.model';
 import { SightFilter } from '../model/filters.model';
 import { SightService } from '../data/sights-data.service';
 import 'gasparesganga-jquery-loading-overlay';

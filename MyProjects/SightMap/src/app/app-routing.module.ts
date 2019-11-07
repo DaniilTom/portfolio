@@ -7,12 +7,7 @@ import { DetailComponent } from './show/detail/detail.component';
 
 const routes: Routes = [
     { path: 'create', component: CreateComponent },
-    {
-        path: 'show', component: ShowComponent,
-        //children: [
-        //    { path: ':id', component: DetailComponent }
-        //]
-    },
+    { path: 'show', component: ShowComponent },
     { path: 'show/:id', component: DetailComponent }
 ];
 

@@ -58,15 +58,20 @@
             </div>
 
             <div class="form-group row">
-                <label class="col-1 col-form-label" for="latitude">Широта</label>
                 <div class="col">
-                    <input class="form-control" type="number" step="any" id="latitude" name="latitude"
-                        placeholder="Широта..." [(ngModel)]="newSight.latitude" required readonly />
+                    <label class="col-form-label" for="latitude">Широта</label>
+                    <div>
+                        <input class="form-control" type="number" step="any" id="latitude" name="latitude"
+                            placeholder="Широта..." [(ngModel)]="newSight.latitude" required readonly />
+                    </div>
+                    <label class="col-form-label" for="longitude">Долгота</label>
+                    <div>
+                        <input class="form-control" type="number" step="any" id="longitude" name="longitude"
+                            placeholder="Долгота..." [(ngModel)]="newSight.longitude" required readonly />
+                    </div>
                 </div>
-                <label class="col-1 col-form-label" for="longitude">Долгота</label>
                 <div class="col">
-                    <input class="form-control" type="number" step="any" id="longitude" name="longitude"
-                        placeholder="Долгота..." [(ngModel)]="newSight.longitude" required readonly />
+                    <yan-map (coordinateChanged)="setCoordinates($event)"></yan-map>
                 </div>
             </div>
             <button class="btn btn-primary" type="submit">Отправить</button>
@@ -89,4 +94,3 @@
         </form>
     </div>
 </div>
-<yan-map (coordinateChanged)="setCoordinates($event)"></yan-map>
