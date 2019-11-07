@@ -33,7 +33,7 @@ namespace SightMap.DAL.Models
 
         public DateTime? UpdateDate { get; set; }
         //[Column(TypeName = "geography")]
-        [Column(TypeName = "geography (point)")]
+        //[Column(TypeName = "geography (point)")]
         public Point Coordinates { get; set; }
     }
 }
