@@ -1,5 +1,11 @@
 import { YMapComponent, Bounds, Coordinates } from './ymap.component';
 
+declare global {
+    interface Window {
+        ymaps:any;
+    }
+}
+
 export function ShowCollectionBehavior(yMapComp: YMapComponent) {
     this.yMapComp = yMapComp;
     this.options = new window.ymaps.option.Manager(); // Менеджер опций
