@@ -42,6 +42,7 @@ export class CreateComponent {
                 if (data != null)
                     alert("Добавлено с id:" + data.id);
             });
+            ngform.resetForm();
         }
         else
             alert("Ошибки в форме.")
