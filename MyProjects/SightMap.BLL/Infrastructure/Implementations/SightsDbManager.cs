@@ -15,25 +15,42 @@ namespace SightMap.BLL.Infrastructure.Implementations
     public class SightsDbManager : BaseDbManager<SightDTO, SightFilterDTO, Sight>
     {
         private IBaseManager<SightTypeDTO, SightTypeFilterDTO> _typeManager;
+        private IBaseManager<AlbumDTO, AlbumFilterDTO> _albumManager;
 
         public SightsDbManager(ILogger<SightsDbManager> _logger,
                                IRepository<Sight> _repo,
                                IMapper _mapper,
                                ICustomCache _cache,
-                               IBaseManager<SightTypeDTO, SightTypeFilterDTO> typeManager) : base(_logger, _repo, _mapper, _cache)
+                               IBaseManager<SightTypeDTO, SightTypeFilterDTO> typeManager,
+                               IBaseManager<AlbumDTO, AlbumFilterDTO> albumManager) : base(_logger, _repo, _mapper, _cache)
         {
             _typeManager = typeManager;
+            _albumManager = albumManager;
         }
 
         public override SightDTO Add(SightDTO dto)
         {
             dto.CreateDate = DateTime.Now;
-            return base.Add(dto);
+            SightDTO temp = base.Add(dto);
+            temp.Type = _typeManager.GetListObjects(new SightTypeFilterDTO { Id = dto.Type.Id }).FirstOrDefault();
+            foreach(var page in dto.Album)
+            {
+                AlbumDTO tempPage = _albumManager.Add(page);
+                temp.Album.Add(tempPage);
+            }
+            return temp;
         }
 
         public override SightDTO Edit(SightDTO dto)
         {
             dto.UpdateDate = DateTime.Now;
+            SightDTO temp = base.Add(dto);
+            temp.Type = _typeManager.GetListObjects(new SightTypeFilterDTO { Id = dto.Type.Id }).FirstOrDefault();
+            foreach (var page in dto.Album)
+            {
+                AlbumDTO tempPage = _albumManager.Edit(page);
+                temp.Album.Add(tempPage);
+            }
             return base.Edit(dto);
         }
 
@@ -47,6 +64,7 @@ namespace SightMap.BLL.Infrastructure.Implementations
                 foreach (var sight in result)
                 {
                     sight.Type = _typeManager.GetListObjects(new SightTypeFilterDTO { Id = sight.Type.Id }).FirstOrDefault();
+                    sight.Album = _albumManager.GetListObjects(new AlbumFilterDTO { ItemId = sight.Id }).ToList();
                 }
             }
             else
@@ -55,6 +73,7 @@ namespace SightMap.BLL.Infrastructure.Implementations
                 foreach (var sight in result)
                 {
                     sight.Type = _typeManager.GetListObjects(new SightTypeFilterDTO { Id = sight.Type.Id }, false).FirstOrDefault();
+                    sight.Album = _albumManager.GetListObjects(new AlbumFilterDTO { ItemId = sight.Id }, false).ToList();
                 }
             }
 

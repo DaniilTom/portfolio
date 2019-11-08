@@ -4,8 +4,6 @@ import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
 import { EditCreateBehavior } from './EditCreateBehavior';
 import { ShowCollectionBehavior } from './ShowCollectionBehavior';
-import { SightFilter } from '../model/filters.model';
-import { Sight } from '../model/base.model';
 
 // import * as ymaps from 'yandex-maps';
 //import { IBehavior, Map } from 'yandex-maps';
@@ -35,6 +33,7 @@ export class YMapComponent implements OnInit {
     @Output() coordinateChanged = new EventEmitter<Coordinates>();
     @Input() switchEditMode: Subject<boolean>;
     @Input() setCollection: Subject<JSONCollection>;
+    @Input() removeInitPoint: Subject<void>;
     @Input() initPoint: Coordinates;
 
     constructor(public activeRoute: ActivatedRoute) {
@@ -63,6 +62,9 @@ export class YMapComponent implements OnInit {
                 this.myPlacemark = new this.maps.Placemark([this.initPoint.latitude, this.initPoint.longitude]);
                 this.myMap.geoObjects.add(this.myPlacemark);
             }
+
+            if(this.currentMode == 'create')
+                this.removeInitPoint.subscribe(() => this.myMap.geoObjects.remove(this.myPlacemark));
         }
         else {
             this.objectManager = new this.maps.ObjectManager();
@@ -87,6 +89,7 @@ export class YMapComponent implements OnInit {
             this.myMap.behaviors.disable(BehaviorType.createEditBehavior);
     }
 
+    // вызывается в поведении ShowCollectionBehavior
     private onBoundsChanged(bounds: Bounds) {
         this.boundsChanged.emit(bounds);
     }

@@ -11,6 +11,7 @@ export class Sight {
     public type?: Type;
     public longitude?: number;
     public latitude?: number;
+    public albums?: Album[] = [];
 }
 
 export class Type {
@@ -26,5 +27,11 @@ export class Review {
     public message?: string;
     public authorId?: number;
     public children?: Review[] = [];
+}
+
+export class Album {
+    public id?: number;
+    public itemId?: number;
+    public isMain?: boolean;
 }
 

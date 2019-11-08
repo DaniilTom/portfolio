@@ -4,6 +4,7 @@ import { NgForm } from '@angular/forms';
 import { TypeService } from '../data/types-data.service';
 import { SightService } from '../data/sights-data.service';
 import { Coordinates } from '../YMap/ymap.component';
+import { Subject } from 'rxjs';
 
 @Component(
     {
@@ -12,6 +13,8 @@ import { Coordinates } from '../YMap/ymap.component';
     })
 export class CreateComponent {
 
+    removeInitPoint: Subject<void> = new Subject<void>();
+    
     newSight: Sight = new Sight();
     newType: Type = new Type();
 
@@ -43,6 +46,7 @@ export class CreateComponent {
                     alert("Добавлено с id:" + data.id);
             });
             ngform.resetForm();
+            this.removeInitPoint.next();
         }
         else
             alert("Ошибки в форме.")
@@ -64,6 +68,7 @@ export class CreateComponent {
             alert("Ошибки в форме.")
     }
 
+    // метод подписки на событие карты coordinateChanged
     setCoordinates(coord: Coordinates){
         this.newSight.latitude = coord.latitude;
         this.newSight.longitude = coord.longitude;

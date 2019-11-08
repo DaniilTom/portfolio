@@ -12,7 +12,7 @@ namespace SightMap.BLL
 {
     public static class Configuration
     {
-        public static IServiceCollection AddBLLFunctional(this IServiceCollection services, IConfiguration config)
+        public static IServiceCollection AddBLLManagment(this IServiceCollection services, IConfiguration config)
         {
 
             //services.AddDbContext<DataDbContext>(options => options.UseSqlServer(config["ConnectionString"]), ServiceLifetime.Singleton);
@@ -20,6 +20,7 @@ namespace SightMap.BLL
             services.AddScoped<IRepository<Sight>, SightRepo>();
             services.AddScoped<IRepository<SightType>, SightTypeRepo>();
             services.AddScoped<IRepository<Review>, ReviewRepo>();
+            services.AddScoped<IRepository<Album>, AlbumRepo>();
 
             //services.AddScoped<ICustomCache<SightDTO>, SlidingCustomCache<SightDTO>>();
             //services.AddScoped<ICustomCache<SightTypeDTO>, AbsoluteCustomCache<SightTypeDTO>>();

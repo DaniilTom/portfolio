@@ -43,6 +43,14 @@ namespace SightMap.DAL
                 //      .WithOne()
                 //      .HasForeignKey(r => r.ParentId);
             });
+
+            modelBuilder.Entity<Album>(entity =>
+            {
+                entity.HasOne<Sight>()
+                      .WithMany()
+                      .HasForeignKey(a => a.ItemId)
+                      .OnDelete(DeleteBehavior.Cascade);
+            });
         }
     }
 }

@@ -28,3 +28,9 @@ export class ReviewFilter {
         public itemId: number = 0
     ) { }
 }
+
+export class AlbumFilter {
+    public id: number;
+    public itemId: number;
+    public isMain: boolean;
+}

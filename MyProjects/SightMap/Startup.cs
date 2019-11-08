@@ -29,12 +29,13 @@ namespace SightMap
             services.AddScoped<IBaseManager<SightDTO, SightFilterDTO>, SightsDbManager>();
             services.AddScoped<IBaseManager<SightTypeDTO, SightTypeFilterDTO>, SightTypesDbManager>();
             services.AddScoped<IBaseManager<ReviewDTO, ReviewFilterDTO>, ReviewsDbManager>();
+            services.AddScoped<IBaseManager<AlbumDTO, AlbumFilterDTO>, AlbumDbManager>();
 
             var mappingConfig = MapperConfig.Initialize();
             IMapper mapper = mappingConfig.CreateMapper();
             services.AddSingleton(mapper);
 
-            services.AddBLLFunctional(config);
+            services.AddBLLManagment(config);
 
             services.AddMemoryCache();
 
