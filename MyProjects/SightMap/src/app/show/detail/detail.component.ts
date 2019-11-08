@@ -7,6 +7,7 @@ import { ReviewService } from '../../data/reviews-data.service';
 import { ReviewFilter } from '../../model/filters.model';
 import { ContainerService } from '../../data/container.service';
 import { Subject } from 'rxjs';
+import { Coordinates } from 'src/app/YMap/ymap.component';
 
 @Component({
     selector: 'detail-comp',
@@ -38,6 +39,10 @@ export class DetailComponent implements OnInit {
     @Input() set Sight(_sight: Sight) {
         this.sight = _sight;
         this.reviewsService.getReviews(new ReviewFilter(0, 0, this.sight.id)).then((data: Review[]) => this.reviews = data);
+    }
+
+    getInitPoint(): Coordinates {
+        return new Coordinates(this.sight.latitude, this.sight.longitude);
     }
 
     prepareImgPreview($event) {

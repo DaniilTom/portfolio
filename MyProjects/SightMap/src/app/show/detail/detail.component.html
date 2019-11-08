@@ -83,7 +83,7 @@
                         </div>
                     </div>
                     <div class="col">
-                        <yan-map (coordinateChanged)="setCoordinates($event)" [switchEditMode]="switchEditMode"></yan-map>
+                        <yan-map (coordinateChanged)="setCoordinates($event)" [switchEditMode]="switchEditMode" [initPoint]="getInitPoint()"></yan-map>
                     </div>
                 </div>
 

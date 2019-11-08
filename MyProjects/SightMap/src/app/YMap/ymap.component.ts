@@ -35,6 +35,7 @@ export class YMapComponent implements OnInit {
     @Output() coordinateChanged = new EventEmitter<Coordinates>();
     @Input() switchEditMode: Subject<boolean>;
     @Input() setCollection: Subject<JSONCollection>;
+    @Input() initPoint: Coordinates;
 
     constructor(public activeRoute: ActivatedRoute) {
         this.currentMode = activeRoute.snapshot.url[0].path;
@@ -57,13 +58,18 @@ export class YMapComponent implements OnInit {
             if (!this.isReadOnly)
                 this.myMap.behaviors.enable(BehaviorType.createEditBehavior);
             this.switchEditMode.subscribe((value: boolean) => this.switchEditing(value));
+
+            if (this.initPoint != null) {
+                this.myPlacemark = new this.maps.Placemark([this.initPoint.latitude, this.initPoint.longitude]);
+                this.myMap.geoObjects.add(this.myPlacemark);
+            }
         }
         else {
             this.objectManager = new this.maps.ObjectManager();
             this.myMap.geoObjects.add(this.objectManager);
 
-            this.setCollection.subscribe( (collection : JSONCollection) => {
-                //this.objectManager.remove();
+            this.setCollection.subscribe((collection: JSONCollection) => {
+                this.objectManager.removeAll()
                 this.objectManager.add(collection);
             });
 
@@ -109,24 +115,24 @@ export class Bounds {
         public maxBounds: Coordinates) { }
 }
 
-export class JSONCollection{
+export class JSONCollection {
     type: string = "FeatureCollection";
     features: YMapJsonSight[] = [];
 }
 
-export class YMapJsonSight{
+export class YMapJsonSight {
     type: string = "Feature";
     id: number;
     geometry: Geometry;
     properties: Properties;
 }
 
-export class Geometry{
+export class Geometry {
     type: string = "Point";
     coordinates: number[];
 }
 
-export class Properties{
+export class Properties {
     hintContent: string;
 }
 
