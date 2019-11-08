@@ -6,6 +6,7 @@ import 'gasparesganga-jquery-loading-overlay';
 import * as $ from 'jquery';
 import { ContainerService } from '../data/container.service';
 import { ActivatedRoute } from '@angular/router';
+import { Subject } from 'rxjs';
 
 @Component({
     selector: 'show-comp',
@@ -13,7 +14,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ShowComponent implements OnInit {
 
-
+    sightsReady: Subject<Sight[]> = new Subject<Sight[]>();
     selectedSight: Sight = null;
     sightArray: Sight[] = [];
 
@@ -36,5 +37,6 @@ export class ShowComponent implements OnInit {
     getSights(filter?: SightFilter) {
         $('#container').LoadingOverlay("show");
         this.sightService.getSights(filter).then((value: Sight[]) => { this.sightArray = value; $('#container').LoadingOverlay("hide"); });
+        this.sightsReady.next(this.sightArray);
     }
 }

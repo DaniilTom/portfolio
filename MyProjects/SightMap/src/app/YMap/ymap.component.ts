@@ -4,6 +4,8 @@ import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
 import { EditCreateBehavior } from './EditCreateBehavior';
 import { ShowCollectionBehavior } from './ShowCollectionBehavior';
+import { SightFilter } from '../model/filters.model';
+import { Sight } from '../model/base.model';
 
 // import * as ymaps from 'yandex-maps';
 //import { IBehavior, Map } from 'yandex-maps';
@@ -27,8 +29,12 @@ export class YMapComponent implements OnInit {
 
     currentMode: string;
 
+    objectManager: any;
+
+    @Output() boundsChanged = new EventEmitter<Bounds>();
     @Output() coordinateChanged = new EventEmitter<Coordinates>();
     @Input() switchEditMode: Subject<boolean>;
+    @Input() setCollection: Subject<JSONCollection>;
 
     constructor(public activeRoute: ActivatedRoute) {
         this.currentMode = activeRoute.snapshot.url[0].path;
@@ -53,12 +59,19 @@ export class YMapComponent implements OnInit {
             this.switchEditMode.subscribe((value: boolean) => this.switchEditing(value));
         }
         else {
+            this.objectManager = new this.maps.ObjectManager();
+            this.myMap.geoObjects.add(this.objectManager);
+
+            this.setCollection.subscribe( (collection : JSONCollection) => {
+                //this.objectManager.remove();
+                this.objectManager.add(collection);
+            });
+
             var bindCtr = ShowCollectionBehavior.bind(null, this);
             this.maps.behavior.storage.add(BehaviorType.showCollectionBehavior, bindCtr);
             this.myMap.behaviors.enable(BehaviorType.showCollectionBehavior);
         }
     }
-
 
     switchEditing(value: boolean) {
         this.isReadOnly = value;
@@ -66,6 +79,10 @@ export class YMapComponent implements OnInit {
             this.myMap.behaviors.enable(BehaviorType.createEditBehavior);
         else
             this.myMap.behaviors.disable(BehaviorType.createEditBehavior);
+    }
+
+    private onBoundsChanged(bounds: Bounds) {
+        this.boundsChanged.emit(bounds);
     }
 
     // вызывается в поведении EditCreateBehavior
@@ -83,8 +100,34 @@ export class YMapComponent implements OnInit {
 export class Coordinates {
     constructor(
         public latitude: number,
-        public longitude: number
-    ) { }
+        public longitude: number) { }
+}
+
+export class Bounds {
+    constructor(
+        public minBounds: Coordinates,
+        public maxBounds: Coordinates) { }
+}
+
+export class JSONCollection{
+    type: string = "FeatureCollection";
+    features: YMapJsonSight[] = [];
+}
+
+export class YMapJsonSight{
+    type: string = "Feature";
+    id: number;
+    geometry: Geometry;
+    properties: Properties;
+}
+
+export class Geometry{
+    type: string = "Point";
+    coordinates: number[];
+}
+
+export class Properties{
+    hintContent: string;
 }
 
 enum BehaviorType {

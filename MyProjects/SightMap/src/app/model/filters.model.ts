@@ -9,7 +9,11 @@ export class SightFilter {
         public createAfterDate: Date = null,
         public updateBeforeDate: Date = null,
         public updateAfterDate: Date = null,
-        public sightTypeId: number = 0) { }
+        public sightTypeId: number = 0,
+        public latitudeMax: number = null,
+        public latitudeMin: number = null,
+        public longitudeMax: number = null,
+        public longitudeMin: number = null) { }
 }
 
 export class TypeFilter {

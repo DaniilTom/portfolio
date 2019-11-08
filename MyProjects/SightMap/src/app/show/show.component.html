@@ -3,7 +3,7 @@
 
     <div class="row">
         <div class="col">
-            <mapfilter-comp *ngIf="useMap"></mapfilter-comp>
+            <mapfilter-comp (onApplyFilter)="getSights($event)" *ngIf="useMap" [acceptorSights]="sightsReady"></mapfilter-comp>
         </div>
     </div>
     <table class="table table-stripped table-hover">

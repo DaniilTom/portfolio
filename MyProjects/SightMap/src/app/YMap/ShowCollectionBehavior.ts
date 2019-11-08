@@ -1,4 +1,4 @@
-import { YMapComponent } from './ymap.component';
+import { YMapComponent, Bounds, Coordinates } from './ymap.component';
 
 export function ShowCollectionBehavior(yMapComp: YMapComponent) {
     // Определим свойства класса
@@ -16,11 +16,9 @@ ShowCollectionBehavior.prototype = {
         this._parent.getMap() - получаем ссылку на карту;
         this._parent.getMap().events.add - добавляем слушатель события на карту.
         */
-        this._parent.getMap().events.add('click', this._onClick, this);
         this._parent.getMap().events.add('boundschange', this._boundsOnChange, this);
     },
     disable: function () {
-        this._parent.getMap().events.remove('click', this._onClick, this);
         this._parent.getMap().events.remove('boundschange', this._boundsOnChange, this);
     },
     // Устанавливает родителя для исходного поведения.
@@ -28,12 +26,12 @@ ShowCollectionBehavior.prototype = {
     // Получает родителя
     getParent: function () { return this._parent; },
     // При щелчке на карте происходит ее центрирование по месту клика.
-    _onClick: function (e) {
-        //alert(this.coord.latitude);
-        var coords = e.get('coords');
-        this.yMapComp.setCoordinates(coords[0], coords[1]);
-    },
     _boundsOnChange: function(e) {
-        console.dir(e.get('newBounds'));
+        var bounds = e.get('newBounds');
+        var boundsDto = new Bounds(
+            new Coordinates(bounds[0][0], bounds[0][1]),
+            new Coordinates(bounds[1][0], bounds[1][1])
+        );
+        this.yMapComp.onBoundsChanged(boundsDto);
     }
 }
