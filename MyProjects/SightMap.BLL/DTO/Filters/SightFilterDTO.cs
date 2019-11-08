@@ -12,11 +12,20 @@ namespace SightMap.BLL.DTO
         public DateTime? CreateAfterDate { get; set; }
         public DateTime? UpdateBeforeDate { get; set; }
         public DateTime? UpdateAfterDate { get; set; }
+        public double? LatitudeMax { get; set; }
+        public double? LatitudeMin { get; set; }
+        public double? LongitudeMax { get; set; }
+        public double? LongitudeMin { get; set; }
 
         public override string ToString()
         {
-            return base.ToString() + Name + SightTypeId + CreateBeforeDate + CreateAfterDate + 
-                UpdateBeforeDate + UpdateAfterDate;
+            return base.ToString() + 
+                Name + 
+                SightTypeId + 
+                CreateBeforeDate + CreateAfterDate + 
+                UpdateBeforeDate + UpdateAfterDate +
+                LatitudeMax + LatitudeMin +
+                LongitudeMax + LongitudeMin;
         }
     }
 }

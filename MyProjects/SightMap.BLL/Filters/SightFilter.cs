@@ -16,6 +16,10 @@ namespace SightMap.BLL.Filters
         public DateTime? CreateAfterDate { get; }
         public DateTime? UpdateBeforeDate { get; }
         public DateTime? UpdateAfterDate { get; }
+        public double? LatitudeMax { get; set; }
+        public double? LatitudeMin { get; set; }
+        public double? LongitudeMax { get; set; }
+        public double? LongitudeMin { get; set; }
 
         public SightFilter(SightFilterDTO filterDto) : base(filterDto)
         {
@@ -25,6 +29,10 @@ namespace SightMap.BLL.Filters
             CreateAfterDate = filterDto.CreateAfterDate;
             UpdateBeforeDate = filterDto.UpdateBeforeDate;
             UpdateAfterDate = filterDto.UpdateAfterDate;
+            LatitudeMax = filterDto.LatitudeMax;
+            LatitudeMin = filterDto.LatitudeMin;
+            LongitudeMax = filterDto.LongitudeMax;
+            LongitudeMin = filterDto.LongitudeMin;
         }
 
         public override IQueryable<Sight> ApplyFilter(IQueryable<Sight> set)
@@ -69,6 +77,18 @@ namespace SightMap.BLL.Filters
             {
                 // проверка UpdateDate по нижнему порогу
                 set = set.Where(s => s.UpdateDate >= UpdateAfterDate);
+            }
+
+            if (LongitudeMax != null)
+            {
+                set = set.Where(s => s.Coordinates.X <= LongitudeMax &&
+                                        s.Coordinates.X >= LongitudeMin);
+            }
+
+            if (LatitudeMax != null)
+            {
+                set = set.Where(s => s.Coordinates.Y <= LatitudeMax &&
+                                        s.Coordinates.Y >= LatitudeMin);
             }
 
             #region Монадическое выражение
