@@ -18,11 +18,15 @@
                             <span>Имя:</span>
                             <input class="form-control" type="text" name="name" [(ngModel)]="filter.name" />
                         </td>
-                        <td><span>C:</span><input class="form-control" type="date" name="createAfterDate" [(ngModel)]="filter.createAfterDate" /></td>
-                        <td><span>C:</span><input class="form-control" type="date" name="updateAfterDate" [(ngModel)]="filter.updateAfterDate" /></td>
+                        <td><span>C:</span><input class="form-control" type="date" name="createAfterDate"
+                                [(ngModel)]="filter.createAfterDate" /></td>
+                        <td><span>C:</span><input class="form-control" type="date" name="updateAfterDate"
+                                [(ngModel)]="filter.updateAfterDate" /></td>
                         <td>
                             <span>Кол-во на странице:</span>
-                            <select class="form-control" id="size" name="size" [(ngModel)]="filter.size">
+                            <select class="form-control" id="size" name="size" [(ngModel)]="filter.size"
+                                (change)="applyFilter()">
+                                <option value="2" text="5">2</option>
                                 <option value="5" text="5">5</option>
                                 <option value="10" text="10">10</option>
                                 <option value="15" text="15">15</option>
@@ -39,11 +43,28 @@
                                 </option>
                             </select>
                         </td>
-                        <td><span>До:</span><input class="form-control" type="date" name="createBeforeDate" [(ngModel)]="filter.createBeforeDate" /></td>
-                        <td><span>До:</span><input class="form-control" type="date" name="updateBeforeDate" [(ngModel)]="filter.updateBeforeDate" /></td>
+                        <td><span>До:</span><input class="form-control" type="date" name="createBeforeDate"
+                                [(ngModel)]="filter.createBeforeDate" /></td>
+                        <td><span>До:</span><input class="form-control" type="date" name="updateBeforeDate"
+                                [(ngModel)]="filter.updateBeforeDate" /></td>
                         <td>
                             <span>Страница:</span>
-                            <input class="form-control" type="number" id="offset" name="offset" [(ngModel)]="filter.offset" />
+                            <div>
+                                <style>
+                                    .current-page {
+                                        border: solid;
+                                    }
+                                </style>
+                                <button class="btn btn-info" [disabled]="filter.offset < 2"
+                                    (click)="filter.offset = filter.offset - 1; applyFilter();">&lt;</button>
+
+                                <button class="btn btn-info" *ngFor="let i of pageNum"
+                                    (click)="filter.offset = i; applyFilter();"
+                                    [ngClass]="filter.offset == i ? 'current-page' : '' ">{{i}}</button>
+
+                                <button class="btn btn-info" [disabled]="filter.offset >= pagesCount"
+                                    (click)="filter.offset = filter.offset + 1; applyFilter();">&gt;</button>
+                            </div>
                         </td>
                         <td><button class="btn btn-primary" type="button" (click)="applyFilter()">Поиск</button></td>
                     </tr>
