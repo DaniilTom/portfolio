@@ -17,6 +17,12 @@ ShowCollectionBehavior.prototype = {
     enable: function () {
         // this._parent - родителем для поведения является менеджер поведений;
         this._parent.getMap().events.add('boundschange', this._boundsOnChange, this);
+        var bounds =this._parent.getMap().getBounds();
+        var boundsDto = new Bounds(
+            new Coordinates(bounds[0][0], bounds[0][1]),
+            new Coordinates(bounds[1][0], bounds[1][1])
+        );
+        this.yMapComp.onBoundsChanged(boundsDto);
     },
     disable: function () {
         this._parent.getMap().events.remove('boundschange', this._boundsOnChange, this);
