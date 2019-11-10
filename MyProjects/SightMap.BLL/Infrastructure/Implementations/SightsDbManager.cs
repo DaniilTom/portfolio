@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using Microsoft.Extensions.Logging;
+using SightMap.BLL.Constants;
 using SightMap.BLL.CustomCache;
 using SightMap.BLL.DTO;
 using SightMap.BLL.Filters;
@@ -31,20 +32,27 @@ namespace SightMap.BLL.Infrastructure.Implementations
         public override SightDTO Add(SightDTO dto)
         {
             dto.CreateDate = DateTime.Now;
-            SightDTO temp = base.Add(dto);
-            temp.Type = _typeManager.GetListObjects(new SightTypeFilterDTO { Id = dto.Type.Id }).FirstOrDefault();
-            foreach(var page in dto.Album)
+            SightDTO resultSightDto = base.Add(dto);
+
+            foreach(var page in resultSightDto.Album)
             {
-                AlbumDTO tempPage = _albumManager.Add(page);
-                temp.Album.Add(tempPage);
+                string name = HostEnvironmentConstants.ImageLocalPath + 
+                                resultSightDto.Id.ToString() + 
+                                Guid.NewGuid().ToString() + 
+                                page.ImageName.Substring(page.ImageName.LastIndexOf('.'));
+
+                page.ImageName = name;
+                var newPage = _albumManager.Edit(page);
             }
-            return temp;
+
+            resultSightDto.Type = _typeManager.GetListObjects(new SightTypeFilterDTO { Id = dto.Type.Id }).FirstOrDefault();
+            return resultSightDto;
         }
 
         public override SightDTO Edit(SightDTO dto)
         {
             dto.UpdateDate = DateTime.Now;
-            SightDTO temp = base.Add(dto);
+            SightDTO temp = base.Edit(dto);
             temp.Type = _typeManager.GetListObjects(new SightTypeFilterDTO { Id = dto.Type.Id }).FirstOrDefault();
             foreach (var page in dto.Album)
             {

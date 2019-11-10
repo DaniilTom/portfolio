@@ -1,5 +1,7 @@
-﻿using SightMap.DAL.Models;
+﻿using Microsoft.AspNetCore.Http;
+using SightMap.DAL.Models;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace SightMap.BLL.DTO
 {

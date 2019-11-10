@@ -2,6 +2,7 @@
 using NetTopologySuite.Geometries;
 using SightMap.BLL.DTO;
 using SightMap.DAL.Models;
+using System.Linq;
 
 namespace SightMap.BLL.Mappers
 {
@@ -15,11 +16,13 @@ namespace SightMap.BLL.Mappers
                     .ForPath(d => d.Type.Id, opt => opt.MapFrom(s => s.SightTypeId))
                     .ForPath(d => d.Longitude, opt => opt.MapFrom(s => s.Coordinates.Coordinate.X))
                     .ForPath(d => d.Latitude, opt => opt.MapFrom(s => s.Coordinates.Coordinate.Y))
+                    .ForPath(d => d.Album, opt => opt.MapFrom(s => s.Album.ToList()))
                     .ReverseMap()
                     .ForPath(s => s.Type, opt => opt.Ignore())
                     .ForPath(s => s.Coordinates.Coordinate.X, opt => opt.Ignore())
                     .ForPath(s => s.Coordinates.Coordinate.Y, opt => opt.Ignore())
-                    .ForPath(s => s.Coordinates, o => o.MapFrom( s => new Point(s.Longitude, s.Latitude) { SRID = 4326 }));
+                    .ForPath(s => s.Coordinates, o => o.MapFrom( s => new Point(s.Longitude, s.Latitude) { SRID = 4326 }))
+                    .ForPath(s => s.Album, o => o.MapFrom( s => s.Album));
 
                 cnfg.CreateMap<SightType, SightTypeDTO>()
                     .ReverseMap();
@@ -27,6 +30,9 @@ namespace SightMap.BLL.Mappers
                 cnfg.CreateMap<Review, ReviewDTO>()
                     .ReverseMap()
                     .ForMember(r => r.Parent, memConf => memConf.Ignore());
+
+                cnfg.CreateMap<Album, AlbumDTO>()
+                    .ReverseMap();
             });
 
             return am_config;

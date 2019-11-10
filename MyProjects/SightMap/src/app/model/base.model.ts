@@ -11,7 +11,7 @@ export class Sight {
     public type?: Type;
     public longitude?: number;
     public latitude?: number;
-    public albums?: Album[] = [];
+    public album?: Album[] = [];
 }
 
 export class Type {
@@ -32,6 +32,7 @@ export class Review {
 export class Album {
     public id?: number;
     public itemId?: number;
+    public imageName?: string;
     public isMain?: boolean;
 }
 

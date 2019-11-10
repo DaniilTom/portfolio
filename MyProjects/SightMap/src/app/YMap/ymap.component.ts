@@ -56,7 +56,8 @@ export class YMapComponent implements OnInit {
             //Включаем поведение
             if (!this.isReadOnly)
                 this.myMap.behaviors.enable(BehaviorType.createEditBehavior);
-            this.switchEditMode.subscribe((value: boolean) => this.switchEditing(value));
+            if(this.currentMode == 'edit')
+                this.switchEditMode.subscribe((value: boolean) => this.switchEditing(value));
 
             if (this.initPoint != null) {
                 this.myPlacemark = new this.maps.Placemark([this.initPoint.latitude, this.initPoint.longitude]);

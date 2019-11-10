@@ -3,6 +3,6 @@ USE Test;
 CREATE TABLE [Test].[dbo].[Albums](
 	Id INT IDENTITY(1,1) PRIMARY KEY,
 	ItemId INT FOREIGN KEY REFERENCES Sights(Id) ON DELETE CASCADE NOT NULL,
-	ImageName VARCHAR(50) DEFAULT '\img\empty.jpg',
+	ImageName VARCHAR(50) DEFAULT 'img\\empty.jpg',
 	IsMain BIT NOT NULL DEFAULT 0
 );

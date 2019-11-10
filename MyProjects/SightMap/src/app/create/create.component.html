@@ -23,39 +23,49 @@
             </div>
 
             <div class="form-group row">
-                <div class="col-6">
-                    <img id="preview" class="img-thumbnail" height="200" src="\img\empty.jpg" />
-                    <input type="file" name="album[0]" accept="image/*" value="Главная"
-                        (change)="prepareImgPreview($event)" #inputVar0/>
-                        <input type="text" name="album[0].imageName" value="{{inputVar0.value}}" hidden="hidden"/>
+                <div class="col-6 main-preview" (contextmenu)="swapDiv(div0, $event)" #div0>
+                    <img class="img-thumbnail" src="\img\empty.jpg" />
+                    <input class="file" type="file" name="images[0].file" accept="image/*"
+                        (change)="loadImage(div0, true)" #input0 />
+                    <input type="hidden" name="images[0].isMain" value="{{div0.classList.contains('main-preview')}}" />
                 </div>
+
                 <div class="col-6">
                     <div class="row">
-                        <div class="col-6">
-                            <img id="preview" class="img-thumbnail" height="200" src="\img\empty.jpg" />
-                            <input type="file" name="image" accept="image/*" #inputVar1
-                                (change)="prepareImgPreview($event)" />
-                                <input type="text" name="album[1].imageName" value="{{inputVar1.value}}" hidden="hidden"/>
+
+                        <div class="col-6" (contextmenu)="swapDiv(div1, $event)" #div1>
+                            <img class="img-thumbnail" src="\img\empty.jpg" />
+                            <input class="file" type="file" name="images[1].file" accept="image/*"
+                                (change)="loadImage(div1)" #input1 />
+                            <input type="hidden" name="images[1].isMain"
+                                value="{{div1.classList.contains('main-preview')}}" />
                         </div>
-                        <div class="col-6">
-                            <img id="preview" class="img-thumbnail" height="200" src="\img\empty.jpg" />
-                            <input type="file" name="image" accept="image/*" #inputVar2
-                                (change)="prepareImgPreview($event)" />
-                                <input type="text" name="album[2].imageName" value="{{inputVar2.value}}" hidden="hidden"/>
+
+                        <div class="col-6" (contextmenu)="swapDiv(div2, $event)" #div2>
+                            <img class="img-thumbnail" src="\img\empty.jpg" />
+                            <input class="file" type="file" name="images[2].file" accept="image/*"
+                                (change)="loadImage(div2)" #input2 />
+                            <input type="hidden" name="images[2].isMain"
+                                value="{{div2.classList.contains('main-preview')}}" />
                         </div>
                     </div>
+
                     <div class="row">
-                        <div class="col-6">
-                            <img id="preview" class="img-thumbnail" height="200" src="\img\empty.jpg" />
-                            <input type="file" name="image" accept="image/*" #inputVar3
-                                (change)="prepareImgPreview($event)" />
-                                <input type="text" name="album[3].imageName" value="{{inputVar3.value}}" hidden="hidden"/>
+
+                        <div class="col-6" (contextmenu)="swapDiv(div3, $event)" #div3>
+                            <img class="img-thumbnail" src="\img\empty.jpg" />
+                            <input class="file" type="file" name="images[3].file" accept="image/*"
+                                (change)="loadImage(div3)" #input3 />
+                            <input type="hidden" name="images[3].isMain"
+                                value="{{div3.classList.contains('main-preview')}}" />
                         </div>
-                        <div class="col-6">
-                            <img id="preview" class="img-thumbnail" height="200" src="\img\empty.jpg" />
-                            <input type="file" name="image" accept="image/*" #inputVar4
-                                (change)="prepareImgPreview($event)" />
-                                <input type="text" name="album[4].imageName" value="{{inputVar4.value}}" hidden="hidden"/>
+
+                        <div class="col-6" (contextmenu)="swapDiv(div4, $event)" #div4>
+                            <img class="img-thumbnail" src="\img\empty.jpg" />
+                            <input class="file" type="file" name="images[4].file" accept="image/*"
+                                (change)="loadImage(div4)" #input4 />
+                            <input type="hidden" name="images[4].isMain"
+                                value="{{div4.classList.contains('main-preview')}}" />
                         </div>
                     </div>
                 </div>
@@ -128,3 +138,7 @@
         </form>
     </div>
 </div>
+
+<ng-template #makeMain>
+    <button (click)="alert('Сделано');">Сделать главной</button>
+</ng-template>

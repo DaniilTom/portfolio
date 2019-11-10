@@ -1,6 +1,7 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -10,6 +11,7 @@ using SightMap.BLL.DTO;
 using SightMap.BLL.Infrastructure.Implementations;
 using SightMap.BLL.Infrastructure.Interfaces;
 using SightMap.BLL.Mappers;
+using System.Globalization;
 
 namespace SightMap
 {
@@ -46,6 +48,9 @@ namespace SightMap
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger)
         {
+            CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("en-US");
+            CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo("en-US");
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

@@ -27,9 +27,14 @@ namespace SightMap.DAL
                       .HasForeignKey(s => s.SightTypeId)
                       .OnDelete(DeleteBehavior.Cascade);
 
+                entity.HasMany<Album>(s => s.Album)
+                        .WithOne()
+                        .HasForeignKey(a => a.ItemId)
+                        .OnDelete(DeleteBehavior.Cascade);
+
                 entity.Property(nameof(Sight.SightTypeId)).HasColumnName("Type");
 
-                entity.Property(s => s.Coordinates).HasColumnName("Coordinates");//.HasColumnType("geography (point)");
+                entity.Property(s => s.Coordinates).HasColumnName("Coordinates");
             });
 
             modelBuilder.Entity<Review>(entity =>
@@ -42,14 +47,6 @@ namespace SightMap.DAL
                 //entity.HasMany<Review>()
                 //      .WithOne()
                 //      .HasForeignKey(r => r.ParentId);
-            });
-
-            modelBuilder.Entity<Album>(entity =>
-            {
-                entity.HasOne<Sight>()
-                      .WithMany()
-                      .HasForeignKey(a => a.ItemId)
-                      .OnDelete(DeleteBehavior.Cascade);
             });
         }
     }

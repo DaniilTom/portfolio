@@ -6,30 +6,38 @@ using SightMap.BLL.Infrastructure.Interfaces;
 using SightMap.Models;
 using System.IO;
 using System;
+using System.Collections.Generic;
 
 namespace SightMap.Controllers.Api
 {
     public class SightsController : BaseApiController<SightDTO, SightFilterDTO>
     {
-        public SightsController(IBaseManager<SightDTO, SightFilterDTO> manager, IHostEnvironment host) : base(manager,host) { }
+        public SightsController(IBaseManager<SightDTO, SightFilterDTO> manager, IHostEnvironment host) : base(manager, host) { }
 
         [HttpPost(Order = 1)]
-        public ResultState<SightDTO> Post([FromForm] SightDTO dto, IFormFile image)
+        public ResultState<SightDTO> Post([FromForm] SightDTO dto, [FromForm] List<FileDTO> images)
         {
-            string fileName  = "";
-            if(image != null)
+            for (int i = 0; i < images.Count; i++)
             {
-                fileName = Guid.NewGuid().ToString() + image.FileName.Substring(image.FileName.LastIndexOf('.'));
-                dto.PhotoPath = "\\img\\" + fileName;
+                if (images[i].File == null)
+                    images.RemoveAt(i--);
+                else
+                    dto.Album.Add(new AlbumDTO {
+                        IsMain = images[i].IsMain,
+                        ImageName = images[i].File.FileName });
             }
-            else
-                dto.PhotoPath = "\\img\\empty.jpg";
 
             var resultState = base.Post(dto);
 
-            if (resultState.IsSuccess && (image != null))
+            if ((images.Count > 0) && resultState.IsSuccess)
             {
-                LoadImage(image, fileName);
+                var album = resultState.Value.Album;
+                for (int i = 0; i < album.Count; i++)
+                {
+                    var image = images.Find(img => img.IsMain == album[i].IsMain);
+                    LoadImage(image.File, album[i].ImageName);
+                    images.Remove(image);
+                }
             }
 
             return resultState;
@@ -54,11 +62,10 @@ namespace SightMap.Controllers.Api
         }
 
 
-
         protected async void LoadImage(IFormFile image, string fileName)
         {
-            string path = _host.ContentRootPath + "\\wwwroot\\img\\" + fileName;
-            using (var fileStream = new FileStream(path, FileMode.Create))
+            string path = _host.ContentRootPath + "\\wwwroot\\" + fileName;
+            using (var fileStream = new FileStream(path, FileMode.Create, FileAccess.ReadWrite, FileShare.Read))
             {
                 await image.CopyToAsync(fileStream);
             }
