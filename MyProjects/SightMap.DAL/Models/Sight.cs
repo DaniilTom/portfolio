@@ -36,6 +36,6 @@ namespace SightMap.DAL.Models
 
         public Point Coordinates { get; set; }
 
-        public ICollection<Album> Album { get; set; }
+        public List<Album> Album { get; set; }
     }
 }

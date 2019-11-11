@@ -27,7 +27,7 @@ namespace SightMap.DAL
                       .HasForeignKey(s => s.SightTypeId)
                       .OnDelete(DeleteBehavior.Cascade);
 
-                entity.HasMany<Album>(s => s.Album)
+                entity.HasMany<Album>()
                         .WithOne()
                         .HasForeignKey(a => a.ItemId)
                         .OnDelete(DeleteBehavior.Cascade);
