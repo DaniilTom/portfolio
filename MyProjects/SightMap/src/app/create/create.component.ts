@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, ViewChild, TemplateRef, ViewContainerRef } from "@angular/core";
 import { Sight, Type, Album } from '../model/base.model';
 import { NgForm } from '@angular/forms';
 import { TypeService } from '../data/types-data.service';
@@ -27,6 +27,9 @@ export class CreateComponent {
     mainImgDiv: HTMLDivElement;
 
     types: Type[];
+
+    @ViewChild('imgInput', {read: TemplateRef, static: false}) imgInput: TemplateRef<any>;
+    @ViewChild('container', {read: ViewContainerRef, static: false}) container: ViewContainerRef;
 
     constructor(public sightService: SightService, public typeService: TypeService) {
         this.newSight.type = new Type();
@@ -79,27 +82,29 @@ export class CreateComponent {
         console.dir(event);
     }
 
-    loadImage(div: HTMLDivElement, isMain?: boolean) {
+    changeImage(div: HTMLDivElement){
         var input = div.getElementsByClassName("file")[0] as HTMLInputElement;
-        //var img = div.getElementsByTagName("img")[0] as HTMLImageElement;
-
-        var newPage = new AlbumTempTemp();
-        newPage.imageName = input.files[0].name;
-
+        var img = div.getElementsByTagName("img")[0] as HTMLImageElement;
+        
         if (input.files[0] == undefined) {
-            newPage.imgAsUrl = "";
+            img.src = "";
             return;
         }
 
         var reader = new FileReader();
         reader.onloadend = function (e) {
-            newPage.imgAsUrl = reader.result.toString();
-            console.log(newPage.imgAsUrl);
+            img.src = reader.result.toString();
         }
 
         reader.readAsDataURL(input.files[0]);
+    }
 
-        this.album.push(newPage);
+    addNewImage(div: HTMLDivElement, isMain?: boolean) {
+        this.changeImage(div);
+
+        var t = this.container.createEmbeddedView(this.imgInput);
+        
+        console.dir(t);
     }
 
     swapDiv(div: HTMLDivElement, $event) {

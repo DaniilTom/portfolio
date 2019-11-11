@@ -27,7 +27,7 @@ namespace SightMap.Controllers.Api
         }
 
         [HttpPost(Order = int.MaxValue)]
-        public virtual ResultState<TFullDto> Post([FromForm] TFullDto dto)
+        public virtual ResultState<TFullDto> Post([FromBody] TFullDto dto)
         {
             var resultObject = _manager.Add(dto);
             var resultState = new ResultState<TFullDto>(resultObject);
@@ -35,8 +35,8 @@ namespace SightMap.Controllers.Api
             return resultState;
         }
 
-        [HttpPost("{id}", Order = int.MaxValue)]
-        public virtual ResultState<TFullDto> PostEdit([FromForm]TFullDto dto)
+        [HttpPut(Order = int.MaxValue)]
+        public virtual ResultState<TFullDto> Put([FromBody]TFullDto dto)
         {
             var resultObject = _manager.Edit(dto);
             var resultState = new ResultState<TFullDto>(resultObject);
