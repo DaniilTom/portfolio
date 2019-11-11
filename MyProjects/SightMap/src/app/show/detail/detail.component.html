@@ -1,7 +1,7 @@
 <div class="col" style="background-color: bisque;">
     <p class="text-center">Компонент детального просмотра</p>
 
-    <div class="container p-2" style="overflow: auto;">
+    <div class="container p-2 text-center" style="overflow: auto;">
         <style>
             input.ng-dirty.ng-invalid {
                 border: 2px solid #ff0000
@@ -12,16 +12,12 @@
             }
         </style>
         <form id="editForm" class="col" method="post" enctype="multipart/form-data"
-              (ngSubmit)="editSight(form1, sight.id)" novalidate #form1="ngForm">
+            (ngSubmit)="editSight(form1, sight.id)" novalidate #form1="ngForm">
 
-            <div class="form-group row blocked">
+            <div class="form-group row">
                 <label class="col-1 col-form-label" for="id">Id</label>
                 <div class="col">
                     <input class="form-control" type="text" id="id" name="id" [value]="sight.id" readonly />
-                </div>
-                <div class="col-3">
-                    <img id="preview" class="img-thumbnail" height="200" [src]="sight.photoPath" alt="photo.jpg" />
-                    <input type="file" name="image" accept=".png .jpg .jpeg" title="" (change)="prepareImgPreview($event)" [readonly]="isReadOnly" />
                 </div>
             </div>
 
@@ -29,82 +25,132 @@
                 <label class="col-1 col-form-label" for="name">Name</label>
                 <div class="col">
                     <input class="form-control" type="text" id="name" name="name" [readonly]="isReadOnly"
-                           [value]="sight.name"
-                           required
-                           pattern="^[А-Яа-яA-Za-z ]{2,}" />
+                        [value]="sight.name" required pattern="^[А-Яа-яA-Za-z ]{2,}" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-6 main-preview" (contextmenu)="swapDiv(div0, $event)" #div0>
+                    <img class="img-thumbnail" src="{{album[0]?.imageName || '\\img\\empty.jpg'}}" />
+                    <input class="file" type="file" name="images[0].file" accept="image/*"
+                        (change)="loadImage(div0, true)" #input0 />
+                    <input type="hidden" name="images[0].isMain" value="{{div0.classList.contains('main-preview')}}" />
+                </div>
+
+                <div class="col-6">
+                    <div class="row">
+
+                        <div class="col-6" (contextmenu)="swapDiv(div1, $event)" #div1>
+                            <img class="img-thumbnail" src="{{album[1]?.imageName || '\\img\\empty.jpg'}}" />
+                            <input class="file" type="file" name="images[1].file" accept="image/*"
+                                (change)="loadImage(div1)" #input1 />
+                            <input type="hidden" name="images[1].isMain"
+                                value="{{div1.classList.contains('main-preview')}}" />
+                        </div>
+
+                        <div class="col-6" (contextmenu)="swapDiv(div2, $event)" #div2>
+                            <img class="img-thumbnail" src="{{album[2]?.imageName || '\\img\\empty.jpg'}}" />
+                            <input class="file" type="file" name="images[2].file" accept="image/*"
+                                (change)="loadImage(div2)" #input2 />
+                            <input type="hidden" name="images[2].isMain"
+                                value="{{div2.classList.contains('main-preview')}}" />
+                        </div>
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-6" (contextmenu)="swapDiv(div3, $event)" #div3>
+                            <img class="img-thumbnail" src="{{album[3]?.imageName || '\\img\\empty.jpg'}}" />
+                            <input class="file" type="file" name="images[3].file" accept="image/*"
+                                (change)="loadImage(div3)" #input3 />
+                            <input type="hidden" name="images[3].isMain"
+                                value="{{div3.classList.contains('main-preview')}}" />
+                        </div>
+
+                        <div class="col-6" (contextmenu)="swapDiv(div4, $event)" #div4>
+                            <img class="img-thumbnail" src="{{album[4]?.imageName || '\\img\\empty.jpg'}}" />
+                            <input class="file" type="file" name="images[4].file" accept="image/*"
+                                (change)="loadImage(div4)" #input4 />
+                            <input type="hidden" name="images[4].isMain"
+                                value="{{div4.classList.contains('main-preview')}}" />
+                        </div>
+                    </div>
                 </div>
             </div>
 
             <div class="form-group row">
                 <label class="col-1 col-form-label" for="shortDesc">ShortDesc</label>
                 <div class="col">
-                    <input class="form-control" type="text" id="shortDesc" name="shortDescription" [readonly]="isReadOnly"
-                           [value]="sight.shortDescription"
-                           required
-                           pattern="^[А-Яа-яA-Za-z ]{5,}" />
+                    <input class="form-control" type="text" id="shortDesc" name="shortDescription"
+                        [readonly]="isReadOnly" [value]="sight.shortDescription" required
+                        pattern="^[А-Яа-яA-Za-z ]{5,}" />
                 </div>
             </div>
 
             <div class="form-group row">
                 <label class="col-1 col-form-label" for="fullDesc">FullDesc</label>
                 <div class="col">
-                    <textarea class="form-control" type="text" id="fullDesc" name="fullDescription" [readonly]="isReadOnly"
-                           [value]="sight.fullDescription"
-                           required
-                           pattern="^[А-Яа-яA-Za-z ]{5,}"></textarea>
-                </div>
-            </div>
-
-            <div class="form-group row blocked">
-                <label class="col-1 col-form-label" for="createDate">CreateDate</label>
-                <div class="col">
-                    <input class="form-control" type="datetime-local" id="createDate" name="createDate" [value]="sight.createDate" readonly />
-                </div>
-            </div>
-
-            <div class="form-group row blocked">
-                <label class="col-1 col-form-label" for="updateDate">UpdateDate</label>
-                <div class="col">
-                    <input class="form-control" type="datetime-local" id="updateDate" name="updateDate" [value]="sight.updateDate" readonly />
+                    <textarea class="form-control" type="text" id="fullDesc" name="fullDescription"
+                        [readonly]="isReadOnly" [value]="sight.fullDescription" required
+                        pattern="^[А-Яа-яA-Za-z ]{5,}"></textarea>
                 </div>
             </div>
 
             <div class="form-group row">
-                    <div class="col">
-                        <label class="col-form-label" for="latitude">Широта</label>
-                        <div>
-                            <input class="form-control" type="number" step="any" id="latitude" name="latitude"
-                                placeholder="Широта..." [(ngModel)]="sight.latitude" required readonly />
-                        </div>
-                        <label class="col-form-label" for="longitude">Долгота</label>
-                        <div>
-                            <input class="form-control" type="number" step="any" id="longitude" name="longitude"
-                                placeholder="Долгота..." [(ngModel)]="sight.longitude" required readonly />
-                        </div>
+                <label class="col-1 col-form-label" for="createDate">CreateDate</label>
+                <div class="col">
+                    <input class="form-control" type="datetime-local" id="createDate" name="createDate"
+                        [value]="sight.createDate" readonly />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-1 col-form-label" for="updateDate">UpdateDate</label>
+                <div class="col">
+                    <input class="form-control" type="datetime-local" id="updateDate" name="updateDate"
+                        [value]="sight.updateDate" readonly />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col">
+                    <label class="col-form-label" for="latitude">Широта</label>
+                    <div>
+                        <input class="form-control" type="number" step="any" id="latitude" name="latitude"
+                            placeholder="Широта..." [(ngModel)]="sight.latitude" required readonly />
                     </div>
-                    <div class="col">
-                        <yan-map (coordinateChanged)="setCoordinates($event)" [switchEditMode]="switchEditMode" [initPoint]="getInitPoint()"></yan-map>
+                    <label class="col-form-label" for="longitude">Долгота</label>
+                    <div>
+                        <input class="form-control" type="number" step="any" id="longitude" name="longitude"
+                            placeholder="Долгота..." [(ngModel)]="sight.longitude" required readonly />
                     </div>
                 </div>
+                <div class="col">
+                    <yan-map (coordinateChanged)="setCoordinates($event)" [switchEditMode]="switchEditMode"
+                        [initPoint]="getInitPoint()"></yan-map>
+                </div>
+            </div>
 
             <div class="form-group row">
                 <label class="col-1 col-form-label" for="type.id">Type</label>
                 <div class="col">
-                    <select class="form-control" id="type.id" name="type.id" [disabled]="isReadOnly" required pattern="^[1-9]+[0-9]{0,}">
-                        <option *ngFor="let type of types" [value]="type.id" [text]="type.name" [selected]="type.id == sight.type.id">
+                    <select class="form-control" id="type.id" name="type.id" [disabled]="isReadOnly" required
+                        pattern="^[1-9]+[0-9]{0,}">
+                        <option *ngFor="let type of types" [value]="type.id" [text]="type.name"
+                            [selected]="type.id == sight.type.id">
                         </option>
                     </select>
                 </div>
             </div>
             <button class="btn btn-primary float-right m-1" type="button" (click)="switchEditBlock()">Изменить</button>
             <button class="btn btn-primary float-right m-1" type="submit" [hidden]="isReadOnly">Применить</button>
-            <button class="btn btn-primary float-right m-1" type="button" (click)="deleteSight(sight.id)" [hidden]="isReadOnly">Удалить</button>
+            <button class="btn btn-primary float-right m-1" type="button" (click)="deleteSight(sight.id)"
+                [hidden]="isReadOnly">Удалить</button>
         </form>
     </div>
     <div class="col m-t-3" style="background-color: lavender">
         <p>Комментарии:</p>
-        <form *ngIf="show" id="newReview" method="post" ngNativeValidate
-              (ngSubmit)="addReview()">
+        <form *ngIf="show" id="newReview" method="post" ngNativeValidate (ngSubmit)="addReview()">
             <input type="hidden" name="itemId" id="itemId" [value]="sight.id" />
             <input type="text" name="message" placeholder="Введите сообщение..." required />
         </form>

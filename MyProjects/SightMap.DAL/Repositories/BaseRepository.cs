@@ -91,6 +91,9 @@ namespace SightMap.DAL.Repositories
             //int Id = new Random().Next(1, 5);
             //Expression<Func<T, bool>> exp1 = t => t.Id == Id;
 
+            //Func<T, bool> _filter = t => t.Id == 1;
+            //return dBSet.Where(_filter).Skip(offset).Take(size).ToList();
+
             //return dBSet.Where(filter).Skip(offset).Take(size).ToList();
             //return dBSet.Where(t => t.Id == 1).Skip(offset).Take(size).ToList();
             //return dBSet.AsEnumerable().Where(t => t.Id == 1).AsQueryable().Skip(offset).Take(size).ToList();

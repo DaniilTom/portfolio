@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from "@angular/core";
-import { Sight, Review, Type } from "../../model/base.model";
+import { Sight, Review, Type, Album } from "../../model/base.model";
 import { NgForm } from '@angular/forms';
 import { SightService } from '../../data/sights-data.service';
 import { TypeService } from '../../data/types-data.service';
@@ -11,7 +11,8 @@ import { Coordinates } from 'src/app/YMap/ymap.component';
 
 @Component({
     selector: 'detail-comp',
-    templateUrl: './detail.component.html'
+    templateUrl: './detail.component.html',
+    styleUrls: ['./detail.component.css']
 })
 export class DetailComponent implements OnInit {
 
@@ -22,6 +23,9 @@ export class DetailComponent implements OnInit {
     reviews: Review[] = [];
     review: Review;
     types: Type[] = [];
+    album: Album[] = [];
+
+    mainImgDiv: HTMLDivElement;
 
     switchEditMode:Subject<boolean> = new Subject();
 
@@ -33,13 +37,17 @@ export class DetailComponent implements OnInit {
 
         typeService.getTypes().then((data: Type[]) => this.types = data);
         this.sight = container.get("sight");
+        this.album = this.sight.album.copyWithin(0, 0);
         this.reviewsService.getReviews(new ReviewFilter(0, 0, this.sight.id)).then((data: Review[]) => this.reviews = data);
+
+        var mainPreviewDiv = document.getElementsByClassName('main-preview')[0];
+        
     }
 
-    @Input() set Sight(_sight: Sight) {
-        this.sight = _sight;
-        this.reviewsService.getReviews(new ReviewFilter(0, 0, this.sight.id)).then((data: Review[]) => this.reviews = data);
-    }
+    // @Input() set Sight(_sight: Sight) {
+    //     this.sight = _sight;
+    //     this.reviewsService.getReviews(new ReviewFilter(0, 0, this.sight.id)).then((data: Review[]) => this.reviews = data);
+    // }
 
     getInitPoint(): Coordinates {
         return new Coordinates(this.sight.latitude, this.sight.longitude);

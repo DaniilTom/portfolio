@@ -34,18 +34,21 @@ namespace SightMap.BLL.Infrastructure.Implementations
             dto.CreateDate = DateTime.Now;
             SightDTO resultSightDto = base.Add(dto);
 
-            foreach(var page in resultSightDto.Album)
+            if (resultSightDto != null)
             {
-                string name = HostEnvironmentConstants.ImageLocalPath + 
-                                resultSightDto.Id.ToString() + 
-                                Guid.NewGuid().ToString() + 
-                                page.ImageName.Substring(page.ImageName.LastIndexOf('.'));
+                foreach (var page in resultSightDto.Album)
+                {
+                    string name = HostEnvironmentConstants.ImageLocalPath +
+                                    resultSightDto.Id.ToString() +
+                                    Guid.NewGuid().ToString() +
+                                    page.ImageName.Substring(page.ImageName.LastIndexOf('.'));
 
-                page.ImageName = name;
-                var newPage = _albumManager.Edit(page);
+                    page.ImageName = name;
+                    var newPage = _albumManager.Edit(page);
+                }
+                resultSightDto.Type = _typeManager.GetListObjects(new SightTypeFilterDTO { Id = dto.Type.Id }).FirstOrDefault(); 
             }
 
-            resultSightDto.Type = _typeManager.GetListObjects(new SightTypeFilterDTO { Id = dto.Type.Id }).FirstOrDefault();
             return resultSightDto;
         }
 
