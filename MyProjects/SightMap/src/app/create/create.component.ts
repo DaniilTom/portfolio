@@ -20,6 +20,8 @@ export class CreateComponent {
     newSight: Sight = new Sight();
     newType: Type = new Type();
 
+    album: AlbumTempTemp[] = [];
+
     mainImage: AlbumTemp = new AlbumTemp();
 
     mainImgDiv: HTMLDivElement;
@@ -79,24 +81,25 @@ export class CreateComponent {
 
     loadImage(div: HTMLDivElement, isMain?: boolean) {
         var input = div.getElementsByClassName("file")[0] as HTMLInputElement;
-        var img = div.getElementsByTagName("img")[0] as HTMLImageElement;
+        //var img = div.getElementsByTagName("img")[0] as HTMLImageElement;
+
+        var newPage = new AlbumTempTemp();
+        newPage.imageName = input.files[0].name;
 
         if (input.files[0] == undefined) {
-            img.src = "";
+            newPage.imgAsUrl = "";
             return;
         }
 
         var reader = new FileReader();
         reader.onloadend = function (e) {
-            img.src = reader.result.toString();
+            newPage.imgAsUrl = reader.result.toString();
+            console.log(newPage.imgAsUrl);
         }
 
         reader.readAsDataURL(input.files[0]);
 
-        if (isMain) {
-            this.mainImgDiv = div;
-            div.classList.add("main-preview");
-        }
+        this.album.push(newPage);
     }
 
     swapDiv(div: HTMLDivElement, $event) {
@@ -121,4 +124,9 @@ export class CreateComponent {
 export class AlbumTemp {
     public inputElement: HTMLInputElement;
     public imageElement: HTMLImageElement;
+}
+
+export class AlbumTempTemp{
+    public imgAsUrl: string;
+    public imageName: string;
 }
