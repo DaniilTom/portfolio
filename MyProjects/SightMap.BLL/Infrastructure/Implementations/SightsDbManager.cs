@@ -32,36 +32,22 @@ namespace SightMap.BLL.Infrastructure.Implementations
         public override SightDTO Add(SightDTO dto)
         {
             dto.CreateDate = DateTime.Now;
-            SightDTO resultSightDto = base.Add(dto);
+            SightDTO temp = base.Add(dto);
 
-            if (resultSightDto != null)
-            {
-                foreach (var page in resultSightDto.Album)
-                {
-                    string name = HostEnvironmentConstants.ImageLocalPath +
-                                    resultSightDto.Id.ToString() +
-                                    Guid.NewGuid().ToString() +
-                                    page.ImageName.Substring(page.ImageName.LastIndexOf('.'));
+            if (temp != null)
+                temp.Type = _typeManager.GetListObjects(new SightTypeFilterDTO { Id = dto.Type.Id }).FirstOrDefault();
 
-                    page.ImageName = name;
-                    var newPage = _albumManager.Edit(page);
-                }
-                resultSightDto.Type = _typeManager.GetListObjects(new SightTypeFilterDTO { Id = dto.Type.Id }).FirstOrDefault(); 
-            }
-
-            return resultSightDto;
+            return temp;
         }
 
         public override SightDTO Edit(SightDTO dto)
         {
             dto.UpdateDate = DateTime.Now;
             SightDTO temp = base.Edit(dto);
-            temp.Type = _typeManager.GetListObjects(new SightTypeFilterDTO { Id = dto.Type.Id }).FirstOrDefault();
-            foreach (var page in dto.Album)
-            {
-                AlbumDTO tempPage = _albumManager.Edit(page);
-                temp.Album.Add(tempPage);
-            }
+
+            if(temp != null)            
+                temp.Type = _typeManager.GetListObjects(new SightTypeFilterDTO { Id = dto.Type.Id }).FirstOrDefault();
+
             return base.Edit(dto);
         }
 
