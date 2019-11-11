@@ -26,7 +26,7 @@ namespace SightMap.Controllers.Api
             _host = host;
         }
 
-        [HttpPost(Order = int.MaxValue)]
+        [HttpPost]
         public virtual ResultState<TFullDto> Post([FromBody] TFullDto dto)
         {
             var resultObject = _manager.Add(dto);
@@ -35,7 +35,7 @@ namespace SightMap.Controllers.Api
             return resultState;
         }
 
-        [HttpPut(Order = int.MaxValue)]
+        [HttpPut]
         public virtual ResultState<TFullDto> Put([FromBody]TFullDto dto)
         {
             var resultObject = _manager.Edit(dto);
