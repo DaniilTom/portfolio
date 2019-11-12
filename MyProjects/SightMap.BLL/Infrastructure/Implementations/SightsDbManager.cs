@@ -54,12 +54,13 @@ namespace SightMap.BLL.Infrastructure.Implementations
                 {
                     ItemId = tempSight.Id,
                     ImageName = newName,
+                    ImagePath = Path.Combine(_uploadManager.GetWebRootPath(), tempSight.Id.ToString()),
                     IsMain = false
                 };
                 _albumManager.Add(tempPage);
             }
 
-            _uploadManager.DeleteFiles(dto.RefId.ToString());
+            _uploadManager.DeleteFiles(dto.RefId.ToString(), tempSight.Id.ToString());
 
             return tempSight;
         }

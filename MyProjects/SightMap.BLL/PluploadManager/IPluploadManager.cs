@@ -11,7 +11,9 @@ namespace SightMap.BLL.PluploadManager
         IEnumerable<FileStream> GetFiles(string reference);
         string[] GetFilesNames(string reference);
         string[] GetFilesNames(string reference, string[] actualNames);
-        void DeleteFiles(string reference);
+        void DeleteFiles(string reference, string newFoldet);
         string GetUploadPath(string reference);
+        string GetMainPath();
+        string GetWebRootPath();
     }
 }

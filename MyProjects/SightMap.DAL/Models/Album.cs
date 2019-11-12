@@ -7,6 +7,7 @@ namespace SightMap.DAL.Models
     {
         public int ItemId  { get; set; }
 	    public string ImageName { get; set; }
+        public string ImagePath { get; set; }
 	    public bool IsMain { get; set; }
     }
 }

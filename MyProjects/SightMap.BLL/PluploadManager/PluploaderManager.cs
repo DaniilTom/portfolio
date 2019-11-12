@@ -8,18 +8,20 @@ namespace SightMap.BLL.PluploadManager
 {
     public class PluploaderManager : IPluploadManager
     {
-        public string UploadPath { get; set; }
-        public string MainPath { get; set; }
+        public string UploadPath { get; }
+        public string MainPath { get; }
+        public string WebRootPath { get; }
 
         public const string PartialFileExtension = ".partial";
 
         public PluploaderManager(string ContentRootPath)
         {
+            WebRootPath = "\\wwwroot\\img\\";
             UploadPath = ContentRootPath + "\\wwwroot\\temp\\";
             MainPath = ContentRootPath + "\\wwwroot\\img\\";
         }
 
-        public void DeleteFiles(string reference)
+        public void DeleteFiles(string reference, string newFolder)
         {
             string uploadPath = GetUploadPath(reference);
             if (!Directory.Exists(uploadPath))
@@ -32,7 +34,7 @@ namespace SightMap.BLL.PluploadManager
             foreach (var from in filePaths)
             {
                 string to = Path.GetFileName(from);
-                File.Move(from, Path.Combine(MainPath, to));
+                File.Move(from, Path.Combine(MainPath, newFolder, to));
             }
 
             Directory.Delete(uploadPath, true);
@@ -136,6 +138,16 @@ namespace SightMap.BLL.PluploadManager
             string uploadPath = UploadPath;
 
             return Path.Combine(uploadPath, reference);
+        }
+
+        public string GetMainPath()
+        {
+            return MainPath;
+        }
+
+        public string GetWebRootPath()
+        {
+            return WebRootPath;
         }
     }
 }
