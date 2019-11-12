@@ -1,0 +1,15 @@
+<p [hidden]="!isPluploadReady">
+    <button #pickfiles class="btn btn-primary">
+      Select files
+    </button>
+    <!-- <button type="button" (click)="uploadFiles()" class="btn btn-warning">
+      Upload selected file(s)
+    </button> -->
+  </p>
+  
+  <!-- Files being uploaded -->
+  <ul *ngIf="fileList.length > 0">
+    <li *ngFor="let file of fileList">
+      {{ file.name }} ({{ file.size }}) - {{ file.percent }} <button class="btn btn-primary" (click)="delete(file)">X</button>
+    </li>
+  </ul>

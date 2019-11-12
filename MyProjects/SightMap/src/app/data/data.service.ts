@@ -40,8 +40,8 @@ export class DataService {
         return this.client.get<T>(path + 'count/' + params);
     }
 
-    addItem<T>(path: string, form: FormData): Observable<T> {
-        return this.client.post<T>(path, form);
+    addItem<T>(path: string, item: any): Observable<T> {
+        return this.client.post<T>(path, item);
     }
 
     editItem<T>(path: string, id: number, form: FormData): Observable<T> {

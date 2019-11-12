@@ -33,9 +33,9 @@ export class SightService {
         return this.getResult.value;
     }
 
-    async addSight(form: FormData): Promise<Sight> {
+    async addSight(sight: Sight): Promise<Sight> {
 
-        this.addResult = await this.dataService.addItem<ResultState<Sight>>(this.apiSights, form).toPromise();
+        this.addResult = await this.dataService.addItem<ResultState<Sight>>(this.apiSights, sight).toPromise();
         if (!this.addResult.isSuccess)
             alert(this.addResult.message);
 

@@ -23,37 +23,8 @@
             </div>
 
             <div class="form-group row">
-                <div class="col-6 main-preview" (contextmenu)="swapDiv(div0, $event)" #div0>
-                    <img class="img-thumbnail" src="\img\empty.jpg" />
-                    <input class="file" type="file" name="images[0].file" accept="image/*"
-                        (change)="loadImage(div0, true)" #input0 />
-                    <input type="hidden" name="images[0].isMain" value="{{div0.classList.contains('main-preview')}}" />
-                </div>
-
                 <div class="col-6">
-                    <div style="overflow: auto; white-space: nowrap;">
-
-                        <!-- <div style="display: inline-block;" *ngFor="let page of album; let i = index;" (contextmenu)="swapDiv(div, $event)" #div>
-                            <img class="img-thumbnail" [src]="page.imgAsUrl" />
-                            <input class="file" type="file" name="{{i}}" accept="image/*"
-                                (change)="loadImage(div)" />
-                        </div> -->
-                        <ng-container #container></ng-container>
-
-                        <ng-template #imgInput>
-                            <div style="display: inline-block;" (contextmenu)="swapDiv(div1, $event)" #div1>
-                                <img class="img-thumbnail" src="\img\empty.jpg" />
-                                <input class="file" type="file" name="empty" accept="image/*"
-                                    (change)="changeImage(div1)" />
-                            </div>
-                        </ng-template>
-
-                        <div style="display: inline-block;" (contextmenu)="swapDiv(div2, $event)" #div2>
-                            <img class="img-thumbnail" src="\img\empty.jpg" />
-                            <input class="file" type="file" name="empty" accept="image/*"
-                                (change)="addNewImage(div2)" />
-                        </div>
-                    </div>
+                    <plupload-comp [referenceId]="referenceId" [beginUpload]="beginUpload"></plupload-comp>
                 </div>
             </div>
 
@@ -124,7 +95,3 @@
         </form>
     </div>
 </div>
-
-<ng-template #makeMain>
-    <button (click)="alert('Сделано');">Сделать главной</button>
-</ng-template>

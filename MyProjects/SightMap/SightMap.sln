@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SightMap.DAL", "..\SightMap
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SightMap.BLL", "..\SightMap.BLL\SightMap.BLL.csproj", "{E08338F5-D8C1-40F5-A104-EDF8D98F648C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QA.FileUploader.PLUploader", "..\QA.FileUploader.PLUploader\QA.FileUploader.PLUploader.csproj", "{3F28B3DD-3327-4AED-8B2D-77CE37F14ADF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{E08338F5-D8C1-40F5-A104-EDF8D98F648C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E08338F5-D8C1-40F5-A104-EDF8D98F648C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E08338F5-D8C1-40F5-A104-EDF8D98F648C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3F28B3DD-3327-4AED-8B2D-77CE37F14ADF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F28B3DD-3327-4AED-8B2D-77CE37F14ADF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F28B3DD-3327-4AED-8B2D-77CE37F14ADF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F28B3DD-3327-4AED-8B2D-77CE37F14ADF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

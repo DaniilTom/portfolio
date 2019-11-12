@@ -1,7 +1,6 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -24,7 +23,7 @@ namespace SightMap
 
         public Startup(IConfiguration _config) => config = _config;
 
-        public void ConfigureServices(IServiceCollection services)
+        public void ConfigureServices(IServiceCollection services, IHostEnvironment environment)
         {
             services.AddMvc(options => options.EnableEndpointRouting = false);
 
@@ -37,7 +36,7 @@ namespace SightMap
             IMapper mapper = mappingConfig.CreateMapper();
             services.AddSingleton(mapper);
 
-            services.AddBLLManagment(config);
+            services.AddBLLManagment(config, environment.ContentRootPath);
 
             services.AddMemoryCache();
 
