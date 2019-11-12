@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef, Input } from '@angular/core';
+import { Component, ViewChild, ElementRef, Input, Output } from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
@@ -25,7 +25,7 @@ export class PluploadComponent {
   uploader: any;
 
   // Files being uploaded.
-  fileList: any[] = [];
+  fileList: PluploadFile[] = [];
 
   // Flag to display the uploader only once the library is ready.
   isPluploadReady = false;
@@ -33,6 +33,8 @@ export class PluploadComponent {
   @Input() beginUpload: Subject<void>;
 
   @Input() referenceId: number;
+
+  @Output() uploadComplete: Subject<PluploadFile[]> = new Subject<PluploadFile[]>();
 
   @ViewChild('pickfiles', {static: false}) pickfiles: ElementRef;
   
@@ -87,18 +89,27 @@ export class PluploadComponent {
 
         FilesAdded: (up, files) => {
           plupload.each(files, (file) => {
-            // this.fileList.push(new FileData(
-            //   file.id,
-            //   file.name,
-            //   plupload.formatSize(file.size),
-            //   0)
-            // );
-            this.fileList.push({
-              id: file.id,
-              name: file.name,
-              size: plupload.formatSize(file.size),
-              percent: 0
-            });
+            // this.fileList.push({
+            //   id: file.id,
+            //   name: file.name,
+            //   size: plupload.formatSize(file.size),
+            //   percent: 0
+            // });
+            var newFile = new PluploadFile();
+            newFile.id = file.id;
+            newFile.name = file.name;
+            newFile.percent = file.percent;
+            newFile.size = file.size;
+            newFile.type = file.type;
+            this.fileList.push(newFile);
+          });
+        },
+
+        FilesRemoved: (up, files) => {
+          plupload.each(files, (file) => {
+            console.dir((file as PluploadFile));
+            var index = this.fileList.indexOf(file);
+            this.fileList.splice(index, 1);
           });
         },
 
@@ -106,6 +117,10 @@ export class PluploadComponent {
         UploadProgress: (up, file) => {
           const index = this.fileList.findIndex(f => f.id == file.id);
           this.fileList[index].percent = file.percent;
+        },
+
+        UploadComplete: (up, files) => {
+          this.uploadComplete.next(this.fileList);
         },
 
         Error: (up, err) => {
@@ -126,10 +141,11 @@ export class PluploadComponent {
   }
 }
 
-export class FileData{
+export class PluploadFile{
   constructor(
     public id?: number,
     public name?: string,
+    public type?: string,
     public size?: number,
     public percent?: number
   ){}

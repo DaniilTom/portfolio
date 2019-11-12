@@ -11,7 +11,7 @@
         }
     </style>
     <div class="container p-2 border">
-        <form id="createSight" class="col" method="post" enctype="multipart/form-data" (ngSubmit)="addSight(form)"
+        <form id="createSight" class="col" method="post" enctype="multipart/form-data" (ngSubmit)="beginUploading(form)"
             novalidate #form="ngForm">
 
             <div class="form-group row">
@@ -24,7 +24,8 @@
 
             <div class="form-group row">
                 <div class="col-6">
-                    <plupload-comp [referenceId]="referenceId" [beginUpload]="beginUpload"></plupload-comp>
+                    <plupload-comp [referenceId]="referenceId" [beginUpload]="beginUpload"
+                    (uploadComplete)="addSight($event)"></plupload-comp>
                 </div>
             </div>
 
