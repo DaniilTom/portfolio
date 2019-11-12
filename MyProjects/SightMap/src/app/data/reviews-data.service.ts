@@ -33,17 +33,17 @@ export class ReviewService {
         return this.getResult.value;
     }
 
-    async addReview(form: FormData): Promise<Review> {
+    async addReview(review: Review): Promise<Review> {
 
-        this.addResult = await this.dataService.addItem<ResultState<Review>>(this.apiReviews, form).toPromise();
+        this.addResult = await this.dataService.addItem<ResultState<Review>>(this.apiReviews, review).toPromise();
         if (!this.addResult.isSuccess)
             alert(this.addResult.message);
 
         return this.addResult.value;
     }
 
-    async editReview(id: number, form: FormData): Promise<Review> {
-        this.editResult = await this.dataService.editItem<ResultState<Review>>(this.apiReviews, id, form).toPromise();
+    async editReview(review: Review): Promise<Review> {
+        this.editResult = await this.dataService.editItem<ResultState<Review>>(this.apiReviews, review).toPromise();
         if (!this.editResult.isSuccess)
             alert(this.editResult.message);
 

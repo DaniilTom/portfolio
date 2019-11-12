@@ -44,8 +44,8 @@ export class DataService {
         return this.client.post<T>(path, item);
     }
 
-    editItem<T>(path: string, id: number, form: FormData): Observable<T> {
-        return this.client.post<T>(path + id, form);
+    editItem<T>(path: string, item: any): Observable<T> {
+        return this.client.put<T>(path, item);
     }
 
     deleteItem<T>(path: string, id: number): Observable<T> {

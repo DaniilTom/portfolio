@@ -33,17 +33,17 @@ export class TypeService {
         return this.getResult.value;
     }
 
-    async addType(form: FormData): Promise<Type> {
+    async addType(type: Type): Promise<Type> {
 
-        this.addResult = await this.dataService.addItem<ResultState<Type>>(this.apiSightTypes, form).toPromise();
+        this.addResult = await this.dataService.addItem<ResultState<Type>>(this.apiSightTypes, type).toPromise();
         if (!this.addResult.isSuccess)
             alert(this.addResult.message);
 
         return this.addResult.value;
     }
 
-    async editType(id: number, form: FormData): Promise<Type> {
-        this.editResult = await this.dataService.editItem<ResultState<Type>>(this.apiSightTypes, id, form).toPromise();
+    async editType(id: number, type: Type): Promise<Type> {
+        this.editResult = await this.dataService.editItem<ResultState<Type>>(this.apiSightTypes, type).toPromise();
         if (!this.editResult.isSuccess)
             alert(this.editResult.message);
 

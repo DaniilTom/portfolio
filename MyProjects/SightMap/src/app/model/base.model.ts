@@ -33,6 +33,7 @@ export class Album {
     public id?: number;
     public itemId?: number;
     public imageName?: string;
+    public imagePath?: string;
     public isMain?: boolean;
 }
 

@@ -25,56 +25,7 @@
                 <label class="col-1 col-form-label" for="name">Name</label>
                 <div class="col">
                     <input class="form-control" type="text" id="name" name="name" [readonly]="isReadOnly"
-                        [value]="sight.name" required pattern="^[А-Яа-яA-Za-z ]{2,}" />
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <div class="col-6 main-preview" (contextmenu)="swapDiv(div0, $event)" #div0>
-                    <img class="img-thumbnail" src="{{album[0]?.imageName || '\\img\\empty.jpg'}}" />
-                    <input class="file" type="file" name="images[0].file" accept="image/*"
-                        (change)="loadImage(div0, true)" #input0 />
-                    <input type="hidden" name="images[0].isMain" value="{{div0.classList.contains('main-preview')}}" />
-                </div>
-
-                <div class="col-6">
-                    <div class="row">
-
-                        <div class="col-6" (contextmenu)="swapDiv(div1, $event)" #div1>
-                            <img class="img-thumbnail" src="{{album[1]?.imageName || '\\img\\empty.jpg'}}" />
-                            <input class="file" type="file" name="images[1].file" accept="image/*"
-                                (change)="loadImage(div1)" #input1 />
-                            <input type="hidden" name="images[1].isMain"
-                                value="{{div1.classList.contains('main-preview')}}" />
-                        </div>
-
-                        <div class="col-6" (contextmenu)="swapDiv(div2, $event)" #div2>
-                            <img class="img-thumbnail" src="{{album[2]?.imageName || '\\img\\empty.jpg'}}" />
-                            <input class="file" type="file" name="images[2].file" accept="image/*"
-                                (change)="loadImage(div2)" #input2 />
-                            <input type="hidden" name="images[2].isMain"
-                                value="{{div2.classList.contains('main-preview')}}" />
-                        </div>
-                    </div>
-
-                    <div class="row">
-
-                        <div class="col-6" (contextmenu)="swapDiv(div3, $event)" #div3>
-                            <img class="img-thumbnail" src="{{album[3]?.imageName || '\\img\\empty.jpg'}}" />
-                            <input class="file" type="file" name="images[3].file" accept="image/*"
-                                (change)="loadImage(div3)" #input3 />
-                            <input type="hidden" name="images[3].isMain"
-                                value="{{div3.classList.contains('main-preview')}}" />
-                        </div>
-
-                        <div class="col-6" (contextmenu)="swapDiv(div4, $event)" #div4>
-                            <img class="img-thumbnail" src="{{album[4]?.imageName || '\\img\\empty.jpg'}}" />
-                            <input class="file" type="file" name="images[4].file" accept="image/*"
-                                (change)="loadImage(div4)" #input4 />
-                            <input type="hidden" name="images[4].isMain"
-                                value="{{div4.classList.contains('main-preview')}}" />
-                        </div>
-                    </div>
+                        [(ngModel)]="sight.name" required pattern="^[А-Яа-яA-Za-z ]{2,}" />
                 </div>
             </div>
 
@@ -82,7 +33,7 @@
                 <label class="col-1 col-form-label" for="shortDesc">ShortDesc</label>
                 <div class="col">
                     <input class="form-control" type="text" id="shortDesc" name="shortDescription"
-                        [readonly]="isReadOnly" [value]="sight.shortDescription" required
+                        [readonly]="isReadOnly" [(ngModel)]="sight.shortDescription" required
                         pattern="^[А-Яа-яA-Za-z ]{5,}" />
                 </div>
             </div>
@@ -91,7 +42,7 @@
                 <label class="col-1 col-form-label" for="fullDesc">FullDesc</label>
                 <div class="col">
                     <textarea class="form-control" type="text" id="fullDesc" name="fullDescription"
-                        [readonly]="isReadOnly" [value]="sight.fullDescription" required
+                        [readonly]="isReadOnly" [(ngModel)]="sight.fullDescription" required
                         pattern="^[А-Яа-яA-Za-z ]{5,}"></textarea>
                 </div>
             </div>
@@ -135,7 +86,7 @@
                 <label class="col-1 col-form-label" for="type.id">Type</label>
                 <div class="col">
                     <select class="form-control" id="type.id" name="type.id" [disabled]="isReadOnly" required
-                        pattern="^[1-9]+[0-9]{0,}">
+                        pattern="^[1-9]+[0-9]{0,}" [(ngModel)]="sight.type.id" >
                         <option *ngFor="let type of types" [value]="type.id" [text]="type.name"
                             [selected]="type.id == sight.type.id">
                         </option>
@@ -151,10 +102,10 @@
     <div class="col m-t-3" style="background-color: lavender">
         <p>Комментарии:</p>
         <form *ngIf="show" id="newReview" method="post" ngNativeValidate (ngSubmit)="addReview()">
-            <input type="hidden" name="itemId" id="itemId" [value]="sight.id" />
-            <input type="text" name="message" placeholder="Введите сообщение..." required />
+            <input type="text" name="message" placeholder="Введите сообщение..." required 
+                [(ngModel)]="newReview.message"/>
         </form>
-        <button class="btn btn-primary m-x-1" (click)="show = !show">Написать</button>
+        <button class="btn btn-primary m-x-1" (click)="switchEdit(show)">Написать</button>
         <button class="btn btn-primary m-x-1" type="submit" form="newReview">Отправить</button>
         <review-comp *ngIf="reviews.length > 0; else noReview" [Reviews]="reviews"></review-comp>
         <ng-template #noReview>Ничего нет</ng-template>

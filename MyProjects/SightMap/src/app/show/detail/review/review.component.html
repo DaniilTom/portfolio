@@ -3,13 +3,14 @@
     <li *ngFor="let review of reviews; let show = false">
         <div>Автор: {{review.authorId}}</div>
         <div>Пишет: {{review.message}}</div>
-        <form *ngIf="show" [id]="'formN'+review.parentId" method="post" #form="ngForm" ngNativeValidate
-              (ngSubmit)="addReview(form, review.parentId)">
+        <form *ngIf="show" method="post" #form="ngForm" ngNativeValidate
+              (ngSubmit)="addReview(review.id, review.itemId)">
             <input type="hidden" name="itemId" id="itemId" [value]="review.itemId" />
             <input type="hidden" name="parentId" id="parentId" [value]="review.id" />
-            <input type="text" name="message" placeholder="Введите сообщение..." required />
+            <input type="text" name="message" placeholder="Введите сообщение..." required 
+                (focusout)="show = !show" [(ngModel)]="newReview.message" />
         </form>
-        <button class="btn btn-primary m-x-1" (click)="show = !show">Написать</button>
+        <button class="btn btn-primary m-x-1" (click)="switchEdit(show)">Написать</button>
         <button class="btn btn-primary m-x-1" type="submit" [attr.form]="'formN'+review.parentId">Отправить</button>
         <button class="btn btn-primary m-x-1" (click)="deleteReview(review)">Удалить</button>
         <review-comp *ngIf="review.children.length > 0" [Reviews]="review.children"></review-comp>

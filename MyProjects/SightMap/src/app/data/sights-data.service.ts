@@ -42,8 +42,8 @@ export class SightService {
         return this.addResult.value;
     }
 
-    async editSight(id: number, form: FormData): Promise<Sight> {
-        this.editResult = await this.dataService.editItem<ResultState<Sight>>(this.apiSights, id, form).toPromise();
+    async editSight(sight: Sight): Promise<Sight> {
+        this.editResult = await this.dataService.editItem<ResultState<Sight>>(this.apiSights, sight).toPromise();
         if (!this.editResult.isSuccess)
             alert(this.editResult.message);
 

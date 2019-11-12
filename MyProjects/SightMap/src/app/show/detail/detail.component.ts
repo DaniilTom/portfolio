@@ -21,7 +21,7 @@ export class DetailComponent implements OnInit {
     isReadOnly = true;
     sight: Sight;
     reviews: Review[] = [];
-    review: Review;
+    newReview: Review = new Review();
     types: Type[] = [];
     album: Album[] = [];
 
@@ -44,44 +44,22 @@ export class DetailComponent implements OnInit {
         
     }
 
-    // @Input() set Sight(_sight: Sight) {
-    //     this.sight = _sight;
-    //     this.reviewsService.getReviews(new ReviewFilter(0, 0, this.sight.id)).then((data: Review[]) => this.reviews = data);
-    // }
-
     getInitPoint(): Coordinates {
         return new Coordinates(this.sight.latitude, this.sight.longitude);
     }
 
-    prepareImgPreview($event) {
-        var input = $event.target;
-        var reader = new FileReader();
 
-        reader.onloadend = function (e) {
-            var imgObj = document.images.namedItem('preview');
-            imgObj.src = reader.result.toString();
-        }
-
-        reader.readAsDataURL(input.files[0]);
-    }
-
-    switchEditBlock() {
-        this.isReadOnly = !this.isReadOnly;
-        this.switchEditMode.next(this.isReadOnly);
-    }
 
     addReview() {
-        var form = document.forms.namedItem("newReview");
-        var formData = new FormData(form);
-        this.reviewsService.addReview(formData).then(data => this.reviews.push(data));
+        this.newReview.itemId = this.sight.id;
+
+        this.reviewsService.addReview(this.newReview).then(data => this.reviews.push(data));
     }
 
     editSight(ngform: NgForm, id: number) {
         this.isReadOnly = true;
         if (ngform.valid) {
-            var form = document.forms.namedItem('editForm');
-            var formData = new FormData(form);
-            this.sightService.editSight(id, formData).then((data: Sight) => {
+            this.sightService.editSight(this.sight).then((data: Sight) => {
                 if (data != null)
                     alert(`Успешно (id: ${data.id})`);
             });
@@ -101,5 +79,10 @@ export class DetailComponent implements OnInit {
     setCoordinates(coord: Coordinates){
         this.sight.latitude = coord.latitude;
         this.sight.longitude = coord.longitude;
+    }
+
+    switchEdit(show: boolean){
+        this.newReview = new Review();
+        show = !show;
     }
 }
