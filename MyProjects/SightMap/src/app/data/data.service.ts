@@ -1,8 +1,9 @@
 import { Type } from '../model/base.model';
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ResultState } from '../model/results.model';
+import 'rxjs/add/operator/map';
 
 @Injectable()
 export class DataService {
@@ -40,12 +41,16 @@ export class DataService {
         return this.client.get<T>(path + 'count/' + params);
     }
 
-    addItem<T>(path: string, item: any): Observable<T> {
-        return this.client.post<T>(path, item);
+    addItem<T>(path: string, item: any): Observable<T> {        
+        let headers = new HttpHeaders();
+        headers = headers.set('Content-Type', 'application/json; charset=utf-8');
+        return this.client.post<T>(path, item, { headers });
     }
 
     editItem<T>(path: string, item: any): Observable<T> {
-        return this.client.put<T>(path, item);
+        let headers = new HttpHeaders();
+        headers = headers.set('Content-Type', 'application/json; charset=utf-8');
+        return this.client.put<T>(path, JSON.stringify(item), { headers });
     }
 
     deleteItem<T>(path: string, id: number): Observable<T> {
@@ -63,7 +68,7 @@ export class DataService {
                 return "";
 
         }).filter(str => str != "").join('&');
-        if(query != "")
+        if (query != "")
             query = '?' + query;
         return query;
     }

@@ -12,6 +12,7 @@ export class Sight {
     public longitude?: number;
     public latitude?: number;
     public album?: Album[] = [];
+    public refId?: number;
 }
 
 export class Type {

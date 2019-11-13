@@ -10,6 +10,6 @@
   <!-- Files being uploaded -->
   <ul *ngIf="fileList.length > 0">
     <li *ngFor="let file of fileList">
-      {{ file.name }} ({{ file.size }}) - {{ file.percent }} <button class="btn btn-primary" (click)="delete(file)">X</button>
+      {{ file.name }} ({{ file.size }}) - {{ file.percent }} <button class="btn btn-primary" type="button" (click)="delete(file)">X</button>
     </li>
   </ul>

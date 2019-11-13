@@ -27,10 +27,10 @@ namespace SightMap.DAL
                       .HasForeignKey(s => s.SightTypeId)
                       .OnDelete(DeleteBehavior.Cascade);
 
-                entity.HasMany<Album>()
-                        .WithOne()
-                        .HasForeignKey(a => a.ItemId)
-                        .OnDelete(DeleteBehavior.Cascade);
+                //entity.HasMany<Album>()
+                //        .WithOne()
+                //        .HasForeignKey(a => a.ItemId)
+                //        .OnDelete(DeleteBehavior.Cascade);
 
                 entity.Property(nameof(Sight.SightTypeId)).HasColumnName("Type");
 
@@ -47,6 +47,14 @@ namespace SightMap.DAL
                 //entity.HasMany<Review>()
                 //      .WithOne()
                 //      .HasForeignKey(r => r.ParentId);
+            });
+
+            modelBuilder.Entity<Album>(entity =>
+            {
+                entity.HasOne<Sight>()
+                        .WithMany()
+                        .HasForeignKey(a => a.ItemId)
+                        .OnDelete(DeleteBehavior.Cascade);
             });
         }
     }

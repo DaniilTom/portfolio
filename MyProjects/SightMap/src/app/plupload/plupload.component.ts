@@ -16,11 +16,11 @@ declare let plupload: any;
 })
 export class PluploadComponent {
 
-  
+
 
   // Subscription
   subscription: any;
-  
+
   // Reference to the plupload instance.
   uploader: any;
 
@@ -31,18 +31,20 @@ export class PluploadComponent {
   isPluploadReady = false;
 
   @Input() beginUpload: Subject<void>;
+  @Input() deleteAllFiles: Subject<void>;
 
   @Input() referenceId: number;
 
   @Output() uploadComplete: Subject<PluploadFile[]> = new Subject<PluploadFile[]>();
 
-  @ViewChild('pickfiles', {static: false}) pickfiles: ElementRef;
-  
-  ngOnInit() {
+  @ViewChild('pickfiles', { static: false }) pickfiles: ElementRef;
+
+  ngAfterViewInit() {
     this.subscription = this.addPlupload();
     this.beginUpload.subscribe(() => this.uploadFiles());
+    this.deleteAllFiles.subscribe(() => this.fileList.forEach( file => this.uploader.splice(0, this.fileList.length)));
   }
-  
+
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
@@ -50,8 +52,8 @@ export class PluploadComponent {
   addPlupload() {
     return this.addPluploadScript()
       .subscribe(() => {
-        this.isPluploadReady = true;
         this.initPlupload();
+        this.isPluploadReady = true;
       });
   }
 
@@ -70,18 +72,20 @@ export class PluploadComponent {
   // Configure and initialize Plupload.
   initPlupload() {
 
+    //if(this.uploader != undefined || this.uploader)
+
     this.uploader = new plupload.Uploader({
-      runtimes : 'html5,html4',
-      browse_button : this.pickfiles.nativeElement,
-      url : 'http://localhost:52208/api/uploader/',
-      filters : {
-        max_file_size : '10mb',
+      runtimes: 'html5,html4',
+      browse_button: this.pickfiles.nativeElement,
+      url: 'http://localhost:52208/api/uploader/',
+      filters: {
+        max_file_size: '10mb',
         mime_types: [
-          {title : "Image files", extensions : "jpg,gif,png"}
+          { title: "Image files", extensions: "jpg,gif,png" }
         ]
       },
       chunk_size: '100kb',
-      multipart_params: { file: {refId: this.referenceId } },
+      multipart_params: { file: { refId: this.referenceId } },
       init: {
         PostInit: () => {
           this.fileList = [];
@@ -107,13 +111,11 @@ export class PluploadComponent {
 
         FilesRemoved: (up, files) => {
           plupload.each(files, (file) => {
-            console.dir((file as PluploadFile));
-            var index = this.fileList.indexOf(file);
+            var index = this.fileList.indexOf(this.fileList.find(f => f.id == file.id));
             this.fileList.splice(index, 1);
           });
         },
 
-        // Update the upload progress in the list of files displayed in the template.
         UploadProgress: (up, file) => {
           const index = this.fileList.findIndex(f => f.id == file.id);
           this.fileList[index].percent = file.percent;
@@ -136,17 +138,17 @@ export class PluploadComponent {
     this.uploader.start();
   }
 
-  delete(file: any){
+  delete(file: any) {
     this.uploader.removeFile(file);
   }
 }
 
-export class PluploadFile{
+export class PluploadFile {
   constructor(
     public id?: number,
     public name?: string,
     public type?: string,
     public size?: number,
     public percent?: number
-  ){}
+  ) { }
 }

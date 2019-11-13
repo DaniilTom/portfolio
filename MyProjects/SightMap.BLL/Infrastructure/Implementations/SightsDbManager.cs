@@ -42,25 +42,27 @@ namespace SightMap.BLL.Infrastructure.Implementations
             if (tempSight != null)
                 tempSight.Type = _typeManager.GetListObjects(new SightTypeFilterDTO { Id = dto.Type.Id }).FirstOrDefault();
 
-            tempSight.Album = new List<AlbumDTO>();
-
-            string[] files = _uploadManager.GetFilesNames(dto.RefId.ToString(),
-                                                            dto.Album.Select(a => a.ImageName).ToArray());
-
-            foreach(var file in files)
+            if (dto.Album.Count > 0)
             {
-                string newName = tempSight.Id + Path.GetFileName(file);
-                AlbumDTO tempPage = new AlbumDTO
-                {
-                    ItemId = tempSight.Id,
-                    ImageName = newName,
-                    ImagePath = Path.Combine(_uploadManager.GetWebRootPath(), tempSight.Id.ToString()),
-                    IsMain = false
-                };
-                _albumManager.Add(tempPage);
-            }
+                tempSight.Album = new List<AlbumDTO>();
 
-            _uploadManager.DeleteFiles(dto.RefId.ToString(), tempSight.Id.ToString());
+                string[] files = _uploadManager.GetFilesNames(dto.RefId.ToString(),
+                                                                dto.Album.Select(a => a.ImageName).ToArray());
+
+                foreach (var file in files)
+                {
+                    string newName = tempSight.Id + Path.GetFileName(file);
+                    AlbumDTO tempPage = new AlbumDTO
+                    {
+                        ItemId = tempSight.Id,
+                        ImageName = newName,
+                        ImagePath = Path.Combine(_uploadManager.GetRelativeMainPath(), tempSight.Id.ToString()),
+                        IsMain = false
+                    };
+                    _albumManager.Add(tempPage);
+                }
+                _uploadManager.DeleteFiles(dto.RefId.ToString(), tempSight.Id.ToString());
+            }
 
             return tempSight;
         }
@@ -70,7 +72,7 @@ namespace SightMap.BLL.Infrastructure.Implementations
             dto.UpdateDate = DateTime.Now;
             SightDTO temp = base.Edit(dto);
 
-            if(temp != null)            
+            if (temp != null)
                 temp.Type = _typeManager.GetListObjects(new SightTypeFilterDTO { Id = dto.Type.Id }).FirstOrDefault();
 
             return base.Edit(dto);
@@ -86,7 +88,7 @@ namespace SightMap.BLL.Infrastructure.Implementations
                 foreach (var sight in result)
                 {
                     sight.Type = _typeManager.GetListObjects(new SightTypeFilterDTO { Id = sight.Type.Id }).FirstOrDefault();
-                    //sight.Album = _albumManager.GetListObjects(new AlbumFilterDTO { ItemId = sight.Id }).ToList();
+                    sight.Album = _albumManager.GetListObjects(new AlbumFilterDTO { ItemId = sight.Id }).ToList();
                 }
             }
             else
@@ -95,7 +97,7 @@ namespace SightMap.BLL.Infrastructure.Implementations
                 foreach (var sight in result)
                 {
                     sight.Type = _typeManager.GetListObjects(new SightTypeFilterDTO { Id = sight.Type.Id }, false).FirstOrDefault();
-                    //sight.Album = _albumManager.GetListObjects(new AlbumFilterDTO { ItemId = sight.Id }, false).ToList();
+                    sight.Album = _albumManager.GetListObjects(new AlbumFilterDTO { ItemId = sight.Id }, false).ToList();
                 }
             }
 

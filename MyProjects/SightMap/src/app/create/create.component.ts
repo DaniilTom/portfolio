@@ -16,13 +16,14 @@ import { PluploadFile } from '../plupload/plupload.component';
 export class CreateComponent {
 
     removeInitPoint: Subject<void> = new Subject<void>();
-
     beginUpload: Subject<void> = new Subject<void>();
+    deleteAllFiles: Subject<void> = new Subject<void>();
 
     newSight: Sight = new Sight();
     newType: Type = new Type();
 
     referenceId: number;
+    isDisabled: boolean = false;
 
     types: Type[];
 
@@ -44,28 +45,30 @@ export class CreateComponent {
     }
 
     addSight(fileList: PluploadFile[]) {
-
-        this.newSight.album = fileList.map( (value: PluploadFile) => {
+        this.isDisabled = true;
+        this.newSight.album = fileList.map((value: PluploadFile) => {
             var temp = new Album();
             temp.imageName = value.name;
             return temp;
         });
+        this.newSight.refId = this.referenceId;
         this.sightService.addSight(this.newSight).then((data: Sight) => {
-            if (data != null)
-            {
+            if (data != null) {
+                console.log(data);
                 alert("Добавлено с id:" + data.id);
                 this.ngForm.resetForm();
                 this.removeInitPoint.next();
             }
             else
                 alert("Ошибка.");
+
+            this.deleteAllFiles.next();
+            this.isDisabled = false;
         });
     }
 
     addType(ngform: NgForm) {
         if (ngform.valid) {
-            var form = document.forms.namedItem('createType');
-            var formData = new FormData(form);
             this.typeService.addType(this.newType).then((data: Type) => {
                 if (data != null) {
                     alert("Добавлено с id:" + data.id);
@@ -81,5 +84,9 @@ export class CreateComponent {
     setCoordinates(coord: Coordinates) {
         this.newSight.latitude = coord.latitude;
         this.newSight.longitude = coord.longitude;
+    }
+
+    onDeleteAllFiles() {
+        this.deleteAllFiles.next();
     }
 }

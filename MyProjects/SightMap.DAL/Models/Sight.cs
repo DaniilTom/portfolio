@@ -35,7 +35,7 @@ namespace SightMap.DAL.Models
         public DateTime? UpdateDate { get; set; }
 
         public Point Coordinates { get; set; }
-
+        [NotMapped]
         public List<Album> Album { get; set; }
     }
 }

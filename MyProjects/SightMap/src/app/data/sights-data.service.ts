@@ -9,7 +9,8 @@ export class SightService {
 
     private basePath: string = "http://localhost:52208/";
 
-    private apiSights: string = this.basePath + "api/sights/";
+    //private apiSights: string = this.basePath + "api/sights/";
+    private apiSights: string = "api/sights/";
 
     getResult: ResultState<Sight[]> = new ResultState();
     addResult: ResultState<Sight> = new ResultState();

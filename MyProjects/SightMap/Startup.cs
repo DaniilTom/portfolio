@@ -19,11 +19,16 @@ namespace SightMap
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
 
-        private IConfiguration config;
+        private IConfiguration _config;
+        private IHostEnvironment _environment;
 
-        public Startup(IConfiguration _config) => config = _config;
+        public Startup(IConfiguration config, IHostEnvironment environment)
+        {
+            _config = config;
+            _environment = environment;
+        }
 
-        public void ConfigureServices(IServiceCollection services, IHostEnvironment environment)
+        public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc(options => options.EnableEndpointRouting = false);
 
@@ -36,7 +41,7 @@ namespace SightMap
             IMapper mapper = mappingConfig.CreateMapper();
             services.AddSingleton(mapper);
 
-            services.AddBLLManagment(config, environment.ContentRootPath);
+            services.AddBLLManagment(_config, _environment.ContentRootPath);
 
             services.AddMemoryCache();
 
@@ -53,21 +58,11 @@ namespace SightMap
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                //app.UseCors(builder => builder.AllowAnyOrigin());
-                //app.UseSpa(config =>
-                //{
-                //    config.UseProxyToSpaDevelopmentServer("http://localhost:4200");
-                //});
             }
 
             app.UseCors(builder => builder.AllowAnyOrigin());
 
             app.UseStaticFiles();
-
-            //app.UseSpa(config =>
-            //{
-            //    config.UseProxyToSpaDevelopmentServer("http://localhost:4200");
-            //});
 
             app.UseMvc(route =>
             {

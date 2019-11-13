@@ -14,6 +14,6 @@ namespace SightMap.BLL.PluploadManager
         void DeleteFiles(string reference, string newFoldet);
         string GetUploadPath(string reference);
         string GetMainPath();
-        string GetWebRootPath();
+        string GetRelativeMainPath();
     }
 }

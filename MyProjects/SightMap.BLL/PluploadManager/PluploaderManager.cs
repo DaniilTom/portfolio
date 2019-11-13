@@ -10,18 +10,18 @@ namespace SightMap.BLL.PluploadManager
     {
         public string UploadPath { get; }
         public string MainPath { get; }
-        public string WebRootPath { get; }
+        public string RelativeMainPath { get; }
 
         public const string PartialFileExtension = ".partial";
 
         public PluploaderManager(string ContentRootPath)
         {
-            WebRootPath = "\\wwwroot\\img\\";
+            RelativeMainPath = "\\img\\";
             UploadPath = ContentRootPath + "\\wwwroot\\temp\\";
             MainPath = ContentRootPath + "\\wwwroot\\img\\";
         }
 
-        public void DeleteFiles(string reference, string newFolder)
+        public void DeleteFiles(string reference, string newPrefix)
         {
             string uploadPath = GetUploadPath(reference);
             if (!Directory.Exists(uploadPath))
@@ -29,12 +29,19 @@ namespace SightMap.BLL.PluploadManager
                 throw new DirectoryNotFoundException($"Путь {uploadPath} уже удален?");
             }
 
+            string basePath = Path.Combine(MainPath, newPrefix);
+            if(!Directory.Exists(basePath))
+            {
+                Directory.CreateDirectory(basePath);
+            }
+
             string[] filePaths = Directory.GetFiles(uploadPath);
             
             foreach (var from in filePaths)
             {
-                string to = Path.GetFileName(from);
-                File.Move(from, Path.Combine(MainPath, newFolder, to));
+                string fileName = newPrefix + Path.GetFileName(from);
+                string to = Path.Combine(basePath, fileName);
+                File.Move(from, to);
             }
 
             Directory.Delete(uploadPath, true);
@@ -145,9 +152,9 @@ namespace SightMap.BLL.PluploadManager
             return MainPath;
         }
 
-        public string GetWebRootPath()
+        public string GetRelativeMainPath()
         {
-            return WebRootPath;
+            return RelativeMainPath;
         }
     }
 }
