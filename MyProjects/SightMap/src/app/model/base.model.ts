@@ -1,3 +1,4 @@
+
 export class Sight {
     public id?: number;
     public name?: string;
@@ -12,7 +13,7 @@ export class Sight {
     public longitude?: number;
     public latitude?: number;
     public album?: Album[] = [];
-    public refId?: number;
+    public refId?: string;
 }
 
 export class Type {
@@ -35,6 +36,13 @@ export class Album {
     public itemId?: number;
     public imageName?: string;
     public imagePath?: string;
+    public state?: State;
     public isMain?: boolean;
 }
 
+export enum State {
+    Nothing = 0,
+    Add = 1,
+    Edit = 2,
+    Delete = 3
+}

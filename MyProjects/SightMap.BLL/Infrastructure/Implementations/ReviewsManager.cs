@@ -10,9 +10,9 @@ using SightMap.DAL.Repositories;
 
 namespace SightMap.BLL.Infrastructure.Implementations
 {
-    public class ReviewsDbManager : BaseDbManager<ReviewDTO, ReviewFilterDTO, Review>
+    public class ReviewsManager : BaseManager<ReviewDTO, ReviewFilterDTO, Review>
     {
-        public ReviewsDbManager(ILogger<ReviewsDbManager> _logger,
+        public ReviewsManager(ILogger<ReviewsManager> _logger,
                                 IRepository<Review> _repo,
                                 IMapper _mapper,
                                 ICustomCache _cache) : base(_logger, _repo, _mapper, _cache) { }

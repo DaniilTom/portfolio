@@ -5,6 +5,7 @@ import 'rxjs/add/observable/of';
 import 'rxjs/add/observable/timer';
 import 'rxjs/add/operator/take';
 import { Subject } from 'rxjs';
+import { State } from '../model/base.model';
 
 
 declare let plupload: any;
@@ -30,10 +31,12 @@ export class PluploadComponent {
   // Flag to display the uploader only once the library is ready.
   isPluploadReady = false;
 
+  currentMainFile: PluploadFile = new PluploadFile();
+
   @Input() beginUpload: Subject<void>;
   @Input() deleteAllFiles: Subject<void>;
 
-  @Input() referenceId: number;
+  @Input() referenceId: string;
 
   @Output() uploadComplete: Subject<PluploadFile[]> = new Subject<PluploadFile[]>();
 
@@ -42,7 +45,7 @@ export class PluploadComponent {
   ngAfterViewInit() {
     this.subscription = this.addPlupload();
     this.beginUpload.subscribe(() => this.uploadFiles());
-    this.deleteAllFiles.subscribe(() => this.fileList.forEach( file => this.uploader.splice(0, this.fileList.length)));
+    this.deleteAllFiles.subscribe(() => this.fileList.forEach(file => this.uploader.splice(0, this.fileList.length)));
   }
 
   ngOnDestroy() {
@@ -105,6 +108,7 @@ export class PluploadComponent {
             newFile.percent = file.percent;
             newFile.size = file.size;
             newFile.type = file.type;
+            newFile.state = State.Add;
             this.fileList.push(newFile);
           });
         },
@@ -141,6 +145,12 @@ export class PluploadComponent {
   delete(file: any) {
     this.uploader.removeFile(file);
   }
+
+  markAsMain(file: PluploadFile) {
+    this.currentMainFile.isMain = false;
+    file.isMain = true;
+    this.currentMainFile = file;
+  }
 }
 
 export class PluploadFile {
@@ -149,6 +159,8 @@ export class PluploadFile {
     public name?: string,
     public type?: string,
     public size?: number,
-    public percent?: number
+    public percent?: number,
+    public isMain?: boolean,
+    public state?: State
   ) { }
 }

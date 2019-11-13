@@ -28,7 +28,7 @@
                             <button class="btn btn-primary" type="button" (click)="onDeleteAllFiles()">Удалить все файлы</button>
                         </div>   
                     </div>
-                    <div class="col-6">
+                    <div class="col">
                         <plupload-comp [referenceId]="referenceId" [beginUpload]="beginUpload" [deleteAllFiles]="deleteAllFiles"
                             (uploadComplete)="addSight($event)"></plupload-comp>
                     </div>

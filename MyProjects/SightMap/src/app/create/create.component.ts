@@ -22,7 +22,7 @@ export class CreateComponent {
     newSight: Sight = new Sight();
     newType: Type = new Type();
 
-    referenceId: number;
+    referenceId: string;
     isDisabled: boolean = false;
 
     types: Type[];
@@ -32,7 +32,7 @@ export class CreateComponent {
     constructor(public sightService: SightService, public typeService: TypeService) {
         this.newSight.type = new Type();
         typeService.getTypes().then((data: Type[]) => this.types = data);
-        this.referenceId = Math.floor((Math.random() * 999999999) + 1);
+        this.referenceId = (Math.floor((Math.random() * 999999999) + 1)).toString() + 'a';
     }
 
     beginUploading(ngform: NgForm) {
@@ -49,6 +49,8 @@ export class CreateComponent {
         this.newSight.album = fileList.map((value: PluploadFile) => {
             var temp = new Album();
             temp.imageName = value.name;
+            temp.isMain = value.isMain;
+            temp.state = value.state;
             return temp;
         });
         this.newSight.refId = this.referenceId;

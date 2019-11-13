@@ -11,7 +11,7 @@ namespace SightMap.BLL.DTO
         public int AuthorId { get; set; }
         public double Longitude { get; set; }
         public double Latitude { get; set; }
-        public List<AlbumDTO> Album { get; set; } = new List<AlbumDTO>();
-        public int RefId { get; set; }
+        public IEnumerable<AlbumDTO> Album { get; set; }
+        public string RefId { get; set; }
     }
 }

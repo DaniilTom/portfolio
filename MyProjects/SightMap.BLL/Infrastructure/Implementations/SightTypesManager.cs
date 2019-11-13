@@ -8,9 +8,9 @@ using SightMap.DAL.Repositories;
 
 namespace SightMap.BLL.Infrastructure.Implementations
 {
-    public class SightTypesDbManager : BaseDbManager<SightTypeDTO, SightTypeFilterDTO, SightType>
+    public class SightTypesManager : BaseManager<SightTypeDTO, SightTypeFilterDTO, SightType>
     {
-        public SightTypesDbManager(ILogger<SightTypesDbManager> _logger,
+        public SightTypesManager(ILogger<SightTypesManager> _logger,
                                    IRepository<SightType> _repo,
                                    IMapper _mapper,
                                    ICustomCache _cache) : base(_logger, _repo, _mapper, _cache) { }

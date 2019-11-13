@@ -46,11 +46,17 @@ namespace SightMap.Controllers.Api
             }
         }
 
+        [HttpGet]
+        public string GetRefId()
+        {
+            return _uploadManager.GetReferenceId();
+        }
+
 
         public class FileDataDTO
         {
             [FromForm(Name = "file[refId]")]
-            public int RefId { get; set; }
+            public string RefId { get; set; }
             public int Chunk { get; set; }
             public int Chunks { get; set; }
             public string Name { get; set; }

@@ -10,10 +10,13 @@ namespace SightMap.BLL.PluploadManager
         void SaveFile(IFormFile file, string reference);
         IEnumerable<FileStream> GetFiles(string reference);
         string[] GetFilesNames(string reference);
-        string[] GetFilesNames(string reference, string[] actualNames);
-        void DeleteFiles(string reference, string newFoldet);
+        void DeleteTempDirectory(string reference);
+        void DeleteFromMain(string itemIdPath, string fileName);
+        string[] DeleteUnnecessaryUploadedFiles(string reference, string[] actualNames);
+        void MoveToMain(string reference, string newPrefix);
         string GetUploadPath(string reference);
         string GetMainPath();
         string GetRelativeMainPath();
+        string GetReferenceId();
     }
 }

@@ -12,7 +12,7 @@ using SightMap.DAL.Repositories;
 
 namespace SightMap.BLL.Infrastructure.Implementations
 {
-    public abstract class BaseDbManager<TFullDto, TFilterDto, TModel> : IBaseManager<TFullDto, TFilterDto>
+    public abstract class BaseManager<TFullDto, TFilterDto, TModel> : IBaseManager<TFullDto, TFilterDto>
         where TFullDto : BaseDTO
         where TFilterDto : BaseFilterDTO
         where TModel : BaseEntity
@@ -24,7 +24,7 @@ namespace SightMap.BLL.Infrastructure.Implementations
 
         private ILogger _logger;
 
-        protected BaseDbManager(ILogger logger, IRepository<TModel> repo, IMapper mapper, ICustomCache cache)
+        protected BaseManager(ILogger logger, IRepository<TModel> repo, IMapper mapper, ICustomCache cache)
         {
             _logger = logger;
             _repo = repo;

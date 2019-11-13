@@ -8,8 +8,15 @@
   </p>
   
   <!-- Files being uploaded -->
+  <style>
+    .main-image{
+      border: 1px solid red;
+    }
+  </style>
   <ul *ngIf="fileList.length > 0">
-    <li *ngFor="let file of fileList">
-      {{ file.name }} ({{ file.size }}) - {{ file.percent }} <button class="btn btn-primary" type="button" (click)="delete(file)">X</button>
+    <li *ngFor="let file of fileList" [class.main-image]="file.isMain">
+      {{ file.name }} ({{ file.size }}) - {{ file.percent }}
+      <button class="btn btn-primary" type="button" (click)="delete(file)">X</button>
+      <button class="btn btn-primary" type="button" (click)="markAsMain(file)">Сделать главной</button>
     </li>
   </ul>

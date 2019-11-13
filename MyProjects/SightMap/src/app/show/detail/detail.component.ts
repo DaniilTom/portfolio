@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, Input, OnInit, ViewChild, TemplateRef, ElementRef } from "@angular/core";
 import { Sight, Review, Type, Album } from "../../model/base.model";
 import { NgForm } from '@angular/forms';
 import { SightService } from '../../data/sights-data.service';
@@ -29,6 +29,8 @@ export class DetailComponent implements OnInit {
 
     switchEditMode:Subject<boolean> = new Subject();
 
+    @ViewChild('contextMenu', {static: false}) contextMenu: TemplateRef<any>;
+
     constructor(
         private sightService: SightService,
         private typeService: TypeService,
@@ -39,9 +41,6 @@ export class DetailComponent implements OnInit {
         this.sight = container.get("sight");
         this.album = this.sight.album.copyWithin(0, 0);
         this.reviewsService.getReviews(new ReviewFilter(0, 0, this.sight.id)).then((data: Review[]) => this.reviews = data);
-
-        var mainPreviewDiv = document.getElementsByClassName('main-preview')[0];
-        
     }
 
     getInitPoint(): Coordinates {
@@ -84,5 +83,9 @@ export class DetailComponent implements OnInit {
     switchEdit(show: boolean){
         this.newReview = new Review();
         show = !show;
+    }
+
+    switchEditBlock(){
+        this.isReadOnly = !this.isReadOnly;
     }
 }

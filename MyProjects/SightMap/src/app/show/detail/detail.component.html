@@ -25,7 +25,7 @@
                 <label class="col-1 col-form-label" for="name">Name</label>
                 <div class="col">
                     <input class="form-control" type="text" id="name" name="name" [readonly]="isReadOnly"
-                        [(ngModel)]="sight.name" required pattern="^[А-Яа-яA-Za-z ]{2,}" />
+                        [(ngModel)]="sight.name" required pattern="^[А-Яа-яA-Za-z0-9 ]{2,}" />
                 </div>
             </div>
 
@@ -64,6 +64,18 @@
             </div>
 
             <div class="form-group row">
+                <div class="col-3">
+                    <span *ngFor="let page of sight.album">
+                        <img class="thumbnail m-1" *ngIf="page.isMain" src="{{page.imagePath + '\\' + page.imageName}}" (contextmenu)="openContextMenu($event, page)">
+                    </span>
+                </div>
+                <div class="col-9" style="overflow: auto; white-space: nowrap;">
+                    <img class="thumbnail m-1" *ngFor="let page of sight.album"
+                        src="{{page.imagePath + '\\' + page.imageName}}">
+                </div>
+            </div>
+
+            <div class="form-group row">
                 <div class="col">
                     <label class="col-form-label" for="latitude">Широта</label>
                     <div>
@@ -86,7 +98,7 @@
                 <label class="col-1 col-form-label" for="type.id">Type</label>
                 <div class="col">
                     <select class="form-control" id="type.id" name="type.id" [disabled]="isReadOnly" required
-                        pattern="^[1-9]+[0-9]{0,}" [(ngModel)]="sight.type.id" >
+                        pattern="^[1-9]+[0-9]{0,}" [(ngModel)]="sight.type.id">
                         <option *ngFor="let type of types" [ngValue]="type.id" [text]="type.name"
                             [selected]="type.id == sight.type.id">
                         </option>
@@ -102,8 +114,8 @@
     <div class="col m-t-3" style="background-color: lavender">
         <p>Комментарии:</p>
         <form *ngIf="show" id="newReview" method="post" ngNativeValidate (ngSubmit)="addReview()">
-            <input type="text" name="message" placeholder="Введите сообщение..." required 
-                [(ngModel)]="newReview.message"/>
+            <input type="text" name="message" placeholder="Введите сообщение..." required
+                [(ngModel)]="newReview.message" />
         </form>
         <button class="btn btn-primary m-x-1" (click)="switchEdit(show)">Написать</button>
         <button class="btn btn-primary m-x-1" type="submit" form="newReview">Отправить</button>
@@ -111,3 +123,10 @@
         <ng-template #noReview>Ничего нет</ng-template>
     </div>
 </div>
+
+<ng-template #contextMenu let-image>
+    <ul>
+        <li>Сделать главной</li>
+        <li>Удалить</li>
+    </ul>
+</ng-template>
