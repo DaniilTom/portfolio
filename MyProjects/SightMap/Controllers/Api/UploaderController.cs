@@ -12,7 +12,7 @@ namespace SightMap.Controllers.Api
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UploaderController : ControllerBase
+    public partial class UploaderController : ControllerBase
     {
 
         private IPluploadManager _uploadManager;
@@ -51,16 +51,6 @@ namespace SightMap.Controllers.Api
         public string GetRefId()
         {
             return _uploadManager.GetReferenceId();
-        }
-
-
-        public class FileDataDTO
-        {
-            [FromForm(Name = "file[refId]")]
-            public string RefId { get; set; }
-            public int Chunk { get; set; }
-            public int Chunks { get; set; }
-            public string Name { get; set; }
         }
     }
 }
