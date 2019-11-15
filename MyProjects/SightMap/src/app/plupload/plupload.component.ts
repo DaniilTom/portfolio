@@ -15,7 +15,7 @@ declare let plupload: any;
   selector: 'plupload-comp',
   templateUrl: './plupload.component.html'
 })
-export class PluploadComponent implements OnInit {
+export class PluploadComponent {
 
   // Subscription
   subscription: any;
@@ -44,7 +44,7 @@ export class PluploadComponent implements OnInit {
 
   @ViewChild('form', { static: false }) form: ElementRef;
 
-  ngOnInit() {
+  ngAfterViewInit() {
     this.subscription = this.addPlupload();
     this.beginUpload.subscribe((data) => {
       this.referenceId = data;

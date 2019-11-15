@@ -38,7 +38,7 @@
                         <td>
                             <span>Тип:</span>
                             <select class="form-control" id="type.id" name="type.id" [(ngModel)]="filter.sightTypeId">
-                                <option value="0" selected>Choose type...</option>
+                                <option value="0" selected>Any</option>
                                 <option *ngFor="let type of types" [value]="type.id" [text]="type.name">
                                 </option>
                             </select>

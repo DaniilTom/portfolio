@@ -15,15 +15,18 @@ export class FilterComponent {
     currentPage: number;
     filter: SightFilter = new SightFilter();
     types: Type[];
+    
+    @Output() onApplyFilter = new EventEmitter<SightFilter>();
 
     constructor(public typeService: TypeService, public sightService: SightService) {
         typeService.getTypes().then((data: Type[]) => this.types = data);
         this.getSigthsCount();
     }
 
-    @Output() onApplyFilter = new EventEmitter<SightFilter>();
 
     applyFilter() {
+        console.log("Обычный фильтр:");
+        console.dir(this.filter);
         this.onApplyFilter.emit(this.filter);
         this.getSigthsCount();
     }
@@ -31,6 +34,9 @@ export class FilterComponent {
     async getSigthsCount() {
         var count = await this.sightService.getSightsCount(this.filter);
         this.pageNum = [];
+
+        if(this.filter.size == 0)
+            return;
 
         this.pagesCount = Math.ceil(count / this.filter.size);
 

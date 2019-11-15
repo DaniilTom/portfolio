@@ -25,48 +25,46 @@ export class YMapComponent implements OnInit {
 
     coordinates: Coordinates = new Coordinates(0, 0);
 
-    currentMode: string;
-
     objectManager: any;
 
     @Output() boundsChanged = new EventEmitter<Bounds>();
     @Output() coordinateChanged = new EventEmitter<Coordinates>();
     @Input() switchEditMode: Subject<boolean>;
+    @Input() mode: Mode;
     @Input() setCollection: Subject<JSONCollection>;
     @Input() removeInitPoint: Subject<void>;
     @Input() initPoint: Coordinates;
 
-    constructor(public activeRoute: ActivatedRoute) {
-        this.currentMode = activeRoute.snapshot.url[0].path;
-        if (this.currentMode != "create")
-            this.isReadOnly = true;
-    }
+    constructor(public activeRoute: ActivatedRoute) { }
 
     async ngOnInit() {
-        //await ymaps.ready();
+        
+        if (this.mode != Mode.Create)
+            this.isReadOnly = true;
+
         this.maps = await ymaps.load();
         this.myMap = new this.maps.Map('map', {
             center: [59.939095, 30.315868],
             zoom: 7
         });
 
-        if (this.currentMode != 'showmap') {
+        if (this.mode != Mode.Filter) {
             var bindCtr = EditCreateBehavior.bind(null, this);
             this.maps.behavior.storage.add(BehaviorType.createEditBehavior, bindCtr);
             
             if (!this.isReadOnly)
                 this.myMap.behaviors.enable(BehaviorType.createEditBehavior);
 
-                console.log(this.currentMode);
-            if(this.currentMode == 'show')
+            if(this.mode == Mode.Edit)
                 this.switchEditMode.subscribe((value: boolean) => this.switchEditing(value));
 
             if (this.initPoint != null) {
                 this.myPlacemark = new this.maps.Placemark([this.initPoint.latitude, this.initPoint.longitude]);
                 this.myMap.geoObjects.add(this.myPlacemark);
+                this.myMap.setCenter([this.initPoint.latitude, this.initPoint.longitude]);
             }
 
-            if(this.currentMode == 'create')
+            if(this.mode == Mode.Create)
                 this.removeInitPoint.subscribe(() => this.myMap.geoObjects.remove(this.myPlacemark));
         }
         else {
@@ -145,4 +143,10 @@ export class Properties {
 enum BehaviorType {
     createEditBehavior = 'createEditBehavior',
     showCollectionBehavior = 'showCollectionBehavior'
+}
+
+export enum Mode{
+    Create = 0,
+    Edit = 1,
+    Filter = 2
 }

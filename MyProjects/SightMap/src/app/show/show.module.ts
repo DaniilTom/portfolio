@@ -7,10 +7,12 @@ import { FilterModule } from './filter/filter.module'
 import { RouterModule } from '@angular/router';
 import { MapFilterModule } from './mapfilter/mapfilter.module';
 import { YMapModule } from '../YMap/ymap.module';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
-    imports: [BrowserModule, DetailModule, FilterModule, RouterModule, MapFilterModule, YMapModule],
+    imports: [BrowserModule, DetailModule, FilterModule,
+                RouterModule, MapFilterModule, YMapModule, FormsModule],
     declarations: [ShowComponent],
     exports: [ShowComponent]
 })

@@ -7,7 +7,7 @@ import { ReviewService } from '../../data/reviews-data.service';
 import { ReviewFilter } from '../../model/filters.model';
 import { ContainerService } from '../../data/container.service';
 import { Subject } from 'rxjs';
-import { Coordinates } from 'src/app/YMap/ymap.component';
+import { Coordinates, Mode } from 'src/app/YMap/ymap.component';
 import { UploaderService } from 'src/app/data/uploader.service';
 import { PluploadFile } from 'src/app/plupload/plupload.component';
 
@@ -26,6 +26,8 @@ export class DetailComponent implements OnInit {
     reviews: Review[] = [];
     newReview: Review = new Review();
     types: Type[] = [];
+
+    mode: Mode = Mode.Edit;
     
     referenceId: string;
     switchEditMode: Subject<boolean> = new Subject<boolean>();

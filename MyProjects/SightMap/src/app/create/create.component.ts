@@ -3,7 +3,7 @@ import { Sight, Type, Album } from '../model/base.model';
 import { NgForm } from '@angular/forms';
 import { TypeService } from '../data/types-data.service';
 import { SightService } from '../data/sights-data.service';
-import { Coordinates } from '../YMap/ymap.component';
+import { Coordinates, Mode } from '../YMap/ymap.component';
 import { Subject } from 'rxjs';
 import { PluploadFile } from '../plupload/plupload.component';
 import { UploaderService } from '../data/uploader.service';
@@ -25,6 +25,8 @@ export class CreateComponent {
 
     referenceId: string;
     isDisabled: boolean = false;
+
+    mode: Mode = Mode.Create;
 
     types: Type[];
 
