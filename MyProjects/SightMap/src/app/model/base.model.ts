@@ -36,6 +36,7 @@ export class Album {
     public itemId?: number;
     public imageName?: string;
     public imagePath?: string;
+    public title?: string;
     public state?: State;
     public isMain?: boolean;
 }

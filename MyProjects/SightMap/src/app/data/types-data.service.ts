@@ -9,7 +9,8 @@ export class TypeService {
 
     private basePath: string = "http://localhost:52208/";
 
-    private apiSightTypes: string = this.basePath + "api/sighttypes/";
+    // private apiSightTypes: string = this.basePath + "api/sighttypes/";
+    private apiSightTypes: string = "api/sighttypes/";
 
     getResult: ResultState<Type[]> = new ResultState();
     addResult: ResultState<Type> = new ResultState();

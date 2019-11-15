@@ -9,7 +9,8 @@ export class ReviewService {
 
     private basePath: string = "http://localhost:52208/";
 
-    private apiReviews: string = this.basePath + "api/reviews/";
+    // private apiReviews: string = this.basePath + "api/reviews/";
+    private apiReviews: string = "api/reviews/";
 
     getResult: ResultState<Review[]> = new ResultState();
     addResult: ResultState<Review> = new ResultState();

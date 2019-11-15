@@ -28,9 +28,6 @@ namespace SightMap.BLL.Infrastructure.Implementations
 
         public IEnumerable<AlbumDTO> Edit(IEnumerable<AlbumDTO> album, string refId)
         {
-            //string[] actualFileNames = album.Select(a => a.ImageName).ToArray();
-            //string[] newFiles = _uploadManager.SaveUploadedFiles(refId, actualFileNames);
-
             List<AlbumDTO> result = new List<AlbumDTO>();
 
             if (album.Count() > 0)
@@ -43,16 +40,19 @@ namespace SightMap.BLL.Infrastructure.Implementations
                         switch (page.State)
                         {
                             case State.Add:
-                                //if (newFiles.Contains(page.ImageName))
-                                var temp = base.Add(page);
+                                AlbumDTO temp = null;
                                 try
                                 {
-                                    _uploadManager.MoveToMain(refId, page.ItemId.ToString());
+                                    string newFileName = _uploadManager.MoveToMain(refId, page.ItemId.ToString(), page.ImageName);
+                                    page.ImageName = newFileName;
+                                    if (string.IsNullOrEmpty(page.Title))
+                                        page.Title = "Default";
+                                    temp = base.Add(page);
                                     result.Add(temp);
                                 }
-                                catch (Exception ex)
+                                catch (Exception exp)
                                 {
-                                    base.Delete(temp.Id);
+                                    //base.Delete(temp.Id);
                                     throw;
                                 }
                                 break;
@@ -65,8 +65,9 @@ namespace SightMap.BLL.Infrastructure.Implementations
                                 break;
                         }
                     }
+                    _uploadManager.DeleteTempDirectory(refId);
                 }
-                catch(Exception exp)
+                catch (Exception exp)
                 {
                     _uploadManager.DeleteTempDirectory(refId);
                     result = null;
@@ -74,6 +75,19 @@ namespace SightMap.BLL.Infrastructure.Implementations
             }
 
             return result?.ToArray();
+        }
+
+        public override IEnumerable<AlbumDTO> GetListObjects(AlbumFilterDTO filter, bool isCachedUsed = true)
+        {
+            IEnumerable<AlbumDTO> result = base.GetListObjects(filter, isCachedUsed);
+
+            if (result != null)
+            {
+                string webRootPath = _uploadManager.GetRelativeMainPath(filter.ItemId.ToString());
+                result.AsParallel().ForAll(p => p.ImagePath = webRootPath + "\\" + p.ImageName);
+            }
+
+            return result;
         }
 
         protected override IFilter<Album> ConfigureFilter(AlbumFilterDTO dto) => new AlbumFilter(dto);

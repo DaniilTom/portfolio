@@ -53,10 +53,12 @@ export class YMapComponent implements OnInit {
         if (this.currentMode != 'showmap') {
             var bindCtr = EditCreateBehavior.bind(null, this);
             this.maps.behavior.storage.add(BehaviorType.createEditBehavior, bindCtr);
-            //Включаем поведение
+            
             if (!this.isReadOnly)
                 this.myMap.behaviors.enable(BehaviorType.createEditBehavior);
-            if(this.currentMode == 'edit')
+
+                console.log(this.currentMode);
+            if(this.currentMode == 'show')
                 this.switchEditMode.subscribe((value: boolean) => this.switchEditing(value));
 
             if (this.initPoint != null) {

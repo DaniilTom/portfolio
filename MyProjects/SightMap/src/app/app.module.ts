@@ -14,6 +14,7 @@ import { SightService } from './data/sights-data.service';
 import { TypeService } from './data/types-data.service';
 import { ReviewService } from './data/reviews-data.service';
 import { ContainerService } from './data/container.service';
+import { UploaderService } from './data/uploader.service';
 
 @NgModule({
     declarations: [
@@ -26,7 +27,8 @@ import { ContainerService } from './data/container.service';
         AppRoutingModule,
         CreateModule, ShowModule
     ],
-    providers: [DataService, SightService, TypeService, ReviewService, ContainerService],
+    providers: [DataService, SightService, TypeService, 
+                ReviewService, ContainerService, UploaderService],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

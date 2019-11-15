@@ -9,7 +9,7 @@ import { Review } from '../../../model/base.model';
 })
 export class ReviewComponent {
 
-    isReadOnly = true;
+    isReadOnly = false;
     renderDetail = false;
     reviews: Review[];
 
@@ -31,12 +31,14 @@ export class ReviewComponent {
     deleteReview(review: Review) {
         review.message = "Комментарий удален."
         this.reviewsService.editReview(review).then(data => {
+            if(data == null)
+                alert("Что-то пошло не так.");
             review = data;
         });
     }
 
     switchEdit(show: boolean){
         this.newReview = new Review();
-        show = !show;
+        this.isReadOnly = !this.isReadOnly;
     }
 }

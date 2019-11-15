@@ -13,10 +13,25 @@ namespace SightMap.BLL.PluploadManager
         void DeleteTempDirectory(string reference);
         void DeleteFromMain(string itemIdPath, string fileName);
         string[] DeleteUnnecessaryUploadedFiles(string reference, string[] actualNames);
-        void MoveToMain(string reference, string newPrefix);
+
+        /// <summary>
+        /// Перемещает файл из временной папки в постоянную с присваиванием
+        ///  новго имени. Возвращает новое имя файла.
+        /// </summary>
+        /// <param name="reference"></param>
+        /// <param name="newPrefix"></param>
+        /// <exception cref="DirectoryNotFoundException"/>
+        string MoveToMain(string reference, string newPrefix, string fileName);
         string GetUploadPath(string reference);
-        string GetMainPath();
-        string GetRelativeMainPath();
+
+        /// <summary>
+        /// Возвращает абсолютный путь к месту постоянного хранения картинок.
+        /// Если задан префикс, возвращет путь к папке конкретного объекта.
+        /// </summary>
+        /// <param name="prefix"></param>
+        /// <returns></returns>
+        string GetMainPath(string prefix);
+        string GetRelativeMainPath(string prefix);
         string GetReferenceId();
     }
 }

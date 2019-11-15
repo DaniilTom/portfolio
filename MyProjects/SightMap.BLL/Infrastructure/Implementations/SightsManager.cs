@@ -41,7 +41,6 @@ namespace SightMap.BLL.Infrastructure.Implementations
                 dto.Album.AsParallel().ForAll(a => a.ItemId = tempSight.Id);
                 _albumManager.Edit(dto.Album, dto.RefId);
             }
-            
 
             tempSight = GetListObjects(new SightFilterDTO { Id = tempSight.Id }, false).FirstOrDefault();
 
@@ -51,12 +50,17 @@ namespace SightMap.BLL.Infrastructure.Implementations
         public override SightDTO Edit(SightDTO dto)
         {
             dto.UpdateDate = DateTime.Now;
-            SightDTO temp = base.Edit(dto);
+            SightDTO tempSight = base.Edit(dto);
 
-            if (temp != null)
-                temp.Type = _typeManager.GetListObjects(new SightTypeFilterDTO { Id = dto.Type.Id }).FirstOrDefault();
+            if (tempSight != null)
+            {
+                dto.Album.AsParallel().ForAll(a => a.ItemId = tempSight.Id);
+                _albumManager.Edit(dto.Album, dto.RefId);
+            }
 
-            return base.Edit(dto);
+            tempSight = GetListObjects(new SightFilterDTO { Id = tempSight.Id }, false).FirstOrDefault();
+
+            return tempSight;
         }
 
         public override IEnumerable<SightDTO> GetListObjects(SightFilterDTO filterDto, bool isCacheUsed = true)

@@ -6,6 +6,7 @@ import { SightService } from '../data/sights-data.service';
 import { Coordinates } from '../YMap/ymap.component';
 import { Subject } from 'rxjs';
 import { PluploadFile } from '../plupload/plupload.component';
+import { UploaderService } from '../data/uploader.service';
 
 @Component(
     {
@@ -16,7 +17,7 @@ import { PluploadFile } from '../plupload/plupload.component';
 export class CreateComponent {
 
     removeInitPoint: Subject<void> = new Subject<void>();
-    beginUpload: Subject<void> = new Subject<void>();
+    beginUpload: Subject<string> = new Subject<string>();
     deleteAllFiles: Subject<void> = new Subject<void>();
 
     newSight: Sight = new Sight();
@@ -29,41 +30,58 @@ export class CreateComponent {
 
     ngForm: NgForm;
 
-    constructor(public sightService: SightService, public typeService: TypeService) {
+    constructor(public sightService: SightService,
+                public typeService: TypeService,
+                public uploaderService: UploaderService) {
         this.newSight.type = new Type();
         typeService.getTypes().then((data: Type[]) => this.types = data);
-        this.referenceId = (Math.floor((Math.random() * 999999999) + 1)).toString() + 'a';
+        // uploaderService.getRefId().subscribe(data =>
+        //     {
+        //         this.referenceId = data;
+        //         this.isDisabled = false;
+        //     });
+        //this.referenceId = (Math.floor((Math.random() * 999999999) + 1)).toString() + 'a';
     }
 
     beginUploading(ngform: NgForm) {
         if (ngform.valid) {
             this.ngForm = ngform;
-            this.beginUpload.next();
+            this.isDisabled = true;
+
+            this.uploaderService.getRefId().subscribe(data =>
+                {
+                    this.referenceId = data;
+                    this.beginUpload.next(this.referenceId);
+                },
+                error => {
+                    alert(error);
+                    this.isDisabled = false;
+                });
+            //this.uploaderService.getRefId()
         }
         else
             alert("Ошибки в форме.")
     }
 
     addSight(fileList: PluploadFile[]) {
-        this.isDisabled = true;
         this.newSight.album = fileList.map((value: PluploadFile) => {
             var temp = new Album();
             temp.imageName = value.name;
             temp.isMain = value.isMain;
             temp.state = value.state;
+            temp.title = value.title;
             return temp;
         });
         this.newSight.refId = this.referenceId;
         this.sightService.addSight(this.newSight).then((data: Sight) => {
             if (data != null) {
-                console.log(data);
                 alert("Добавлено с id:" + data.id);
                 this.ngForm.resetForm();
                 this.removeInitPoint.next();
             }
             else
                 alert("Ошибка.");
-
+                
             this.deleteAllFiles.next();
             this.isDisabled = false;
         });

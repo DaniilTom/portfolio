@@ -1,0 +1,30 @@
+<div class="container">
+    <div class="row">
+        <div class="col-auto">
+            <img class="thumbnail m-1 preview" *ngIf="mainPage != undefined; else emptyImg"
+                src="{{mainPage.imagePath}}">
+            <ng-template #emptyImg>
+                <img class="thumbnail m-1 preview" src="\img\empty.jpg">
+            </ng-template>
+        </div>
+        <div class="col" style="overflow: auto; white-space: nowrap;">
+            <div style="display: inline-block;" *ngFor="let page of album" [class.main-preview]="page.isMain">
+                <div style="position: relative;">
+                    <div class="menu">
+                        <input type="button" class="button">
+                        <ul class="menu-list">
+                            <li class="list-group-item-action" (click)="markMain(page)">Как главная</li>
+                            <li class="list-group-item-action" *ngIf="page.state != states.Delete"
+                                (click)="page.state = states.Delete">Удалить</li>
+                            <li class="list-group-item-action" *ngIf="page.state == states.Delete"
+                                (click)="page.state = states.Edit">Восстановить</li>
+                        </ul>
+                    </div>
+                    <img class="thumbnail m-1 preview" src="{{page.imagePath}}">
+                </div>
+                <input class="form-control" type="text" [value]="page.title" (change)="changeName(page, input)" placeholder="Без имени..."
+                    [readonly]="page.state == states.Delete" #input>
+            </div>
+        </div>
+    </div>
+</div>

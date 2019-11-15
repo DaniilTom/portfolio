@@ -47,6 +47,7 @@ namespace SightMap.Controllers.Api
         }
 
         [HttpGet]
+        [Produces("application/json")]
         public string GetRefId()
         {
             return _uploadManager.GetReferenceId();

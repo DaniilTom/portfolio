@@ -8,11 +8,11 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class DataService {
 
-    private basePath: string = "http://localhost:52208/";
+    // private basePath: string = "http://localhost:52208/";
 
-    private apiSights: string = this.basePath + "api/sights/";
-    private apiSightTypes: string = this.basePath + "api/sighttypes/";
-    private apiReviews: string = this.basePath + "api/reviews/";
+    // private apiSights: string = this.basePath + "api/sights/";
+    // private apiSightTypes: string = this.basePath + "api/sighttypes/";
+    // private apiReviews: string = this.basePath + "api/reviews/";
 
     private ResultState: ResultState<Type[]> = new ResultState();
 

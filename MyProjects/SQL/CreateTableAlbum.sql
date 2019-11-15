@@ -8,3 +8,5 @@ CREATE TABLE [Test].[dbo].[Albums](
 	Title VARCHAR(50),
 	IsMain BIT NOT NULL DEFAULT 0
 );
+
+ALTER TABLE [Test].dbo.[Albums] ALTER COLUMN Title VARCHAR(50) NOT NULL;

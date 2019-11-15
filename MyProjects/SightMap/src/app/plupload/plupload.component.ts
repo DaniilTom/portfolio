@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef, Input, Output } from '@angular/core';
+import { Component, ViewChild, ElementRef, Input, Output, OnInit } from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
@@ -15,9 +15,7 @@ declare let plupload: any;
   selector: 'plupload-comp',
   templateUrl: './plupload.component.html'
 })
-export class PluploadComponent {
-
-
+export class PluploadComponent implements OnInit {
 
   // Subscription
   subscription: any;
@@ -31,21 +29,39 @@ export class PluploadComponent {
   // Flag to display the uploader only once the library is ready.
   isPluploadReady = false;
 
-  currentMainFile: PluploadFile = new PluploadFile();
+  mainFile: PluploadFile;
 
-  @Input() beginUpload: Subject<void>;
+  referenceId: string = 'aasdagfsdgdffdsbf';
+
+  @Input() beginUpload: Subject<string>;
   @Input() deleteAllFiles: Subject<void>;
-
-  @Input() referenceId: string;
+  @Input() resetMainImage: Subject<void>;
 
   @Output() uploadComplete: Subject<PluploadFile[]> = new Subject<PluploadFile[]>();
+  @Output() mainImageSet: Subject<void> = new Subject<void>();
 
   @ViewChild('pickfiles', { static: false }) pickfiles: ElementRef;
 
-  ngAfterViewInit() {
+  @ViewChild('form', { static: false }) form: ElementRef;
+
+  ngOnInit() {
     this.subscription = this.addPlupload();
-    this.beginUpload.subscribe(() => this.uploadFiles());
-    this.deleteAllFiles.subscribe(() => this.fileList.forEach(file => this.uploader.splice(0, this.fileList.length)));
+    this.beginUpload.subscribe((data) => {
+      this.referenceId = data;
+      if (this.form.nativeElement.checkValidity()) {
+        this.uploader.setOption('multipart_params', { file: { refId: this.referenceId } })
+        this.uploadFiles();
+      }
+      else
+        alert("Введите имена файлов");
+    });
+    if (this.deleteAllFiles != undefined)
+      this.deleteAllFiles.subscribe(() => this.fileList.forEach(file => this.uploader.splice(0, this.fileList.length)));
+    if (this.resetMainImage != undefined)
+      this.resetMainImage.subscribe(() => this.fileList.forEach(file =>{
+        if(file.isMain)
+          file.isMain = false;
+        }));
   }
 
   ngOnDestroy() {
@@ -146,11 +162,20 @@ export class PluploadComponent {
     this.uploader.removeFile(file);
   }
 
-  markAsMain(file: PluploadFile) {
-    this.currentMainFile.isMain = false;
+  markAsMain(file: PluploadFile, checkbox: HTMLInputElement) {
+    if (this.mainFile != undefined) 
+        this.mainFile.isMain = false;
+
     file.isMain = true;
-    this.currentMainFile = file;
+    this.mainFile = file;
+    checkbox.checked = true;
+
+    this.mainImageSet.next();
   }
+
+  // changeTitle(file: PluploadFile, input: HTMLInputElement){
+  //   file.title = input.value;
+  // }
 }
 
 export class PluploadFile {
@@ -160,7 +185,8 @@ export class PluploadFile {
     public type?: string,
     public size?: number,
     public percent?: number,
-    public isMain?: boolean,
-    public state?: State
+    public isMain: boolean = false,
+    public state?: State,
+    public title?: string
   ) { }
 }

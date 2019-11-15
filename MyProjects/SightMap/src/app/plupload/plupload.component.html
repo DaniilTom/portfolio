@@ -1,22 +1,33 @@
 <p [hidden]="!isPluploadReady">
-    <button #pickfiles class="btn btn-primary">
-      Select files
-    </button>
-    <!-- <button type="button" (click)="uploadFiles()" class="btn btn-warning">
+  <button #pickfiles class="btn btn-primary">
+    Select files
+  </button>
+  <!-- <button type="button" (click)="uploadFiles()" class="btn btn-warning">
       Upload selected file(s)
     </button> -->
-  </p>
-  
-  <!-- Files being uploaded -->
-  <style>
-    .main-image{
-      border: 1px solid red;
-    }
-  </style>
-  <ul *ngIf="fileList.length > 0">
-    <li *ngFor="let file of fileList" [class.main-image]="file.isMain">
-      {{ file.name }} ({{ file.size }}) - {{ file.percent }}
-      <button class="btn btn-primary" type="button" (click)="delete(file)">X</button>
-      <button class="btn btn-primary" type="button" (click)="markAsMain(file)">Сделать главной</button>
-    </li>
-  </ul>
+</p>
+
+<!-- Files being uploaded -->
+
+<div class="container">
+  <form class="form" #form ngNativeValidate>
+    <div class="row" *ngFor="let file of fileList">
+      <div class="col">
+        <input type="checkbox" [checked]="file.isMain" (click)="markAsMain(file, checkbox)" #checkbox>
+      </div>
+      <div class="col">
+        <input class="form-control" type="text" (change)="file.title = input.value" placeholder="Имя..." required
+          #input>
+      </div>
+      <div class="col">
+        <input class="form-control" type="text" [value]="file.name" readonly>
+      </div>
+      <div class="col">
+        <input class="form-control" type="number" [value]="file.percent" readonly>
+      </div>
+      <div class="col">
+        <button class="btn btn-primary" type="button" (click)="delete(file)">X</button>
+      </div>
+    </div>
+  </form>
+</div>

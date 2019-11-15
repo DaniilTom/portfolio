@@ -131,14 +131,18 @@ namespace SightMap.BLL.PluploadManager
             return Path.Combine(uploadPath, reference);
         }
 
-        public string GetMainPath()
+        public string GetMainPath(string prefix ="")
         {
-            return MainPath;
+            string path = Path.Combine(MainPath, prefix);
+
+            return path;
         }
 
-        public string GetRelativeMainPath()
+        public string GetRelativeMainPath(string prefix)
         {
-            return RelativeMainPath;
+            string path = Path.Combine(RelativeMainPath, prefix);
+
+            return path;
         }
 
         public string GetReferenceId()
@@ -147,42 +151,49 @@ namespace SightMap.BLL.PluploadManager
             do
             {
                 newGuid = Guid.NewGuid().ToString();
-            } while (!refIdTable.ContainsKey(newGuid));
+            } while (refIdTable.ContainsKey(newGuid));
 
             refIdTable.Add(newGuid, newGuid);
 
             return newGuid;
         }
 
-        public void MoveToMain(string reference, string newPrefix)
+        public string MoveToMain(string reference, string newPrefix, string fileName)
         {
             string uploadPath = GetUploadPath(reference);
+
             if (!Directory.Exists(uploadPath))
+                throw new DirectoryNotFoundException($"Путь {uploadPath} не существует.");
+            
+
+            string from = Path.Combine(uploadPath, fileName);
+
+            if (!File.Exists(from))
+                throw new FileNotFoundException($"Файл {from} не найден.");
+
+            string mainPathWithPrefix = Path.Combine(MainPath, newPrefix);
+            
+            if (!Directory.Exists(mainPathWithPrefix))
             {
-                throw new DirectoryNotFoundException($"Путь {uploadPath} уже удален?");
+                Directory.CreateDirectory(mainPathWithPrefix);
             }
 
-            string basePath = Path.Combine(MainPath, newPrefix);
-            if (!Directory.Exists(basePath))
+            string extension = Path.GetExtension(fileName);
+            string to;
+            do
             {
-                Directory.CreateDirectory(basePath);
-            }
+                to = Path.Combine(mainPathWithPrefix,
+                                    Guid.NewGuid().ToString() + extension);
+            } while (File.Exists(to));
 
-            string[] filePaths = Directory.GetFiles(uploadPath);
+            File.Move(from, to);
 
-            foreach (var from in filePaths)
-            {
-                string fileName = newPrefix + Path.GetFileName(from);
-                string to = Path.Combine(basePath, fileName);
-                File.Move(from, to);
-            }
-
-            Directory.Delete(uploadPath, true);
+            return Path.GetFileName(to);
         }
 
         public void DeleteFromMain(string itemIdPath, string fileName)
         {
-            string fullPath = Path.Combine(MainPath, fileName);
+            string fullPath = Path.Combine(MainPath, itemIdPath, fileName);
             File.Delete(fullPath);
         }
 
@@ -191,12 +202,17 @@ namespace SightMap.BLL.PluploadManager
             string path = GetUploadPath(reference);
             try
             {
-                Directory.Delete(path);
+                Directory.Delete(path, true);
             }
             catch(PathTooLongException e)
             {
                 throw;
             }
+            catch(DirectoryNotFoundException)
+            {
+
+            }
+            refIdTable.Remove(reference);
         }
     }
 }

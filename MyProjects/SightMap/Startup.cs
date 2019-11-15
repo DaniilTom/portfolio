@@ -36,7 +36,7 @@ namespace SightMap
             services.AddScoped<IBaseManager<SightTypeDTO, SightTypeFilterDTO>, SightTypesManager>();
             services.AddScoped<IBaseManager<ReviewDTO, ReviewFilterDTO>, ReviewsManager>();
             services.AddScoped<IBaseManager<AlbumDTO, AlbumFilterDTO>, AlbumManager>();
-            services.AddScoped<IAlbumEditor<AlbumDTO>, AlbumManager>();
+            services.AddScoped<IAlbumEditor<AlbumDTO, AlbumFilterDTO>, AlbumManager>();
 
             var mappingConfig = MapperConfig.Initialize();
             IMapper mapper = mappingConfig.CreateMapper();
@@ -59,6 +59,10 @@ namespace SightMap
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                //app.UseSpa(config =>
+                //{
+                //    config.UseProxyToSpaDevelopmentServer("http://localhost:4200");
+                //});
             }
 
             app.UseCors(builder => builder.AllowAnyOrigin());

@@ -1,0 +1,47 @@
+.menu{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+.menu input[class="button"]{
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: black;
+    height: 30px;
+    width: 30px;
+    border-radius: 15px;
+    border: none;
+}
+
+.menu input[class="button"]:hover ~ .menu-list{
+    visibility: visible;
+}
+
+.menu-list{
+    visibility: hidden;
+    position: absolute;
+    width: 100%;
+}
+
+.menu-list:hover {
+    visibility: visible;
+}
+
+.main-preview{
+    border: 1px solid red;
+}
+
+img.preview{
+    min-width: 200px;
+    width: auto;
+    min-height: 200px;
+    max-height: 200px;
+}
+
+ul li{
+    background: lavender;
+}
