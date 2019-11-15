@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Hosting;
 using SightMap.BLL.PluploadManager;
+using static SightMap.Models.UploaderController;
 
 namespace SightMap.Controllers.Api
 {
